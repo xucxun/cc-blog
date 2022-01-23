@@ -1,11 +1,12 @@
 package com.example.blog.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author xu
  */
-public class Article {
+public class Article implements Serializable {
 
     private int id;
     private int userId;

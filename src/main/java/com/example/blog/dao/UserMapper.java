@@ -8,7 +8,7 @@ public interface UserMapper {
 
     User selectById(int id);
 
-    User selectByName(String username);
+    User selectByAccount(String account);
 
     User selectByEmail(String email);
 
@@ -16,7 +16,7 @@ public interface UserMapper {
 
     int updateStatus(int id, int status);
 
-    int updateHeader(int id, String headerUrl);
+    int updateAvatar(int id, String avatar);
 
     int updatePassword(int id, String password);
 }

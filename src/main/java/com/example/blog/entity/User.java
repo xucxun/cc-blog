@@ -1,18 +1,20 @@
 package com.example.blog.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+public class User implements Serializable {
 
     private int id;
-    private String username;
+    private String account;
+    private String nickName;
     private String password;
     private String salt;
     private String email;
-    private int type;
+    private int role;
     private int status;
     private String activationCode;
-    private String headerUrl;
+    private String avatar;
     private Date createTime;
 
     public int getId() {
@@ -23,12 +25,20 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getAccount() {
+        return account;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getPassword() {
@@ -55,12 +65,12 @@ public class User {
         this.email = email;
     }
 
-    public int getType() {
-        return type;
+    public int getRole() {
+        return role;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setRole(int role) {
+        this.role = role;
     }
 
     public int getStatus() {
@@ -79,12 +89,12 @@ public class User {
         this.activationCode = activationCode;
     }
 
-    public String getHeaderUrl() {
-        return headerUrl;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setHeaderUrl(String headerUrl) {
-        this.headerUrl = headerUrl;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public Date getCreateTime() {
@@ -99,16 +109,16 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
+                ", account='" + account + '\'' +
+                ", nickName='" + nickName + '\'' +
                 ", password='" + password + '\'' +
                 ", salt='" + salt + '\'' +
                 ", email='" + email + '\'' +
-                ", type=" + type +
+                ", role=" + role +
                 ", status=" + status +
                 ", activationCode='" + activationCode + '\'' +
-                ", headerUrl='" + headerUrl + '\'' +
+                ", avatar='" + avatar + '\'' +
                 ", createTime=" + createTime +
                 '}';
     }
-
 }

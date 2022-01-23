@@ -5,11 +5,11 @@
 <mapper namespace="com.example.blog.dao.UserMapper">
 
     <sql id="insertFields">
-        username, password, salt, email, type, status, activation_code, header_url, create_time
+        account,nick_name, password, salt, email, role, status, activation_code, avatar, create_time
     </sql>
 
     <sql id="selectFields">
-        id, username, password, salt, email, type, status, activation_code, header_url, create_time
+        id,account,nick_name, password, salt, email, role, status, activation_code, avatar, create_time
     </sql>
 
     <select id="selectById" resultType="User">
@@ -18,10 +18,10 @@
         where id = #{id}
     </select>
 
-    <select id="selectByName" resultType="User">
+    <select id="selectByAccount" resultType="User">
         select <include refid="selectFields"></include>
         from user
-        where username = #{username}
+        where account = #{account}
     </select>
 
     <select id="selectByEmail" resultType="User">
@@ -32,15 +32,16 @@
 
     <insert id="insertUser" parameterType="User" keyProperty="id">
         insert into user (<include refid="insertFields"></include>)
-        values(#{username}, #{password}, #{salt}, #{email}, #{type}, #{status}, #{activationCode}, #{headerUrl}, #{createTime})
+        values(#{account},#{nickName}, #{password}, #{salt}, #{email}, #{role}, #{status}, #{activationCode}, #{avatar},
+        #{createTime})
     </insert>
 
     <update id="updateStatus">
         update user set status = #{status} where id = #{id}
     </update>
 
-    <update id="updateHeader">
-        update user set header_url = #{headerUrl} where id = #{id}
+    <update id="updateAvatar">
+        update user set avatar = #{avatar} where id = #{id}
     </update>
 
     <update id="updatePassword">

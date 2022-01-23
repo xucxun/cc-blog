@@ -1,16 +1,21 @@
 package com.example.blog.entity;
 
+import java.io.Serializable;
+
 /**
  * 封装分页相关的信息.
  */
-public class Page {
+public class Page implements Serializable {
 
     // 当前页码
     private int current = 1;
+
     // 显示上限
     private int limit = 10;
+
     // 数据总数(用于计算总页数)
     private int rows;
+
     // 查询路径(用于复用分页链接)
     private String path;
 
