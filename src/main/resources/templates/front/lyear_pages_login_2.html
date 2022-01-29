@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>登录</title>
+  <link rel="icon" href="favicon.ico" type="image/ico">
+  <link th:href="@{/admin/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/admin/css/materialdesignicons.min.css}" rel="stylesheet">
+  <link th:href="@{/admin/css/style.min.css}" rel="stylesheet">
+<style  th:inline="css">
+.login-form .has-feedback {
+    position: relative;
+}
+.login-form .has-feedback .form-control {
+    padding-left: 36px;
+}
+.login-form .has-feedback .mdi {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: auto;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    z-index: 4;
+    color: #dcdcdc;
+    display: block;
+    text-align: center;
+    pointer-events: none;
+}
+.login-form .has-feedback.row .mdi {
+    left: 15px;
+}
+</style>
+</head>
+  
+<body class="center-vh" th:style="'background: url(admin/images/login-bg-2.jpg); background-size: cover;'" >
+<div class="card card-shadowed p-5 w-420 mb-0 mr-2 ml-2">
+  <div class="text-center mb-3">
+    <a href="index.html"> <img alt="light year admin" th:src="@{/admin/images/logo-sidebar.png}"> </a>
+  </div>
+
+  <form th:action="@{login}" method="post" class="login-form">
+    <div class="form-group has-feedback">
+      <span class="mdi mdi-account" aria-hidden="true"></span>
+      <input type="text" th:class="|form-control ${accountMsg!=null?'is-invalid':''}|"  th:value="${param.account}"
+             id="account" name="account"
+             placeholder="账号" required>
+      <div class="invalid-feedback" th:text="${accountMsg}"></div>
+    </div>
+
+    <div class="form-group has-feedback">
+      <span class="mdi mdi-lock" aria-hidden="true"></span>
+      <input type="password"  th:class="|form-control ${passwordMsg!=null?'is-invalid':''}|"
+             th:value="${param.password}" id="password" name="password" placeholder="密码" required>
+      <div class="invalid-feedback" th:text="${passwordMsg}">
+      </div>
+    </div>
+    
+    <div class="form-group has-feedback row">
+      <div class="col-7">
+        <span class="mdi mdi-check-all form-control-feedback" aria-hidden="true"></span>
+        <input type="text" name="code" th:class="|form-control ${codeMsg!=null?'is-invalid':''}|" placeholder="验证码"
+               required>
+        <div class="invalid-feedback" th:text="${codeMsg}">
+        </div>
+      </div>
+      <div class="col-5 text-right">
+        <img th:src="@{/kaptcha}" class="pull-right" id="captcha" style="cursor: pointer;" title="点击刷新" alt="captcha">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="rememberme" name="rememberme" th:checked="${param.rememberme}">
+        <label class="custom-control-label not-user-select" for="rememberme">7天内自动登录</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-block btn-primary" type="submit">立即登录</button>
+    </div>
+  </form>
+  
+  <p class="text-center text-muted mb-0">Copyright © 2020 <a href="http://lyear.itshubao.com">IT书包</a>. All right reserved</p>
+</div>
+  
+<script type="text/javascript" th:src="@{/admin/js/jquery.min.js}"></script>
+<script type="text/javascript">
+  // 刷新验证码
+  $('#captcha').on('click', function () {
+    const src = "/kaptcha?p" + Math.random();
+    $('#captcha').attr("src", src);
+  });
+
+</script>
+</body>
+</html>

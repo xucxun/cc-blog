@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>POP提示 - 光年(Light Year Admin V4)后台管理系统模板</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+<meta name="keywords" content="LightYear,LightYearAdmin,光年,后台模板,后台管理系统,光年HTML模板">
+<meta name="description" content="Light Year Admin V4是一个后台管理系统的HTML模板，基于Bootstrap v4.4.1。">
+<meta name="author" content="yinqi">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/materialdesignicons.min.css" rel="stylesheet">
+<link href="css/style.min.css" rel="stylesheet">
+</head>
+  
+<body>
+<div class="container-fluid p-t-15">
+  
+  <div class="row">
+    
+    <div class="col-lg-12">
+      <div class="card">
+        <header class="card-header"><div class="card-title">POP提示</div></header>
+        <div class="card-body">
+
+          <p>使用popover提示框插件时需要注意的事项：</p>
+          <ul>
+            <li>popover提示框组件依赖 <a href="https://popper.js.org/" target="_blank">Popper.js</a> 进行定位，在必须引入 popper.min.js 在bootstrap.js脚本之前，或者使用 <code>bootstrap.bundle.min.js</code> / <code>bootstrap.bundle.js</code>（这两个脚本中已经包含了Popper.js可以直接运行弹出提示框）。</li>
+            <li>popover提示框组件依赖于 tooltips提示冒泡插件 提供状态提示框。</li>
+            <li>如果你要自行编译JS，请 包括 <code>util.js</code> 脚本文件。</li>
+            <li>由于性能原因，popover提示框组件是可选的，所以 <strong>你必须自己将它们初始化</strong> 才能启动生效。</li>
+            <li>零长度的 <code class="highlighter-rouge">title</code> 和 <code class="highlighter-rouge">content</code> 不会显示为一个弹出提示框。</li>
+            <li>指定 <code class="highlighter-rouge">container: 'body'</code>定义，以避免在更复杂的组件（如输入框组、按钮组等）中产生呈现问题。</li>
+            <li>在隐藏元素上触发弹出提示框是无效（不起作用）的。</li>
+            <li><code>.disabled</code> 或 <code>disabled</code> 元素的弹出提示框触发点击按钮，必须在在外层父元素上。</li>
+            <li>如果从一个跨多行的链接上触发提示冒泡，提示冒泡将居中。在 <code>&lt;a&gt;</code> 上使用 <code>white-space: nowrap;</code> 可以避免这种情况。</li>
+            <li>必须先隐藏弹出提示框，然后才能从DOM中删除相应的元素（以完成弹出关闭完整行为）。</li>
+          </ul>
+          <h6>示例：在任意位置启用弹出窗口</h6>
+<pre>$(function () {
+    $('[data-toggle="popover"]').popover()
+})</pre>
+          <h6>示例：使用 container 容器选项</h6>
+<pre>$(function () {
+    $('.example-popover').popover({
+        container: 'body'
+    })
+})</pre>
+          <h6 class="mt-3">演示示例</h6>
+          <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover标题" data-content="这里有一些很棒的内容。很吸引人。对吗？">点击体验 popover提示框效果</button>
+          <h6 class="mt-3">四个方向</h6>
+          <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="top" data-content="《三国志》是由西晋史学家陈寿所著，记载中国三国时期的断代史，同时也是二十四史中评价最高的“前四史”之一。">
+            Popover on 顶部
+          </button>
+          
+          <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="right" data-content="清代长篇章回体英雄传奇小说，共68回，简称《说唐》。著者如莲居士。">
+            Popover on 右侧
+          </button>
+          
+          <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="《大唐狄公案》是一部描写中国人、中国事、播扬中国古老历史和悠久文化传统、长中国人志气的中国公案小说，在中国与世界文化交流史上留下重重的一笔。">
+            Popover on 底部
+          
+          </button>
+          
+          <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="left" data-content="《史记》是西汉著名史学家司马迁撰写的一部纪传体史书，是中国历史上第一部纪传体通史，被列为“二十四史”之首，记载了上至上古传说中的黄帝时代，下至汉武帝太初四年间共3000多年的历史。">
+            Popover on 左侧
+          </button>
+          <h6 class="mt-3">下次点击时关闭</h6>
+          <p>使用 <code>focus</code> 触发器在用户下次单击当前元素之外的其他元素时关闭弹出窗口。</p>
+          <a tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="左传" data-content="《春秋左氏传》原名《左氏春秋》，汉朝时又名《春秋左氏》、《春秋内传》，汉朝以后才多称《左传》。">下次点击时关闭</a>
+          <h6 class="mt-3">禁用的元素</h6>
+          <span class="d-inline-block" data-toggle="popover" data-content="桃花扇">
+            <button class="btn btn-primary" style="pointer-events: none;" type="button" disabled>禁用的按钮</button>
+          </span>
+          <h5 class="mt-3">用法</h5>
+          <p>利用JavaScript启动提示泡:</p>
+          <pre>$('#example').popover(options)</pre>
+          <h6 class="mt-3" id="options">选项</h6>
+          <p>可通过数据属性或JavaScript传递选项参数。对于数据属性，请将选项名称附加到 <code>data-</code> 上，如 <code>data-animation=""</code>。</p>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width: 100px;">名称</th>
+                <th style="width: 200px;">Type类型</th>
+                <th>默认值</th>
+                <th>描述</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>animation</td>
+                <td>boolean</td>
+                <td>true</td>
+                <td>将CSS淡入淡出转换应用于popover提示框。</td>
+              </tr>
+              <tr>
+                <td>container</td>
+                <td>string | element | false</td>
+                <td>false</td>
+                <td>向一个特定元素追加提示框，如 <code>container: 'body'</code>。这个选项候特别有用，因为它允许你将弹出提示定位在触发元素附近的内容中--这将防止在窗口调整大小的时候，提示框飘到远离（撑出）触发元素的位置。</td>
+              </tr>
+              <tr>
+                <td>content</td>
+                <td>string | element | function</td>
+                <td>''</td>
+                <td><p>如果 <code>data-content</code> 属性不存在，提供默认的content值。</p>
+                  <p>如果提供了一个函数，调用这个函数时，函数的 <code>this</code> 引用被设置为附加提示框的元素。</p></td>
+              </tr>
+              <tr>
+                <td>delay</td>
+                <td>number | object</td>
+                <td>0</td>
+                <td><p>延迟显示和隐藏弹出（ms） - 不适用于手动触发类型。</p>
+                  <p>如果向这个选项提供一个数字值，显示和隐藏都会应用这个延迟。</p>
+                  <p>Object对象结构是: <code>delay: { "show": 500, "hide": 100 }</code></p></td>
+              </tr>
+              <tr>
+                <td>html</td>
+                <td>boolean</td>
+                <td>false</td>
+                <td>向提示框插入HTML。如果值为false，将使用jQuery的text方法向DOM插入内容。如果你担心跨站脚本攻击的话，请使用<code>text</code>。</td>
+              </tr>
+              <tr>
+                <td>placement</td>
+                <td>string | function</td>
+                <td>'right'</td>
+                <td><p>如何定位提示框：auto | top | bottom | left | right。<br />
+                   如果指定了"auto"，它会动态地调整提示框的位置。举个例子，如果placement是"auto left"，提示框将尽可能地显示在左侧，否则显示在右侧。</p>
+                  <p>如果用一个函数来决定placement，会调用提示框的DOM节点作为第一个参数，然后触发元素的DOM节点是第二个参数。<code>this</code> 将被设置为提示框的实例。</p></td>
+              </tr>
+              <tr>
+                <td>selector</td>
+                <td>string | false</td>
+                <td>false</td>
+                <td>如果提供了一个选择器，提示框将被委派给指定的目标。在实践中，它让动态添加的HTML内容也能附加提示框。请参阅 <a href="https://github.com/twbs/bootstrap/issues/4215" target="_blank">这里文档</a> 以及 <a href="https://jsbin.com/zopod/1/edit" target="_blank">一个翔实的示例</a>。</td>
+              </tr>
+              <tr>
+                <td>template</td>
+                <td>string</td>
+                <td><code>'&lt;div class="popover" role="tooltip"&gt;&lt;div class="arrow"&gt;&lt;/div&gt;&lt;h3 class="popover-header"&gt;&lt;/h3&gt;&lt;div class="popover-body"&gt;&lt;/div&gt;&lt;/div&gt;'</code></td>
+                <td><p>在创建提示框时使用基本HTML。</p>
+                  <p>动态提示框的 <code>title</code> 值将被注入到 <code>.popover-header</code> 中。</p>
+                  <p>动态提示框的 <code>content</code> 值将被注入到 <code>.popover-body</code> 中。</p>
+                  <p><code>.arrow</code> 将变成提示框的箭头。</p>
+                  <p>最外层的包裹元素必须拥有 <code>.popover</code> class样式定义</p></td>
+              </tr>
+              <tr>
+                <td>title</td>
+                <td>string | element | function</td>
+                <td>''</td>
+                <td><p>如果 <code>title</code> 属性不存在，提供默认的title值。</p>
+                  <p>如果提供了一个函数，调用这个函数时，函数的 <code>this</code> 引用被设置为附加提示框的元素。</p></td>
+              </tr>
+              <tr>
+                <td>trigger</td>
+                <td>string</td>
+                <td>'click'</td>
+                <td>如何触发提示框 - click | hover | focus | manual。你可以传递多个触发器，用空格隔开它们。但是`manual`不能与别的触发器结合使用。</td>
+              </tr>
+              <tr>
+                <td>offset</td>
+                <td>number | string</td>
+                <td>0</td>
+                <td>提示框相对于目标的偏移，欲知更多请查询 <a href="https://popper.js.org/popper-documentation.html#modifiers..offset.offset">Tether的偏移文档</a>。</td>
+              </tr>
+              <tr>
+                <td>fallbackPlacement</td>
+                <td>string | array</td>
+                <td>'flip'</td>
+                <td>指定动态提示框在回调时使用哪个位置，有关更多信息请参阅 Popper.js 的 <a href="https://popper.js.org/popper-documentation.html#modifiers..flip.behavior" target="_blank">行为属性文档</a>。</td>
+              </tr>
+            </tbody>
+          </table>
+          <h6 class="mt-3">方法</h6>
+          <pre>$().popover(options)</pre>
+          <p>元集集团的弹出提示框初始化。</p>
+          <h6><code>.popover('show')</code></h6>
+          <p>显示一个元素的提示框，在弹出<strong>实际显示之前返回给调用者</strong>（即在<code class="highlighter-rouge">shown.bs.popover</code> 事件发生前)，这被认为是弹出提示框的<strong>手动</strong>触发，标题和内容为弹出提示框不显示。</p>
+          <pre>$('#element').popover('show')</pre>
+          <h6><code>.popover('hide')</code></h6>
+          <p>隐藏元素的提示框，在弹出提示框实际被隐藏之前返回给调用者（即在 <code>hidden.bs.popover</code> 事件发生前），这被认为是弹出提示框的<strong>手动</strong>触发。</p>
+          <pre>$('#element').popover('hide')</pre>
+          <h6><code>.popover('toggle')</code></h6>
+          <p>切换元素的提示框，在popver提示框实际显示或隐藏之前返给调用者，即在 <code class="highlighter-rouge">shown.bs.popover</code> 或 <code class="highlighter-rouge">hidden.bs.popover</code> 事件发生前，这被认为是弹出提示框的手<strong>手动</strong>触发触发。</p>
+          <pre>$('#element').popover('toggle')</pre>
+          <h6><code>.popover('dispose')</code></h6>
+          <p>隐藏和销毁一个元素的提示框，使用委托授权 (使用<a href="#options">the <code class="highlighter-rouge">selector</code> option</a>创建)的提示框不能在后代触发元素不被单独销毁。</p>
+          <pre>$('#element').popover('dispose')</pre>
+          <p>给一个元素的提示框显示能力，提示框在<strong>默认情况下是启用</strong>的。</p>
+          <pre>$('#element').popover('enable')</pre>
+          <h6><code>.popover('disable')</code></h6>
+          <p>删除要显示元素的提示框，只有在重新启用后，才能显示出提示框。</p>
+          <pre>$('#element').popover('disable')</pre>
+          <h6><code>.popover('toggleEnabled')</code></h6>
+          <p>切换提示窗口的显示或隐藏功能。</p>
+          <pre>$('#element').popover('toggleEnabled')</pre>
+          <h6><code>.popover('update')</code></h6>
+          <p>更新元素的提示框的位置。</p>
+          <pre>$('#element').popover('update')</pre>
+          <h6>Events事件</h6>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width: 150px;">事件</th>
+                <th>描述</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>show.bs.popover</td>
+                <td>当调用 <code>show</code> 实例方法时，此事件立即触发。</td>
+              </tr>
+              <tr>
+                <td>shown.bs.popover</td>
+                <td>当提示框显示时，会触发此事件（待CSS转换过渡完成）。</td>
+              </tr>
+              <tr>
+                <td>hide.bs.popover</td>
+                <td>当调用 <code>hide</code> 实例方法时，此事件立即触发。</td>
+              </tr>
+              <tr>
+                <td>hidden.bs.popover</td>
+                <td>当提示框隐藏后，会触发此事件（待CSS转换过渡完成）。</td>
+              </tr>
+              <tr>
+                <td>inserted.bs.popover</td>
+                <td>当提示框对用户来说最终完成隐藏时（需要等待CSS转换过渡完成），会触发该事件。当事件弹出模板被添加到DOM时，<code>show.bs.popover</code>事件被触发。</td>
+              </tr>
+            </tbody>
+          </table>
+<pre>$('#myPopover').on('hidden.bs.popover', function () {
+    // do something…
+})</pre>
+
+    
+        </div>
+      </div>
+    </div>
+        
+  </div>
+  
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/main.min.js"></script>
+</body>
+</html>

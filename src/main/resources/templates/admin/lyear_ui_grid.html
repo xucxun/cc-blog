@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>格栅 - 光年(Light Year Admin V4)后台管理系统模板</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+<meta name="keywords" content="LightYear,LightYearAdmin,光年,后台模板,后台管理系统,光年HTML模板">
+<meta name="description" content="Light Year Admin V4是一个后台管理系统的HTML模板，基于Bootstrap v4.4.1。">
+<meta name="author" content="yinqi">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/materialdesignicons.min.css" rel="stylesheet">
+<link href="css/style.min.css" rel="stylesheet">
+</head>
+  
+<body>
+<div class="container-fluid p-t-15">
+  
+  <div class="row">
+    
+    <div class="col-lg-12">
+      <div class="card">
+        <header class="card-header"><div class="card-title">格栅</div></header>
+        <div class="card-body">
+          
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th></th>
+                <th class="text-center">
+                  超小屏幕<br>
+                  <small>&lt;576px</small>
+                </th>
+                <th class="text-center">
+                  小屏幕<br>
+                  <small>≥576px</small>
+                </th>
+                <th class="text-center">
+                  中等屏幕<br>
+                  <small>≥768px</small>
+                </th>
+                <th class="text-center">
+                  大屏幕<br>
+                  <small>≥992px</small>
+                </th>
+                <th class="text-center">
+                  超大屏幕<br>
+                  <small>≥1200px</small>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th class="text-nowrap" scope="row">最大容器宽度 <code>.container</code></th>
+                <td>None (自动)</td>
+                <td>540px</td>
+                <td>720px</td>
+                <td>960px</td>
+                <td>1140px</td>
+              </tr>
+              <tr>
+                <th class="text-nowrap" scope="row">类前缀</th>
+                <td><code>.col-</code></td>
+                <td><code>.col-sm-</code></td>
+                <td><code>.col-md-</code></td>
+                <td><code>.col-lg-</code></td>
+                <td><code>.col-xl-</code></td>
+              </tr>
+              <tr>
+                <th class="text-nowrap" scope="row">列（column）数</th>
+                <td colspan="5">12</td>
+              </tr>
+              <tr>
+                <th class="text-nowrap" scope="row">列间隙</th>
+                <td colspan="5">30px (每列两侧各15px)</td>
+              </tr>
+              <tr>
+                <th class="text-nowrap" scope="row">可嵌套性</th>
+                <td colspan="5">Yes</td>
+              </tr>
+              <tr>
+                <th class="text-nowrap" scope="row">可排序性</th>
+                <td colspan="5">Yes</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <h5>自动布局列</h5>
+          <p>利用栅格断点特性进行排版，可以简化列的大小，而不需要批定显式的列宽，如强制写为：<code>.col-sm-6</code>。</p>
+          <h6>等宽布局</h6>
+          <div class="border-example-row">
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  1 of 2
+                </div>
+                <div class="col">
+                  2 of 2
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  1 of 3
+                </div>
+                <div class="col">
+                  2 of 3
+                </div>
+                <div class="col">
+                  3 of 3
+                </div>
+              </div>
+            </div>
+          </div>
+          <pre>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col"&gt;1 of 2&lt;/div&gt;
+    &lt;div class="col"&gt;2 of 2&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col"&gt;1 of 3&lt;/div&gt;
+    &lt;div class="col"&gt;2 of 3&lt;/div&gt;
+    &lt;div class="col"&gt;3 of 3&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+          <p>等宽列可以分成多行，但是有一个<a href="https://github.com/philipwalton/flexbugs#11-min-and-max-size-declarations-are-ignored-when-wrapping-flex-items" target="_blank">Safari旧版浏览器的flexbox错误</a>，阻止它在没有显示 <code>flex-basis</code> 或 <code>border</code>（影响到边框效果）。Bootstrap非官方的一个实例，已经介绍了<a href="https://output.jsbin.com/micohor" target="_blank">两种解决方法</a>，但如果是最新safri浏览器下，则不需要这样做。</p>
+          <p>下面是等宽列两行的处理方法，引用 <code>w-100</code> 进行切割分行：</p>
+          <div class="border-example-row">
+            <div class="container">
+              <div class="row">
+                <div class="col">Column</div>
+                <div class="col">Column</div>
+                <div class="w-100"></div>
+                <div class="col">Column</div>
+                <div class="col">Column</div>
+              </div>
+            </div>
+          </div>
+          <pre>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col"&gt;Column&lt;/div&gt;
+    &lt;div class="col"&gt;Column&lt;/div&gt;
+    &lt;div class="w-100"&gt;&lt;/div&gt;
+    &lt;div class="col"&gt;Column&lt;/div&gt;
+    &lt;div class="col"&gt;Column&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+          <h6>设置一列宽度</h6>
+          <p>在Flexbox的布局上，拥有很多现代特征，比如自动布局和列宽处理。你可以在一行多列的情况下，特别指定一列并进行宽度定义，同时其它列自动调整大小，可以使用预定义的栅格类（如下所示），从而实行栅格宽或行宽的优化处理。注意在这种民琣上，无论中心定义列的宽度如何，其他列都将调整大小。</p>
+          <div class="border-example-row">
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  1 of 3
+                </div>
+                <div class="col-6">
+                  2 of 3 (更宽-12格中占6格，其它6格另外两列平分)
+                </div>
+                <div class="col">
+                  3 of 3
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  1 of 3
+                </div>
+                <div class="col-5">
+                  2 of 3 (更宽-12格中占5格,其它7格另外两列平分-不论奇偶都能达成)
+                </div>
+                <div class="col">
+                  3 of 3
+                </div>
+              </div>
+            </div>
+          </div>
+          <pre>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col"&gt;1 of 3&lt;/div&gt;
+    &lt;div class="col-6"&gt;2 of 3 (更宽-12格中占6格，其它6格另外两列平分)&lt;/div&gt;
+    &lt;div class="col"&gt;3 of 3&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col"&gt;1 of 3&lt;/div&gt;
+    &lt;div class="col-5"&gt;2 of 3 (更宽-12格中占5格,其它7格另外两列平分-不论奇偶都能达成)&lt;/div&gt;
+    &lt;div class="col"&gt;3 of 3&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+          <h6>可变宽度的弹性空间</h6>
+          <p>使用 <code>col-{breakpoint}-auto</code> 断点方法，可以实现根据其内容的自然宽度来对列进行大小调整。</p>
+          <div class="border-example-row">
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-2">1 of 3</div>
+                <div class="col-md-auto">Variable width content</div>
+                <div class="col col-lg-2">3 of 3</div>
+              </div>
+              <div class="row">
+                <div class="col">1 of 3</div>
+                <div class="col-md-auto">Variable width content</div>
+                <div class="col col-lg-2">3 of 3</div>
+              </div>
+            </div>
+          </div>
+          <pre>&lt;div class="container"&gt;
+  &lt;div class="row justify-content-md-center"&gt;
+    &lt;div class="col col-lg-2"&gt;1 of 3&lt;/div&gt;
+    &lt;div class="col-md-auto"&gt;Variable width content&lt;/div&gt;
+    &lt;div class="col col-lg-2"&gt;3 of 3&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col"&gt;1 of 3&lt;/div&gt;
+    &lt;div class="col-md-auto"&gt;Variable width content&lt;/div&gt;
+    &lt;div class="col col-lg-2"&gt;3 of 3&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+          <h6>等宽多行</h6>
+          <div class="border-example-row">
+            <div class="row">
+              <div class="col">col</div>
+              <div class="col">col</div>
+              <div class="w-100"></div>
+              <div class="col">col</div>
+              <div class="col">col</div>
+            </div>
+          </div>
+          <pre>&lt;div class="row"&gt;
+  &lt;div class="col"&gt;col&lt;/div&gt;
+  &lt;div class="col"&gt;col&lt;/div&gt;
+  &lt;div class="w-100"&gt;&lt;/div&gt;
+  &lt;div class="col"&gt;col&lt;/div&gt;
+  &lt;div class="col"&gt;col&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <h5>响应式的class选择器</h5>
+          <p>Bootstrap的栅格系统包括五种宽带预定义，用于构建复杂的响应布局，你可以根据需要定义在特小 <code>.col</code>、小 <code>.col-sm-*</code>、中 <code>.col-md-*</code>、大 <code>.col-lg-*</code>、特大 <code>.col-xl-*</code> 五种屏幕(设备)下的样式。</p>
+          <h6>覆盖所有设备</h6>
+          <p>如果要一次性定义从最小设备到最大设备相同的网格系统布局表现，请使用 <code>.col</code> 和 <code>.col-*</code> 类。后者是用于指定特定大小的(如 <code>.col-6</code> )，否则使用 <code>.col</code> 就可以了。</p>
+          <div class="border-example-row">
+            <div class="row">
+              <div class="col">col</div>
+              <div class="col">col</div>
+              <div class="col">col</div>
+              <div class="col">col</div>
+            </div>
+            <div class="row">
+              <div class="col-8">col-8</div>
+              <div class="col-4">col-4</div>
+            </div>
+          </div>
+          <pre>&lt;div class="row"&gt;
+  &lt;div class="col"&gt;col&lt;/div&gt;
+  &lt;div class="col"&gt;col&lt;/div&gt;
+  &lt;div class="col"&gt;col&lt;/div&gt;
+  &lt;div class="col"&gt;col&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+  &lt;div class="col-8"&gt;col-8&lt;/div&gt;
+  &lt;div class="col-4"&gt;col-4&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <h6>水平堆砌</h6>
+          <p>使用单一的.col-sm-*类方法，可以创建一个基本的网格系统，此时如果没有指定其它媒体查询断点宽度，这个栅格系统是成立的，而且会随着屏幕变窄成为超小屏幕.col-后，自动成为每列一行、水平堆砌。改变网页屏幕宽度你可以在下面列子看到效果：</p>
+          <div class="border-example-row">
+            <div class="row">
+              <div class="col-sm-8">col-sm-8</div>
+              <div class="col-sm-4">col-sm-4</div>
+            </div>
+            <div class="row">
+              <div class="col-sm">col-sm</div>
+              <div class="col-sm">col-sm</div>
+              <div class="col-sm">col-sm</div>
+            </div>
+          </div>
+          <pre>&lt;div class="row"&gt;
+  &lt;div class="col-sm-8"&gt;col-sm-8&lt;/div&gt;
+  &lt;div class="col-sm-4"&gt;col-sm-4&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+  &lt;div class="col-sm"&gt;col-sm&lt;/div&gt;
+  &lt;div class="col-sm"&gt;col-sm&lt;/div&gt;
+  &lt;div class="col-sm"&gt;col-sm&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <h6>混合布局</h6>
+          <div class="border-example-row">
+            <!-- 定义在超小屏幕下1列全宽、1列半宽，而其它场景以8:4比例并行排列 -->
+<div class="row">
+  <div class="col-12 col-md-8">.col-12 .col-md-8</div>
+  <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+</div>
+
+<!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
+<div class="row">
+  <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+  <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+  <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+</div>
+
+<!-- Columns are always 50% wide, on mobile and desktop -->
+<div class="row">
+  <div class="col-6">.col-6</div>
+  <div class="col-6">.col-6</div>
+</div>
+          </div>
+          <pre>&lt;!-- 定义在超小屏幕下1列全宽、1列半宽，而其它场景以8:4比例并行排列 --&gt;
+&lt;div class="row"&gt;
+  &lt;div class="col-12 col-md-8"&gt;.col-12 .col-md-8&lt;/div&gt;
+  &lt;div class="col-6 col-md-4"&gt;.col-6 .col-md-4&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop --&gt;
+&lt;div class="row"&gt;
+  &lt;div class="col-6 col-md-4"&gt;.col-6 .col-md-4&lt;/div&gt;
+  &lt;div class="col-6 col-md-4"&gt;.col-6 .col-md-4&lt;/div&gt;
+  &lt;div class="col-6 col-md-4"&gt;.col-6 .col-md-4&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Columns are always 50% wide, on mobile and desktop --&gt;
+&lt;div class="row"&gt;
+  &lt;div class="col-6"&gt;.col-6&lt;/div&gt;
+  &lt;div class="col-6"&gt;.col-6&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <h5>对齐</h5>
+          <p>flexbox布局可以轻松的实现DIV空间布局的垂直、水平对齐。</p>
+          <h6>垂直对齐示例</h6>
+          <div class="border-example-row border-example-row-flex-cols">
+            <div class="container">
+              <div class="row align-items-start">
+                <div class="col">One of three columns</div>
+                <div class="col">One of three columns</div>
+                <div class="col">One of three columns</div>
+              </div>
+              <div class="row align-items-center">
+                <div class="col">One of three columns</div>
+                <div class="col">One of three columns</div>
+                <div class="col">One of three columns</div>
+              </div>
+              <div class="row align-items-end">
+                <div class="col">One of three columns</div>
+                <div class="col">One of three columns</div>
+                <div class="col">One of three columns</div>
+              </div>
+            </div>
+          </div>
+          <pre>&lt;div class="container"&gt;
+  &lt;div class="row align-items-start"&gt;
+    &lt;div class="col"&gt;One of three columns&lt;/div&gt;
+    &lt;div class="col"&gt;One of three columns&lt;/div&gt;
+    &lt;div class="col"&gt;One of three columns&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="row align-items-center"&gt;
+    &lt;div class="col"&gt;One of three columns&lt;/div&gt;
+    &lt;div class="col"&gt;One of three columns&lt;/div&gt;
+    &lt;div class="col"&gt;One of three columns&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="row align-items-end"&gt;
+    &lt;div class="col"&gt;One of three columns&lt;/div&gt;
+    &lt;div class="col"&gt;One of three columns&lt;/div&gt;
+    &lt;div class="col"&gt;One of three columns&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+          <div class="border-example-row border-example-row-flex-cols">
+            <div class="container">
+              <div class="row">
+                <div class="col align-self-start">
+                  One of three columns
+                </div>
+                <div class="col align-self-center">
+                  One of three columns
+                </div>
+                <div class="col align-self-end">
+                  One of three columns
+                </div>
+              </div>
+            </div>
+          </div>
+          <pre>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col align-self-start"&gt;
+      One of three columns
+    &lt;/div&gt;
+    &lt;div class="col align-self-center"&gt;
+      One of three columns
+    &lt;/div&gt;
+    &lt;div class="col align-self-end"&gt;
+      One of three columns
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+          <h6>水平对齐示例</h6>
+          <div class="border-example-row">
+            <div class="container">
+              <div class="row justify-content-start">
+                <div class="col-4">One of two columns</div>
+                <div class="col-4">One of two columns</div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col-4">One of two columns</div>
+                <div class="col-4">One of two columns</div>
+              </div>
+              <div class="row justify-content-end">
+                <div class="col-4">One of two columns</div>
+                <div class="col-4">One of two columns</div>
+              </div>
+              <div class="row justify-content-around">
+                <div class="col-4">One of two columns</div>
+                <div class="col-4">One of two columns</div>
+              </div>
+              <div class="row justify-content-between">
+                <div class="col-4">One of two columns</div>
+                <div class="col-4">One of two columns</div>
+              </div>
+            </div>
+          </div>
+          <pre>&lt;div class="container"&gt;
+  &lt;div class="row justify-content-start"&gt;
+    &lt;div class="col-4"&gt;One of two columns&lt;/div&gt;
+    &lt;div class="col-4"&gt;One of two columns&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="row justify-content-center"&gt;
+    &lt;div class="col-4"&gt;One of two columns&lt;/div&gt;
+    &lt;div class="col-4"&gt;One of two columns&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="row justify-content-end"&gt;
+    &lt;div class="col-4"&gt;One of two columns&lt;/div&gt;
+    &lt;div class="col-4"&gt;One of two columns&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="row justify-content-around"&gt;
+    &lt;div class="col-4"&gt;One of two columns&lt;/div&gt;
+    &lt;div class="col-4"&gt;One of two columns&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="row justify-content-between"&gt;
+    &lt;div class="col-4"&gt;One of two columns&lt;/div&gt;
+    &lt;div class="col-4"&gt;One of two columns&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+          <h6>间隙沟槽(gutters)清除</h6>
+          <p>BootStrap默认的栅格和列间有间隙沟槽，一般是左右-15px的 <code>margin</code> 或 <code>padding</code> 处理，您可以使用 <code>.no-gutters</code> 类来消除它，这将影响到 <code>.row</code> 行、列平行间隙及所有子列。</p>
+          <p>如果你需要无边缝设计(edge-to-edge design)，则请在父DIV中放弃 <code>.container</code> 与 <code>.container-fluid</code> 容器。</p>
+          <pre>.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+
+  &gt; .col,
+  &gt; [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}</pre>
+          <div class="border-example-row">
+            <div class="row no-gutters">
+              <div class="col-12 col-sm-6 col-md-8">.col-12 .col-sm-6 .col-md-8</div>
+              <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+            </div>
+          </div>
+          <pre>&lt;div class="row no-gutters"&gt;
+  &lt;div class="col-12 col-sm-6 col-md-8"&gt;.col-12 .col-sm-6 .col-md-8&lt;/div&gt;
+  &lt;div class="col-6 col-md-4"&gt;.col-6 .col-md-4&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <h6>列换行</h6>
+          <p>如果在一行内子DIV定义的栅格总数超过12列，BootStrap会在保留列完整的前提下，将无法平行布局的多余列，重置到下一行，并占用一个完整的新行。</p>
+          <div class="border-example-row">
+            <div class="row">
+              <div class="col-9">.col-9</div>
+              <div class="col-4">.col-4<br>Since 9 + 4 = 13 &gt; 12, this 4-column-wide div gets wrapped onto a new line as one contiguous unit.</div>
+              <div class="col-6">.col-6<br>Subsequent columns continue along the new line.</div>
+            </div>
+          </div>
+          <pre>&lt;div class="row"&gt;
+  &lt;div class="col-9"&gt;.col-9&lt;/div&gt;
+  &lt;div class="col-4"&gt;.col-4&lt;br&gt;Since 9 + 4 = 13 &gt; 12, this 4-column-wide div gets wrapped onto a new line as one contiguous unit.&lt;/div&gt;
+  &lt;div class="col-6"&gt;.col-6&lt;br&gt;Subsequent columns continue along the new line.&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <h6>换行</h6>
+          <p>一般换行推荐使用添加多个 <code>.row</code> 来达成，否则你可以使用系统提供的 <code>.w-100</code> 方法处理，其思路是强行插入一个 <code>width:100%</code> 的DIV进行隔离切断（前文有两处提到,这是Flexbox流式布局的一个Hack，目前没有更好的方案）。</p>
+          <div class="border-example-row">
+            <div class="row">
+              <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>
+              <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>
+            
+              <div class="w-100"></div>
+            
+              <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>
+              <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>
+            </div>
+          </div>
+          <pre>&lt;div class="row"&gt;
+  &lt;div class="col-6 col-sm-3"&gt;.col-6 .col-sm-3&lt;/div&gt;
+  &lt;div class="col-6 col-sm-3"&gt;.col-6 .col-sm-3&lt;/div&gt;
+
+  &lt;div class="w-100"&gt;&lt;/div&gt;
+
+  &lt;div class="col-6 col-sm-3"&gt;.col-6 .col-sm-3&lt;/div&gt;
+  &lt;div class="col-6 col-sm-3"&gt;.col-6 .col-sm-3&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <p>也可以结合响应式实用程序来换行(切割)。</p>
+          <div class="border-example-row">
+            <div class="row">
+              <div class="col-6 col-sm-4">.col-6 .col-sm-4</div>
+              <div class="col-6 col-sm-4">.col-6 .col-sm-4</div>
+            
+              <div class="w-100 d-none d-md-block"></div>
+            
+              <div class="col-6 col-sm-4">.col-6 .col-sm-4</div>
+              <div class="col-6 col-sm-4">.col-6 .col-sm-4</div>
+            </div>
+          </div>
+          <pre>&lt;div class="row"&gt;
+  &lt;div class="col-6 col-sm-4"&gt;.col-6 .col-sm-4&lt;/div&gt;
+  &lt;div class="col-6 col-sm-4"&gt;.col-6 .col-sm-4&lt;/div&gt;
+
+  &lt;div class="w-100 d-none d-md-block"&gt;&lt;/div&gt;
+
+  &lt;div class="col-6 col-sm-4"&gt;.col-6 .col-sm-4&lt;/div&gt;
+  &lt;div class="col-6 col-sm-4"&gt;.col-6 .col-sm-4&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <h5>重排序</h5>
+          <h6>Class顺序重定义</h6>
+          <p>使用 <code>.order-* class</code> 选择符，可以对DIV空间进行 可视化排序,系统提供了 <code>.order-1</code> 到 <code>.order-12</code> 12个级别的顺序，在五种浏览器和设备宽度上都能生效。</p>
+          <div class="border-example-row">
+            <div class="container">
+              <div class="row">
+                <div class="col">1号空间-未定义序号，位置不变。</div>
+                <div class="col order-12">2号空间-排最后。</div>
+                <div class="col order-1">3号空间-放第1但受1号空间不变影响居第2位。 </div>
+              </div>
+            </div>
+          </div>
+          <pre>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col"&gt;1号空间-未定义序号，位置不变。&lt;/div&gt;
+    &lt;div class="col order-12"&gt;2号空间-排最后。&lt;/div&gt;
+    &lt;div class="col order-1"&gt;3号空间-放第1但受1号空间不变影响居第2位。&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+          还有响应的.order first，它们分别通过应用order:-1。
+          <p>还可以使用 <code>.order-first</code> 和 <code>.order-last</code> 类，快速更改一个顺序到最前面，同时其它元素也相应的获得了 <code>order: -1</code> 和 <code>order: 13（order: $columns + 1）</code> 来更改元素的顺序，这个属性也可以与 <code>.order-*</code> 混合使用。</p>
+          <div class="border-example-row">
+            <div class="container">
+              <div class="row">
+                <div class="col">1号空间-未定义顺序。</div>
+                <div class="col">2号空间-未定义顺序。</div>
+                <div class="col order-first">3号空间-优先排序，占第1位。</div>
+              </div>
+            </div>
+          </div>
+          <pre>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col"&gt;1号空间-未定义顺序。&lt;/div&gt;
+    &lt;div class="col"&gt;2号空间-未定义顺序。&lt;/div&gt;
+    &lt;div class="col order-first"&gt;3号空间-优先排序，占第1位。&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+          <h5>列偏移</h5>
+          <p>您可以通过两种方式偏移网格列：响应式的 <code>.offset-</code> 网格类和<a href="https://getbootstrap.com/docs/4.0/utilities/spacing/" target="_blank">边距实用程序</a>。网格类的大小与列匹配，而边距对于偏移宽度可变的快速布局更有用。</p>
+          <h6>class偏移选择器</h6>
+          <p>使用 <code>.offset-md-*</code> 类将列向右移动。这些类将列的左边距增加 <code>*</code> 列。例如：<code>.offset-md-4</code> 将 <code>.col-md-4</code> 向右偏移四列。</p>
+          <div class="border-example-row">
+            <div class="row">
+              <div class="col-md-4">.col-md-4</div>
+              <div class="col-md-4 offset-md-4">.col-md-4 .offset-md-4</div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 offset-md-3">.col-md-3 .offset-md-3</div>
+              <div class="col-md-3 offset-md-3">.col-md-3 .offset-md-3</div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 offset-md-3">.col-md-6 .offset-md-3</div>
+            </div>
+          </div>
+          <pre>&lt;div class="row"&gt;
+  &lt;div class="col-md-4"&gt;.col-md-4&lt;/div&gt;
+  &lt;div class="col-md-4 offset-md-4"&gt;.col-md-4 .offset-md-4&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+  &lt;div class="col-md-3 offset-md-3"&gt;.col-md-3 .offset-md-3&lt;/div&gt;
+  &lt;div class="col-md-3 offset-md-3"&gt;.col-md-3 .offset-md-3&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+  &lt;div class="col-md-6 offset-md-3"&gt;.col-md-6 .offset-md-3&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <p>除了在响应断点处清除列，您可能需要重置偏移量，下面的栅格示例展示了这一点：</p>
+          <div class="border-example-row">
+<div class="row">
+  <div class="col-sm-5 col-md-6">.col-sm-5 .col-md-6</div>
+  <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">.col-sm-5 .offset-sm-2 .col-md-6 .offset-md-0</div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 col-md-5 col-lg-6">.col.col-sm-6.col-md-5.col-lg-6</div>
+  <div class="col-sm-6 col-md-5 offset-md-2 col-lg-6 offset-lg-0">.col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0</div>
+</div>
+          </div>
+          <pre>&lt;div class="row"&gt;
+  &lt;div class="col-sm-5 col-md-6"&gt;.col-sm-5 .col-md-6&lt;/div&gt;
+  &lt;div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0"&gt;.col-sm-5 .offset-sm-2 .col-md-6 .offset-md-0&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="row"&gt;
+  &lt;div class="col-sm-6 col-md-5 col-lg-6"&gt;.col.col-sm-6.col-md-5.col-lg-6&lt;/div&gt;
+  &lt;div class="col-sm-6 col-md-5 offset-md-2 col-lg-6 offset-lg-0"&gt;.col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <h6>Margin边距布局</h6>
+          <p>在BootStrap V4中，你可以使用 <code>.ml-auto</code> 与 <code>.mr-auto</code> 来强制隔离两边的距离，实现类水平隔离的效果。</p>
+          <div class="border-example-row">
+            <div class="row">
+              <div class="col-md-4">.col-md-4</div>
+              <div class="col-md-4 ml-auto">.col-md-4 .ml-auto</div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 ml-md-auto">.col-md-3 .ml-md-auto</div>
+              <div class="col-md-3 ml-md-auto">.col-md-3 .ml-md-auto</div>
+            </div>
+            <div class="row">
+              <div class="col-auto mr-auto">.col-auto .mr-auto</div>
+              <div class="col-auto">.col-auto</div>
+            </div>
+          </div>
+          <pre>&lt;div class="row"&gt;
+  &lt;div class="col-md-4"&gt;.col-md-4&lt;/div&gt;
+  &lt;div class="col-md-4 ml-auto"&gt;.col-md-4 .ml-auto&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+  &lt;div class="col-md-3 ml-md-auto"&gt;.col-md-3 .ml-md-auto&lt;/div&gt;
+  &lt;div class="col-md-3 ml-md-auto"&gt;.col-md-3 .ml-md-auto&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+  &lt;div class="col-auto mr-auto"&gt;.col-auto .mr-auto&lt;/div&gt;
+  &lt;div class="col-auto"&gt;.col-auto&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <h5>列嵌套</h5>
+          <p>若要使用默认网格嵌套内容，请在现有的 <code>.col-sm-*</code> 列中添加新的 <code>.row</code> 和 <code>.col-sm-*</code> 列集。嵌套行应包含一组总计不超过12个的列（不要求使用所有12个可用列）。</p>
+          <div class="border-example-row">
+<div class="row">
+  <div class="col-sm-9">
+    Level 1: .col-sm-9
+    <div class="row">
+      <div class="col-8 col-sm-6">Level 2: .col-8 .col-sm-6</div>
+      <div class="col-4 col-sm-6">Level 2: .col-4 .col-sm-6</div>
+    </div>
+  </div>
+</div>
+          </div>
+          <pre>&lt;div class="row"&gt;
+  &lt;div class="col-sm-9"&gt;
+    Level 1: .col-sm-9
+    &lt;div class="row"&gt;
+      &lt;div class="col-8 col-sm-6"&gt;Level 2: .col-8 .col-sm-6&lt;/div&gt;
+      &lt;div class="col-4 col-sm-6"&gt;Level 2: .col-4 .col-sm-6&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+          
+        </div>
+      </div>
+    </div>
+        
+  </div>
+  
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/main.min.js"></script>
+</body>
+</html>

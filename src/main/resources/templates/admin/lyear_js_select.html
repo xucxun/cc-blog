@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>下拉选择 - 光年(Light Year Admin V4)后台管理系统模板</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+<meta name="keywords" content="LightYear,LightYearAdmin,光年,后台模板,后台管理系统,光年HTML模板">
+<meta name="description" content="Light Year Admin V4是一个后台管理系统的HTML模板，基于Bootstrap v4.4.1。">
+<meta name="author" content="yinqi">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/materialdesignicons.min.css" rel="stylesheet">
+<link href="js/bootstrap-select/bootstrap-select.css" rel="stylesheet">
+<link href="css/style.min.css" rel="stylesheet">
+</head>
+  
+<body>
+<div class="container-fluid p-t-15">
+  
+  <div class="row">
+    
+    <div class="col-lg-12">
+      <div class="card">
+        <header class="card-header"><div class="card-title">下拉选择</div></header>
+        <div class="card-body">
+          
+          <p>插件使用bootstrap-select 1.13.17，文档地址：<a href="https://www.bootstrapselect.cn/" target="_blank">https://www.bootstrapselect.cn/</a></p>
+          <p>4.*版本默认样式为 <code>btn-light</code>，因样式颜色太浅，这个改为 <code>btn-default</code>，另将默认的字体图标设定为 <code>mdi</code>。</p>
+          <div class="row">
+            <div class="col-md-6">
+              <p>默认</p>
+              <div class="form-group">
+                <label for="example-1">你是一名</label>
+                <select class="form-control selectpicker" name="example-1" id="example-1">
+                  <option value="1" selected>码奴</option>
+                  <option value="2">码农</option>
+                  <option value="3">码匠</option>
+                  <option value="4">码神</option>
+                </select>
+              </div>
+              <p>选择带有optgroups的框</p>
+              <div class="form-group">
+                <label for="example-2">野外宿营要带</label>
+                <select class="form-control selectpicker" name="example-2" id="example-2">
+                  <optgroup label="食物">
+                    <option>零食</option>
+                    <option>面包</option>
+                    <option>调料</option>
+                  </optgroup>
+                  <optgroup label="物品">
+                    <option>帐篷</option>
+                    <option>手电筒</option>
+                    <option>卫生纸</option>
+                  </optgroup>
+                </select>
+              </div>
+              <p>多选</p>
+              <div class="form-group">
+                <label for="example-3">中国足球为什么不行</label>
+                <select class="form-control selectpicker" name="example-3" id="example-3" multiple>
+                  <option>教练不行</option>
+                  <option>态度不行</option>
+                  <option>球员不行</option>
+                  <option>哪都不行</option>
+                </select>
+              </div>
+              <p>实时搜索</p>
+              <div class="form-group">
+                <label for="example-4">杰伦的巅峰专辑是</label>
+                <select class="form-control selectpicker" data-live-search="true" name="example-4" id="example-4">
+                  <option>范特西</option>
+                  <option>八度空间</option>
+                  <option>叶惠美</option>
+                  <option>七里香</option>
+                  <option data-tokens="夜曲">十一月的肖邦</option><!--option上可使用data-tokens用来提高可搜索性-->
+                  <option>依然范特西</option>
+                  <option>我很忙</option>
+                </select>
+              </div>
+              <p>限制选择的数量</p>
+              <div class="form-group">
+                <label for="example-5">你最想去的城市是</label>
+                <select class="form-control selectpicker" multiple data-max-options="2" name="example-5" id="example-5">
+                  <option>重庆</option>
+                  <option>北京</option>
+                  <option>杭州</option>
+                  <option>厦门</option>
+                  <option>上海</option>
+                  <option>大理</option>
+                </select>
+              </div>
+              <p>设置单个选项的样式</p>
+              <div class="form-group">
+                <label for="example-11">介绍下自己吧</label>
+                <select class="form-control selectpicker" name="example-11" id="example-11">
+                  <option>我是默认</option>
+                  <option class="bg-danger">我是小红</option>
+                  <option style="background: #5cb85c; color: #fff; padding-left: 8px">我是往右侧靠近小绿</option>
+                </select>
+              </div>
+              <p>自定义图标</p>
+              <div class="form-group">
+                <label for="example-12">添加 data-icon</label>
+                <select class="form-control selectpicker" name="example-12" id="example-12">
+                  <option data-icon="mdi-car-estate m-r-5">卡车</option>
+                  <option data-icon="mdi-file-word m-r-5">文档</option>
+                  <option data-icon="mdi-music-circle-outline m-r-5">音乐</option>
+                </select>
+              </div>
+              <p>取消/选择所有选项</p>
+              <div class="form-group">
+                <label for="example-15">我全/不要</label>
+                <select class="form-control selectpicker" multiple data-actions-box="true" name="example-15" id="example-15">
+                  <option>李白</option>
+                  <option>杜甫</option>
+                  <option>杜牧</option>
+                </select>
+              </div>
+              <p>菜单标题</p>
+              <div class="form-group">
+                <label for="example-17">三国鼎立</label>
+                <select class="form-control selectpicker" data-header="选择一位大将吧" name="example-17" id="example-17">
+                  <option>典韦</option>
+                  <option>许褚</option>
+                  <option>赵云</option>
+                  <option>关羽</option>
+                  <option>黄忠</option>
+                  <option>马超</option>
+                  <option>张飞</option>
+                  <option>太史慈</option>
+                  <option>周泰</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <p>自定义文字(占位符)</p>
+              <div class="form-group">
+                <label for="example-6">您最想要什么</label>
+                <select class="form-control selectpicker" multiple title="小伙子选择一个吧..." name="example-6" id="example-6">
+                  <option>吊打海内外的编程技术</option>
+                  <option>迷倒万千少女的颜值</option>
+                  <option>马云大大的财富</option>
+                </select>
+              </div>
+              <p>单个选项的替代文本</p>
+              <div class="form-group">
+                <label for="example-7">这赛季谁将带领球队夺冠</label>
+                <select class="form-control selectpicker" name="example-7" id="example-7">
+                  <option title="詹姆斯,戴维斯">湖人</option>
+                  <option title="莱安纳德,保罗乔治,路威">快船</option>
+                  <option title="约基奇,穆雷">掘金</option>
+                  <option title="字母哥,米德尔顿">雄鹿</option>
+                  <option title="沃克,塔图姆">凯尔特人</option>
+                  <option title="巴特勒,莱恩">热火</option>
+                </select>
+              </div>
+              <p>选定后的文本格式</p>
+              <div class="form-group">
+                <label for="example-8">选择人员组一个球队吧</label>
+                <!--select class="form-control selectpicker" multiple data-selected-text-format="count" name="example-8" id="example-8"-->
+                <select class="form-control selectpicker" multiple data-selected-text-format="count > 3" name="example-8" id="example-8">
+                  <option>乔丹</option>
+                  <option>艾弗森</option>
+                  <option>约翰逊</option>
+                  <option>奥尼尔</option>
+                  <option>詹姆斯</option>
+                  <option>库里</option>
+                  <option>邓肯</option>
+                  <option>拉塞尔</option>
+                  <option>奥拉朱旺</option>
+                </select>
+              </div>
+              <p>自定义样式</p>
+              <div class="form-group">
+                <label for="example-9">最厉害的将领</label>
+                <select class="form-control selectpicker" name="example-9" id="example-9" data-style="btn-primary">
+                  <option>李牧</option>
+                  <option>王翦</option>
+                  <option>廉颇</option>
+                  <option>白起</option>
+                  <option>周亚夫</option>
+                  <option>李广</option>
+                  <option>霍去病</option>
+                  <option>卫青</option>
+                  <option>李靖</option>
+                  <option>岳飞</option>
+                  <option>戚继光</option>
+                </select>
+              </div>
+              <p>勾选所选选项</p>
+              <div class="form-group">
+                <label for="example-10">谁最厉害</label>
+                <select class="form-control selectpicker show-tick">
+                  <option>吕布</option>
+                  <option>项羽</option>
+                  <option>李元霸</option>
+                </select>
+              </div>
+              <p>自定义内容</p>
+              <div class="form-group">
+                <label for="example-13">四大名著</label>
+                <select class="form-control selectpicker" name="example-13" id="example-13">
+                  <option data-content="&lt;span class=&apos;badge badge-primary&apos;&gt;《三国演义》&lt;/span&gt;">《三国演义》</option>
+                  <option data-content="&lt;span class=&apos;badge badge-success&apos;&gt;《红楼梦》&lt;/span&gt;">《红楼梦》</option>
+                  <option data-content="&lt;span class=&apos;badge badge-info&apos;&gt;《水浒传》&lt;/span&gt;">《水浒传》</option>
+                  <option data-content="&lt;span class=&apos;badge badge-danger&apos;&gt;《西游记》&lt;/span&gt;">《西游记》</option>
+                </select>
+              </div>
+              <p>添加子文本</p>
+              <div class="form-group">
+                <label for="example-14">古文典籍</label>
+                <select class="form-control selectpicker" name="example-14" id="example-14">
+                  <option data-subtext="司马光">《资治通鉴》</option>
+                  <option data-subtext="司马迁">《史记》</option>
+                  <option data-subtext="解缙、姚广孝">《永乐大典》</option>
+                </select>
+              </div>
+              <p>分割线</p>
+              <div class="form-group">
+                <label for="example-16">中国三大球</label>
+                <select class="form-control selectpicker" name="example-16" id="example-16">
+                  <option>中国女排</option>
+                  <option>中国女篮</option>
+                  <option>中国女足</option>
+                  <option data-divider="true"></option>
+                  <option>中国男篮</option>
+                  <option>中国男排</option>
+                  <option>中国男足</option>
+                </select>
+              </div>
+              <p>禁用菜单</p>
+              <div class="form-group">
+                <label for="example-16">别人家的工作</label>
+                <select class="form-control selectpicker" name="example-18" id="example-18" disabled>
+                  <option>钱多</option>
+                  <option>活少</option>
+                  <option>假多</option>
+                </select>
+              </div>
+              <p>禁用选项</p>
+              <div class="form-group">
+                <select class="form-control selectpicker">
+                  <option>汉朝</option>
+                  <option disabled>唐朝</option>
+                  <option>元朝</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <select class="form-control selectpicker">
+                  <optgroup label="篮球" disabled>
+                    <option>乔丹</option>
+                    <option>科比</option>
+                    <option>詹姆斯</option>
+                  </optgroup>
+                  <optgroup label="足球">
+                    <option>贝利</option>
+                    <option>C罗</option>
+                    <option>梅西</option>
+                  </optgroup>
+                </select>
+              </div>
+              
+            </div>
+          </div>
+          
+          <p>布局宽度</p>
+          <div class="row">
+            <div class="col-3">
+              <div class="form-group">
+                <select class="form-control selectpicker">
+                  <option>及时雨宋江</option>
+                  <option>玉麒麟卢俊义</option>
+                  <option>智多星吴用</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-9">
+              <div class="form-group">
+                <select class="form-control selectpicker">
+                  <option>入云龙公孙胜</option>
+                  <option>大刀关胜</option>
+                  <option>豹子头林冲</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-4">
+              <div class="form-group">
+                <select class="form-control selectpicker">
+                  <option>霹雳火秦明</option>
+                  <option>双鞭呼延灼</option>
+                  <option>小李广花荣</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-8">
+              <div class="form-group">
+                <select class="form-control selectpicker">
+                  <option>小旋风柴进</option>
+                  <option>扑天雕李应</option>
+                  <option>美髯公朱仝</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-5">
+              <div class="form-group">
+                <select class="form-control selectpicker">
+                  <option>花和尚鲁智深</option>
+                  <option>行者武松</option>
+                  <option>双枪将董平</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-7">
+              <div class="form-group">
+                <select class="form-control selectpicker">
+                  <option>没羽箭张清</option>
+                  <option>青面兽杨志</option>
+                  <option>急先锋索超</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+          <p>使用 data-width 设置宽度</p>
+          <div class="form-group">
+            <p>添加 <code>data-width="auto"</code></p>
+            <select class="selectpicker" data-width="auto">
+              <option>神行太保戴宗</option>
+              <option>赤发鬼刘唐</option>
+              <option>黑旋风李逵</option>
+              <option>九纹龙史进</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <p>添加 <code>data-width="fit"</code></p>
+            <select class="selectpicker" data-width="fit">
+              <option>没遮拦穆弘</option>
+              <option>插翅虎雷横</option>
+              <option>混江龙李俊</option>
+              <option>立地太岁阮小二</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <p>添加 <code>data-width="200px"</code></p>
+            <select class="selectpicker" data-width="200px">
+              <option>船火儿张横</option>
+              <option>短命二郎阮小五</option>
+              <option>浪里白条张顺</option>
+              <option>活阎罗阮小七</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <p>添加 <code>data-width="75%"</code></p>
+            <select class="selectpicker" data-width="75%">
+              <option>病关索杨雄</option>
+              <option>拼命三郎石秀</option>
+              <option>两头蛇解珍</option>
+              <option>双尾蝎解宝</option>
+              <option>浪子燕青</option>
+            </select>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
+</div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-select/i18n/defaults-zh_CN.min.js"></script>
+<script type="text/javascript" src="js/main.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    // 默认
+    $('.selectpicker').selectpicker();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>flex弹性布局 - 光年(Light Year Admin V4)后台管理系统模板</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+<meta name="keywords" content="LightYear,LightYearAdmin,光年,后台模板,后台管理系统,光年HTML模板">
+<meta name="description" content="Light Year Admin V4是一个后台管理系统的HTML模板，基于Bootstrap v4.4.1。">
+<meta name="author" content="yinqi">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/materialdesignicons.min.css" rel="stylesheet">
+<link href="css/style.min.css" rel="stylesheet">
+</head>
+  
+<body>
+<div class="container-fluid p-t-15">
+  
+  <div class="row">
+    
+    <div class="col-lg-12">
+      <div class="card">
+        <header class="card-header"><div class="card-title">flex弹性布局</div></header>
+        <div class="card-body">
+          
+          <h6>启用flex行为</h6>
+          <p>使用 <code>display</code> 通用属性来创建一个flxbox容器，并将 直属内部子元素 转换为flex属性。 flex元素的容器和子项目可以通过额外的flex属性定义来实现进一步修改。</p>
+          <div class="border-example">
+            <div class="d-flex p-2 border-highlight">I'm a flexbox container!</div>
+          </div>
+          <pre>&lt;div class="d-flex p-2 border-highlight"&gt;I'm a flexbox container!&lt;/div&gt;</pre>
+          <div class="callout callout-warning"><code>border-highlight</code> 类是为了标清楚div元素当前的范围演示使用</div>
+          <div class="border-example">
+            <div class="d-inline-flex p-2 border-highlight">I'm an inline flexbox container!</div>
+          </div>
+          <pre>&lt;div class="d-inline-flex p-2 border-highlight"&gt;I'm an inline flexbox container!&lt;/div&gt;</pre>
+          <p>响应式变化也存在于 <code>.d-flex</code> 和 <code>.d-inline-flex</code> 这两个通用类上</p>
+          <ul>
+            <li><code>.d-flex</code></li>
+            <li><code>.d-inline-flex</code></li>
+            <li><code>.d-sm-flex</code></li>
+            <li><code>.d-sm-inline-flex</code></li>
+            <li><code>.d-md-flex</code></li>
+            <li><code>.d-md-inline-flex</code></li>
+            <li><code>.d-lg-flex</code></li>
+            <li><code>.d-lg-inline-flex</code></li>
+            <li><code>.d-xl-flex</code></li>
+            <li><code>.d-xl-inline-flex</code></li>
+          </ul>
+          <h6>方向</h6>
+          <p>基于系统提供的通用样式定义，可以设定flex的容器与内部flex元素的方向，在大多数情况下你可以忽略水平的class样式定义，因为浏览器的默认值是 <code>row</code>。但在比如响应式布局时，可能需要进行显式设定此值。</p>
+          <p>浏览器预默认值下，使用 <code>.flex-row</code> 可设置子元素水平方向排版呈现，或者使用<code>.flex-row-reverse</code> 可实现元素在水平上作反方向排列（右对齐、从右到左布局）。</p>
+          <div class="border-example">
+            <div class="d-flex flex-row border-highlight mb-3">
+              <div class="p-2 border-highlight">Flex item 1</div>
+              <div class="p-2 border-highlight">Flex item 2</div>
+              <div class="p-2 border-highlight">Flex item 3</div>
+            </div>
+            <div class="d-flex flex-row-reverse border-highlight">
+              <div class="p-2 border-highlight">Flex item 1</div>
+              <div class="p-2 border-highlight">Flex item 2</div>
+              <div class="p-2 border-highlight">Flex item 3</div>
+            </div>
+          </div>
+          <pre>&lt;div class="d-flex flex-row border-highlight mb-3"&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item 1&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item 2&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item 3&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="d-flex flex-row-reverse border-highlight"&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item 1&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item 2&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item 3&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <p>使用 <code>.flex-column</code> 设置垂直方向布局，或使用 <code>.flex-column-reverse</code> 实现垂直方向的反转布局（从底向上铺开）。</p>
+          <div class="border-example">
+            <div class="d-flex flex-column border-highlight mb-3">
+              <div class="p-2 border-highlight">Flex item 1</div>
+              <div class="p-2 border-highlight">Flex item 2</div>
+              <div class="p-2 border-highlight">Flex item 3</div>
+            </div>
+            <div class="d-flex flex-column-reverse border-highlight">
+              <div class="p-2 border-highlight">Flex item 1</div>
+              <div class="p-2 border-highlight">Flex item 2</div>
+              <div class="p-2 border-highlight">Flex item 3</div>
+            </div>
+          </div>
+          <pre>&lt;div class="d-flex flex-column border-highlight mb-3"&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item 1&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item 2&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item 3&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="d-flex flex-column-reverse border-highlight"&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item 1&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item 2&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item 3&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <p><code>flex-direction</code> 的响应式属性规范：</p>
+          <ul>
+            <li><code>.flex-row</code></li>
+            <li><code>.flex-row-reverse</code></li>
+            <li><code>.flex-column</code></li>
+            <li><code>.flex-column-reverse</code></li>
+            <li><code>.flex-sm-row</code></li>
+            <li><code>.flex-sm-row-reverse</code></li>
+            <li><code>.flex-sm-column</code></li>
+            <li><code>.flex-sm-column-reverse</code></li>
+            <li><code>.flex-md-row</code></li>
+            <li><code>.flex-md-row-reverse</code></li>
+            <li><code>.flex-md-column</code></li>
+            <li><code>.flex-md-column-reverse</code></li>
+            <li><code>.flex-lg-row</code></li>
+            <li><code>.flex-lg-row-reverse</code></li>
+            <li><code>.flex-lg-column</code></li>
+            <li><code>.flex-lg-column-reverse</code></li>
+            <li><code>.flex-xl-row</code></li>
+            <li><code>.flex-xl-row-reverse</code></li>
+            <li><code>.flex-xl-column</code></li>
+            <li><code>.flex-xl-column-reverse</code></li>
+          </ul>
+          <h6>内容对齐</h6>
+          <p>使用flexbox弹性布局容器上的 <code>justify-content-*</code> 通用样式可以改变flx项目在主轴上的对齐（x轴开始，如果 <code>flex-direction: column</code> 则为y轴)，或选方向（值）包括： <code>start</code> (浏览器默认值),、<code>end</code>、 <code>center</code>、 <code>between</code>、 <code>around</code>。</p>
+          <div class="border-example">
+            <div class="d-flex justify-content-start border-highlight mb-3">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+            <div class="d-flex justify-content-end border-highlight mb-3">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+            <div class="d-flex justify-content-center border-highlight mb-3">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+            <div class="d-flex justify-content-between border-highlight mb-3">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+            <div class="d-flex justify-content-around border-highlight">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+          </div>
+          <pre>&lt;div class="d-flex justify-content-start border-highlight mb-3"&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="d-flex justify-content-end border-highlight mb-3"&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="d-flex justify-content-center border-highlight mb-3"&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="d-flex justify-content-between border-highlight mb-3"&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="d-flex justify-content-around border-highlight"&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <p><code>justify-content-*</code> 样式也通用存在响应式属性规范：</p>
+          <ul>
+            <li><code>.justify-content-start</code></li>
+            <li><code>.justify-content-end</code></li>
+            <li><code>.justify-content-center</code></li>
+            <li><code>.justify-content-between</code></li>
+            <li><code>.justify-content-around</code></li>
+            <li><code>.justify-content-sm-start</code></li>
+            <li><code>.justify-content-sm-end</code></li>
+            <li><code>.justify-content-sm-center</code></li>
+            <li><code>.justify-content-sm-between</code></li>
+            <li><code>.justify-content-sm-around</code></li>
+            <li><code>.justify-content-md-start</code></li>
+            <li><code>.justify-content-md-end</code></li>
+            <li><code>.justify-content-md-center</code></li>
+            <li><code>.justify-content-md-between</code></li>
+            <li><code>.justify-content-md-around</code></li>
+            <li><code>.justify-content-lg-start</code></li>
+            <li><code>.justify-content-lg-end</code></li>
+            <li><code>.justify-content-lg-center</code></li>
+            <li><code>.justify-content-lg-between</code></li>
+            <li><code>.justify-content-lg-around</code></li>
+            <li><code>.justify-content-xl-start</code></li>
+            <li><code>.justify-content-xl-end</code></li>
+            <li><code>.justify-content-xl-center</code></li>
+            <li><code>.justify-content-xl-between</code></li>
+            <li><code>.justify-content-xl-around</code></li>
+          </ul>
+          <h6>对齐项目</h6>
+          <p>使用 <code>align-items-*</code> 通用样式可以在flxbox容器上实现flex项目的对齐（y轴开始，如果选择 <code>flex-direction: column</code> 则从x轴开始)，可选参数有： <code>start</code>、<code>end</code>、 <code>center</code>、<code>baseline</code>、 <code>stretch</code> (浏览器默认值)。</p>
+          <div class="border-example">
+            <div class="bd-example">
+              <div class="d-flex align-items-start border-highlight mb-3" style="height: 100px">
+                <div class="p-2 border-highlight">Flex item</div>
+                <div class="p-2 border-highlight">Flex item</div>
+                <div class="p-2 border-highlight">Flex item</div>
+              </div>
+              <div class="d-flex align-items-end border-highlight mb-3" style="height: 100px">
+                <div class="p-2 border-highlight">Flex item</div>
+                <div class="p-2 border-highlight">Flex item</div>
+                <div class="p-2 border-highlight">Flex item</div>
+              </div>
+              <div class="d-flex align-items-center border-highlight mb-3" style="height: 100px">
+                <div class="p-2 border-highlight">Flex item</div>
+                <div class="p-2 border-highlight">Flex item</div>
+                <div class="p-2 border-highlight">Flex item</div>
+              </div>
+              <div class="d-flex align-items-baseline border-highlight mb-3" style="height: 100px">
+                <div class="p-2 border-highlight">Flex item</div>
+                <div class="p-2 border-highlight">Flex item</div>
+                <div class="p-2 border-highlight">Flex item</div>
+              </div>
+              <div class="d-flex align-items-stretch border-highlight" style="height: 100px">
+                <div class="p-2 border-highlight">Flex item</div>
+                <div class="p-2 border-highlight">Flex item</div>
+                <div class="p-2 border-highlight">Flex item</div>
+              </div>
+            </div>
+          </div>
+          <pre>&lt;div class="bd-example"&gt;
+  &lt;div class="d-flex align-items-start border-highlight mb-3" style="height: 100px"&gt;
+    &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+    &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+    &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="d-flex align-items-end border-highlight mb-3" style="height: 100px"&gt;
+    &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+    &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+    &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="d-flex align-items-center border-highlight mb-3" style="height: 100px"&gt;
+    &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+    &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+    &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="d-flex align-items-baseline border-highlight mb-3" style="height: 100px"&gt;
+    &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+    &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+    &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="d-flex align-items-stretch border-highlight" style="height: 100px"&gt;
+    &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+    &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+    &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+          <p><code>align-items</code> 的响应式属性规范：</p>
+          <ul>
+            <li><code>.align-items-start</code></li>
+            <li><code>.align-items-end</code></li>
+            <li><code>.align-items-center</code></li>
+            <li><code>.align-items-baseline</code></li>
+            <li><code>.align-items-stretch</code></li>
+            <li><code>.align-items-sm-start</code></li>
+            <li><code>.align-items-sm-end</code></li>
+            <li><code>.align-items-sm-center</code></li>
+            <li><code>.align-items-sm-baseline</code></li>
+            <li><code>.align-items-sm-stretch</code></li>
+            <li><code>.align-items-md-start</code></li>
+            <li><code>.align-items-md-end</code></li>
+            <li><code>.align-items-md-center</code></li>
+            <li><code>.align-items-md-baseline</code></li>
+            <li><code>.align-items-md-stretch</code></li>
+            <li><code>.align-items-lg-start</code></li>
+            <li><code>.align-items-lg-end</code></li>
+            <li><code>.align-items-lg-center</code></li>
+            <li><code>.align-items-lg-baseline</code></li>
+            <li><code>.align-items-lg-stretch</code></li>
+            <li><code>.align-items-xl-start</code></li>
+            <li><code>.align-items-xl-end</code></li>
+            <li><code>.align-items-xl-center</code></li>
+            <li><code>.align-items-xl-baseline</code></li>
+            <li><code>.align-items-xl-stretch</code></li>
+          </ul>
+          <h6>自对齐</h6>
+          <p>使用 <code>align-self-*</code> 通用样式可以使用flexbox上的项目单独改变在横轴上的对齐方式（y值开始，如果 <code>flex-direction: column</code> 则为x轴开始)，其拥有与 <code>align-items</code> 相同的可选子项: <code>start</code>、 <code>end</code>、<code>center</code>、 <code>baseline</code>、 or <code>stretch</code> (浏览器默认值)。</p>
+          <div class="border-example">
+            <div class="d-flex border-highlight mb-3" style="height: 100px">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="align-self-start p-2 border-highlight">Aligned flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+            <div class="d-flex border-highlight mb-3" style="height: 100px">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="align-self-end p-2 border-highlight">Aligned flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+            <div class="d-flex border-highlight mb-3" style="height: 100px">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="align-self-center p-2 border-highlight">Aligned flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+            <div class="d-flex border-highlight mb-3" style="height: 100px">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="align-self-baseline p-2 border-highlight">Aligned flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+            <div class="d-flex border-highlight" style="height: 100px">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="align-self-stretch p-2 border-highlight">Aligned flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+          </div>
+          <pre>&lt;div class="d-flex border-highlight mb-3" style="height: 100px"&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="align-self-start p-2 border-highlight"&gt;Aligned flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="d-flex border-highlight mb-3" style="height: 100px"&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="align-self-end p-2 border-highlight"&gt;Aligned flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="d-flex border-highlight mb-3" style="height: 100px"&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="align-self-center p-2 border-highlight"&gt;Aligned flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="d-flex border-highlight mb-3" style="height: 100px"&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="align-self-baseline p-2 border-highlight"&gt;Aligned flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="d-flex border-highlight" style="height: 100px"&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="align-self-stretch p-2 border-highlight"&gt;Aligned flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <p><code>align-self</code> 的响应式属性规范：</p>
+          <ul>
+            <li><code>.align-self-start</code></li>
+            <li><code>.align-self-end</code></li>
+            <li><code>.align-self-center</code></li>
+            <li><code>.align-self-baseline</code></li>
+            <li><code>.align-self-stretch</code></li>
+            <li><code>.align-self-sm-start</code></li>
+            <li><code>.align-self-sm-end</code></li>
+            <li><code>.align-self-sm-center</code></li>
+            <li><code>.align-self-sm-baseline</code></li>
+            <li><code>.align-self-sm-stretch</code></li>
+            <li><code>.align-self-md-start</code></li>
+            <li><code>.align-self-md-end</code></li>
+            <li><code>.align-self-md-center</code></li>
+            <li><code>.align-self-md-baseline</code></li>
+            <li><code>.align-self-md-stretch</code></li>
+            <li><code>.align-self-lg-start</code></li>
+            <li><code>.align-self-lg-end</code></li>
+            <li><code>.align-self-lg-center</code></li>
+            <li><code>.align-self-lg-baseline</code></li>
+            <li><code>.align-self-lg-stretch</code></li>
+            <li><code>.align-self-xl-start</code></li>
+            <li><code>.align-self-xl-end</code></li>
+            <li><code>.align-self-xl-center</code></li>
+            <li><code>.align-self-xl-baseline</code></li>
+            <li><code>.align-self-xl-stretch</code></li>
+          </ul>
+          <h6>填充</h6>
+          <p>对一系列同级元素使用 <code>.flex-fill</code> 类，在占用所有可用水平空间的同时，将它们强制设置为与其内容相等的宽度（如果其内容不超过边框，则为相等的宽度）。</p>
+          <div class="border-example">
+            <div class="d-flex border-highlight">
+              <div class="p-2 flex-fill border-highlight">Flex item with a lot of content</div>
+              <div class="p-2 flex-fill border-highlight">Flex item</div>
+              <div class="p-2 flex-fill border-highlight">Flex item</div>
+            </div>
+          </div>
+          <pre>&lt;div class="d-flex border-highlight"&gt;
+  &lt;div class="p-2 flex-fill border-highlight"&gt;Flex item with a lot of content&lt;/div&gt;
+  &lt;div class="p-2 flex-fill border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 flex-fill border-highlight"&gt;Flex item&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <p><code>flex-fill</code> 也存在响应性变化。</p>
+          <ul>
+            <li><code>.flex-fill</code></li>
+            <li><code>.flex-sm-fill</code></li>
+            <li><code>.flex-md-fill</code></li>
+            <li><code>.flex-lg-fill</code></li>
+            <li><code>.flex-xl-fill</code></li>
+          </ul>
+          <h6>扩大和收缩</h6>
+          <p>使用 <code>.flex-grow-*</code> 实用程序切换flex项的增长能力以填充可用空间。在下面的示例中，<code>.flex-grow-1</code> 元素使用了它所能使用的所有可用空间，同时允许其余两个flex项使用它们所需的空间。</p>
+          <div class="border-example">
+            <div class="d-flex border-highlight">
+              <div class="p-2 flex-grow-1 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Third flex item</div>
+            </div>
+          </div>
+          <pre>&lt;div class="d-flex border-highlight"&gt;
+  &lt;div class="p-2 flex-grow-1 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Third flex item&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <p>使用 <code>.flex-shrink-*</code> 实用程序在必要时切换flex项的收缩能力。在下面的示例中，使用 <code>.flex-shrink-1</code> 的第二个flex项被强制将其内容包装到一个新行，“收缩”以允许使用 <code>.w-100</code> 的前一个flex项有更多空间。</p>
+          <div class="border-example">
+            <div class="d-flex border-highlight">
+              <div class="p-2 w-100 border-highlight">Flex item</div>
+              <div class="p-2 flex-shrink-1 border-highlight">Flex item</div>
+            </div>
+          </div>
+          <pre>&lt;div class="d-flex border-highlight"&gt;
+  &lt;div class="p-2 w-100 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 flex-shrink-1 border-highlight"&gt;Flex item&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <p><code>flex-grow</code> 和 <code>flex-shrink</code> 也存在响应性变化。</p>
+          <ul>
+            <li><code>.flex-{grow|shrink}-0</code></li>
+            <li><code>.flex-{grow|shrink}-1</code></li>
+            <li><code>.flex-sm-{grow|shrink}-0</code></li>
+            <li><code>.flex-sm-{grow|shrink}-1</code></li>
+            <li><code>.flex-md-{grow|shrink}-0</code></li>
+            <li><code>.flex-md-{grow|shrink}-1</code></li>
+            <li><code>.flex-lg-{grow|shrink}-0</code></li>
+            <li><code>.flex-lg-{grow|shrink}-1</code></li>
+            <li><code>.flex-xl-{grow|shrink}-0</code></li>
+            <li><code>.flex-xl-{grow|shrink}-1</code></li>
+          </ul>
+          <h6>自浮动</h6>
+          <p>当你将flex对齐与auto margin混在一起的时候，flexbox也能正常运行。以下是通过自动manrgin来控制flex项目的三种示例，分别是预设（无margin）、向右推两个项目(<code>.mr-auto</code>)、向左推两个项目 (<code>.ml-auto</code>)：</p>
+          <div class="callout callout-danger">
+            <strong>不幸的是，IE10和IE11不能正确支持在父层具有非默认的 <code>justify-content</code> 值自边距浮动auto margin</strong> ，<a href="https://stackoverflow.com/a/37535548" target="_blank">可查阅 StackOverflow对此现象的解答</a> 了解更多细节。
+          </div>
+          <div class="border-example">
+            <div class="d-flex border-highlight mb-3">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+            <div class="d-flex border-highlight mb-3">
+              <div class="mr-auto p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+            <div class="d-flex border-highlight mb-3">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="ml-auto p-2 border-highlight">Flex item</div>
+            </div>
+          </div>
+          <pre>&lt;div class="d-flex border-highlight mb-3"&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="d-flex border-highlight mb-3"&gt;
+  &lt;div class="mr-auto p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="d-flex border-highlight mb-3"&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="ml-auto p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <h6>结合align-items</h6>
+          <p>结合 <code>align-items</code>、 <code>flex-direction: column</code>、 <code>margin-top: auto</code> 或 <code>margin-bottom: auto</code>，可以垂直移动一个flex子容器到顶部或底部。</p>
+          <div class="border-example">
+            <div class="d-flex align-items-start flex-column border-highlight mb-3" style="height: 200px;">
+              <div class="mb-auto p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+            
+            <div class="d-flex align-items-end flex-column border-highlight mb-3" style="height: 200px;">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="mt-auto p-2 border-highlight">Flex item</div>
+            </div>
+          </div>
+          <pre>&lt;div class="d-flex align-items-start flex-column border-highlight mb-3" style="height: 200px;"&gt;
+  &lt;div class="mb-auto p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="d-flex align-items-end flex-column border-highlight mb-3" style="height: 200px;"&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+  &lt;div class="mt-auto p-2 border-highlight"&gt;Flex item&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <h6>包裹</h6>
+          <p>改变flex项目在flex容器中的包裹方式（可以实现弹性布局），其中包括无包裹 <code>.flex-nowrap</code>（浏览器默认）、包裹 <code>.flex-wrap</code>,，或者反向包裹 <code>.flex-wrap-reverse</code>。</p>
+          <div class="border-example">
+            <div class="d-flex flex-nowrap border-highlight" style="width: 8rem;">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+          </div>
+          <pre>&lt;div class="d-flex flex-nowrap border-highlight" style="width: 8rem;"&gt;
+  ...
+&lt;/div&gt;</pre>
+          <div class="border-example">
+            <div class="d-flex flex-wrap border-highlight">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+          </div>
+          <pre>&lt;div class="d-flex flex-wrap border-highlight"&gt;
+  ...
+&lt;/div&gt;</pre>
+          <div class="border-example">
+            <div class="d-flex flex-wrap-reverse border-highlight">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+          </div>
+          <pre>&lt;div class="d-flex flex-wrap-reverse border-highlight"&gt;
+  ...
+&lt;/div&gt;</pre>
+          <p><code>flex-wrap</code> 的响应式规范：</p>
+          <ul>
+            <li><code>.flex-nowrap</code></li>
+            <li><code>.flex-wrap</code></li>
+            <li><code>.flex-wrap-reverse</code></li>
+            <li><code>.flex-sm-nowrap</code></li>
+            <li><code>.flex-sm-wrap</code></li>
+            <li><code>.flex-sm-wrap-reverse</code></li>
+            <li><code>.flex-md-nowrap</code></li>
+            <li><code>.flex-md-wrap</code></li>
+            <li><code>.flex-md-wrap-reverse</code></li>
+            <li><code>.flex-lg-nowrap</code></li>
+            <li><code>.flex-lg-wrap</code></li>
+            <li><code>.flex-lg-wrap-reverse</code></li>
+            <li><code>.flex-xl-nowrap</code></li>
+            <li><code>.flex-xl-wrap</code></li>
+            <li><code>.flex-xl-wrap-reverse</code></li>
+          </ul>
+          <h6>排序</h6>
+          <p>使用一些 <code>order</code> 实用程序更改特定flex项的可视顺序。我们只提供了使一个项成为第一个或最后一个项的选项，以及使用DOM顺序的重置选项。当 <code>order</code> 接受任何整数值（例如5），因此对于需要的任何额外值需要自定义CSS。</p>
+          <div class="border-example">
+            <div class="d-flex flex-nowrap border-highlight">
+              <div class="order-3 p-2 border-highlight">First flex item</div>
+              <div class="order-2 p-2 border-highlight">Second flex item</div>
+              <div class="order-1 p-2 border-highlight">Third flex item</div>
+            </div>
+          </div>
+          <pre>&lt;div class="d-flex flex-nowrap border-highlight"&gt;
+  &lt;div class="order-3 p-2 border-highlight"&gt;First flex item&lt;/div&gt;
+  &lt;div class="order-2 p-2 border-highlight"&gt;Second flex item&lt;/div&gt;
+  &lt;div class="order-1 p-2 border-highlight"&gt;Third flex item&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <p><code>order</code> 也存在响应变化。</p>
+          <ul>
+            <li><code>.order-0</code></li>
+            <li><code>.order-1</code></li>
+            <li><code>.order-2</code></li>
+            <li><code>.order-3</code></li>
+            <li><code>.order-4</code></li>
+            <li><code>.order-5</code></li>
+            <li><code>.order-6</code></li>
+            <li><code>.order-7</code></li>
+            <li><code>.order-8</code></li>
+            <li><code>.order-9</code></li>
+            <li><code>.order-10</code></li>
+            <li><code>.order-11</code></li>
+            <li><code>.order-12</code></li>
+            <li><code>.order-sm-0</code></li>
+            <li><code>.order-sm-1</code></li>
+            <li><code>.order-sm-2</code></li>
+            <li><code>.order-sm-3</code></li>
+            <li><code>.order-sm-4</code></li>
+            <li><code>.order-sm-5</code></li>
+            <li><code>.order-sm-6</code></li>
+            <li><code>.order-sm-7</code></li>
+            <li><code>.order-sm-8</code></li>
+            <li><code>.order-sm-9</code></li>
+            <li><code>.order-sm-10</code></li>
+            <li><code>.order-sm-11</code></li>
+            <li><code>.order-sm-12</code></li>
+            <li><code>.order-md-0</code></li>
+            <li><code>.order-md-1</code></li>
+            <li><code>.order-md-2</code></li>
+            <li><code>.order-md-3</code></li>
+            <li><code>.order-md-4</code></li>
+            <li><code>.order-md-5</code></li>
+            <li><code>.order-md-6</code></li>
+            <li><code>.order-md-7</code></li>
+            <li><code>.order-md-8</code></li>
+            <li><code>.order-md-9</code></li>
+            <li><code>.order-md-10</code></li>
+            <li><code>.order-md-11</code></li>
+            <li><code>.order-md-12</code></li>
+            <li><code>.order-lg-0</code></li>
+            <li><code>.order-lg-1</code></li>
+            <li><code>.order-lg-2</code></li>
+            <li><code>.order-lg-3</code></li>
+            <li><code>.order-lg-4</code></li>
+            <li><code>.order-lg-5</code></li>
+            <li><code>.order-lg-6</code></li>
+            <li><code>.order-lg-7</code></li>
+            <li><code>.order-lg-8</code></li>
+            <li><code>.order-lg-9</code></li>
+            <li><code>.order-lg-10</code></li>
+            <li><code>.order-lg-11</code></li>
+            <li><code>.order-lg-12</code></li>
+            <li><code>.order-xl-0</code></li>
+            <li><code>.order-xl-1</code></li>
+            <li><code>.order-xl-2</code></li>
+            <li><code>.order-xl-3</code></li>
+            <li><code>.order-xl-4</code></li>
+            <li><code>.order-xl-5</code></li>
+            <li><code>.order-xl-6</code></li>
+            <li><code>.order-xl-7</code></li>
+            <li><code>.order-xl-8</code></li>
+            <li><code>.order-xl-9</code></li>
+            <li><code>.order-xl-10</code></li>
+            <li><code>.order-xl-11</code></li>
+            <li><code>.order-xl-12</code></li>
+          </ul>
+          <h6>内容对齐</h6>
+          <p>使用flexbox容器上的 <code>align-content</code> 通用样式定义，可以将flex物价于横轴上 <em>一起对齐</em>，可选方向有 <code>start</code> (浏览器默认值)、 <code>end</code>、 <code>center</code>、 <code>between</code>、 <code>around</code>、 <code>stretch</code>。为了展现这些效果，下面实例我们已经实施了<code>flex-wrap: wrap</code>定义并增加了很多子项目的数量，如下所示：</p>
+          <div class="callout callout-info">此属性对于单行的Flex项目没有影响。</div>
+          <div class="border-example">
+            <div class="d-flex align-content-start flex-wrap border-highlight mb-3" style="height: 200px">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+          </div>
+          <pre>&lt;div class="d-flex align-content-start flex-wrap"&gt;...&lt;/div&gt;</pre>
+          <div class="border-example">
+            <div class="d-flex align-content-end flex-wrap border-highlight mb-3" style="height: 200px">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+          </div>
+          <pre>&lt;div class="d-flex align-content-end flex-wrap"&gt;...&lt;/div&gt;</pre>
+          <div class="border-example">
+            <div class="d-flex align-content-center flex-wrap border-highlight mb-3" style="height: 200px">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+          </div>
+          <pre>&lt;div class="d-flex align-content-center flex-wrap"&gt;...&lt;/div&gt;</pre>
+          <div class="border-example">
+            <div class="d-flex align-content-between flex-wrap border-highlight mb-3" style="height: 200px">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+          </div>
+          <pre>&lt;div class="d-flex align-content-between flex-wrap"&gt;...&lt;/div&gt;</pre>
+          <div class="border-example">
+            <div class="d-flex align-content-around flex-wrap border-highlight mb-3" style="height: 200px">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+          </div>
+          <pre>&lt;div class="d-flex align-content-around flex-wrap"&gt;...&lt;/div&gt;</pre>
+          <div class="border-example">
+            <div class="d-flex align-content-stretch flex-wrap border-highlight mb-3" style="height: 200px">
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+              <div class="p-2 border-highlight">Flex item</div>
+            </div>
+          </div>
+          <pre>&lt;div class="d-flex align-content-stretch flex-wrap"&gt;...&lt;/div&gt;</pre>
+          <p><code>align-content</code> 也存在响应变化。</p>
+          <ul>
+            <li><code>.align-content-start</code></li>
+            <li><code>.align-content-end</code></li>
+            <li><code>.align-content-center</code></li>
+            <li><code>.align-content-around</code></li>
+            <li><code>.align-content-stretch</code></li>
+            <li><code>.align-content-sm-start</code></li>
+            <li><code>.align-content-sm-end</code></li>
+            <li><code>.align-content-sm-center</code></li>
+            <li><code>.align-content-sm-around</code></li>
+            <li><code>.align-content-sm-stretch</code></li>
+            <li><code>.align-content-md-start</code></li>
+            <li><code>.align-content-md-end</code></li>
+            <li><code>.align-content-md-center</code></li>
+            <li><code>.align-content-md-around</code></li>
+            <li><code>.align-content-md-stretch</code></li>
+            <li><code>.align-content-lg-start</code></li>
+            <li><code>.align-content-lg-end</code></li>
+            <li><code>.align-content-lg-center</code></li>
+            <li><code>.align-content-lg-around</code></li>
+            <li><code>.align-content-lg-stretch</code></li>
+            <li><code>.align-content-xl-start</code></li>
+            <li><code>.align-content-xl-end</code></li>
+            <li><code>.align-content-xl-center</code></li>
+            <li><code>.align-content-xl-around</code></li>
+            <li><code>.align-content-xl-stretch</code></li>
+          </ul>
+          
+        </div>
+      </div>
+    </div>
+        
+  </div>
+  
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/main.min.js"></script>
+</body>
+</html>

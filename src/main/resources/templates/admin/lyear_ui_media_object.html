@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>媒体对象 - 光年(Light Year Admin V4)后台管理系统模板</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+<meta name="keywords" content="LightYear,LightYearAdmin,光年,后台模板,后台管理系统,光年HTML模板">
+<meta name="description" content="Light Year Admin V4是一个后台管理系统的HTML模板，基于Bootstrap v4.4.1。">
+<meta name="author" content="yinqi">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/materialdesignicons.min.css" rel="stylesheet">
+<link href="css/style.min.css" rel="stylesheet">
+</head>
+  
+<body>
+<div class="container-fluid p-t-15">
+  
+  <div class="row">
+    
+    <div class="col-lg-12">
+      <div class="card">
+        <header class="card-header"><div class="card-title">媒体对象</div></header>
+        <div class="card-body">
+          
+          <p>媒体对象用于构建复杂、重复的内容列表，左边是一个图、右边是内容且不能转着图、形成两列。由于采用了flexbox流式布局，我们只要两个Class类就能达成。</p>
+          <p>以下是一个媒体对象的示例，只需要两个Class选择器，分别引用 <code>.media</code> 和 <code>.media-body</code> 来装载的内容，就可以实现页面设计目标、形成布局、间距并控制可选的填充和边距。</p>
+          <div class="media">
+            <img class="mr-3" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_171f8812964%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_171f8812964%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213%22%20y%3D%2236.8%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 64px; height: 64px;">
+            <div class="media-body">
+              <h5 class="mt-0">龙川略志</h5>
+              一部笔记体小品文集，记述了当时社会、政治、人物、风物等许多掌故和轶闻。
+            </div>
+          </div>
+          <hr/>
+          <h6 class="mt-3">嵌套</h6>
+          <p>媒体对象可以无限嵌套，但我们建议您在某个点停止。将嵌套的 <code>.media</code> 放在父媒体对象的 <code>.media body</code> 中。</p>
+          <div class="media">
+            <img class="mr-3" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_171f8812967%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_171f8812967%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213%22%20y%3D%2236.8%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 64px; height: 64px;">
+            <div class="media-body">
+              <h5 class="mt-0">齐民要术</h5>
+              是北朝北魏时期，南朝宋至梁时期，中国杰出农学家贾思勰所著的一部综合性农学著作，也是世界农学史上最早的专著之一，是中国现存最早的一部完整的农书。
+          
+              <div class="media mt-3">
+                <a class="pr-3" href="#">
+                  <img data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_171f8812969%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_171f8812969%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213%22%20y%3D%2236.8%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 64px; height: 64px;">
+                </a>
+                <div class="media-body">
+                  <h5 class="mt-0">鸿猷录</h5>
+                  书中记朱元璋起义至嘉靖朝兵事，对明初统一战争及正统、成化、正德年间明军的主要战事，都有所记述。
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr/>
+          <h6 class="mt-3">对齐</h6>
+          <p>媒体对象中的媒体可以与flexbox流式布局一样，实现对齐到顶部、中间、底部，自由便利，只要在 <code>.media-body</code> 的父级加上 <code>align-self-start</code> 等属性。</p>
+          <div class="media">
+            <img class="align-self-start mr-3" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_171f881296c%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_171f881296c%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213%22%20y%3D%2236.8%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 64px; height: 64px;">
+            <div class="media-body">
+              <h5 class="mt-0">三刻拍案惊奇</h5>
+              <p>《三刻拍案惊奇》原名《峥霄馆评定通俗演义型世言》，钱塘陆人龙编撰，陆云龙评点，崇祯五年峥霄馆书坊刊行，八卷四十回，为拟话本小说。</p>
+              <p class="mb-0">《型世言》一书，流传稀少，大概问世十年后，已难见该书。崇祯十六年前后，江南书贾将其改纂，照原书版式翻刻了其中三十回，为每回新拟了 回目，将书名改为《三刻》，作者亦改署梦觉道人、西湖浪子。</p>
+            </div>
+          </div>
+          <hr>
+          <div class="media">
+            <img class="align-self-center mr-3" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_171f881296f%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_171f881296f%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213%22%20y%3D%2236.8%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 64px; height: 64px;">
+            <div class="media-body">
+              <h5 class="mt-0">东京梦华录</h5>
+              <p>《东京梦华录》是宋代孟元老的笔记体散记文，创作于宋钦宗靖康二年（1127年），是一本追述北宋都城东京开封府城市风俗人情的著作。</p>
+              <p class="mb-0">所记大多是宋徽宗崇宁到宣和（1102-1125）年间北宋都城东京开封的情况，描绘了这一历史时期居住在东京的上至王公贵族、下及庶民百姓的日常生活情景，是研究北宋都市社会生活、经济文化的一部极其重要的历史文献古籍。</p>
+            </div>
+          </div>
+          <hr>
+          <div class="media">
+            <img class="align-self-end mr-3" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_171f8812971%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_171f8812971%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213%22%20y%3D%2236.8%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 64px; height: 64px;">
+            <div class="media-body">
+              <h5 class="mt-0">鹤林玉露</h5>
+              <p>《鹤林玉露》是宋代罗大经创作的一部文言轶事小说。</p>
+              <p class="mb-0">此书分甲、乙、丙三编，共18卷。半数以上评述前代及宋代诗文，记述宋代文人轶事，有文学史料价值。如乙卷四《诗祸》一则，记宋理宗宝庆、绍定间江湖诗案一事，有助于对江湖诗派的了解；卷三《东坡文》一则，论苏轼文章深受《庄子》、《战国策》影响，因为作者善文，其议论自具眼力；卷五《二老相访》一则，记杨万里与周必大晚年的亲密交往，可与史书所记二人不甚相合对比研究。有中华书局1983年点校本。又有16卷本(如明刊《稗海》本）。</p>
+            </div>
+          </div>
+          <hr>
+          <h6>排序</h6>
+          <p>通过修改HTML本身或通过添加一些自定义flexbox CSS来设置 <code>order</code> 属性（以您选择的整数）来更改媒体对象中内容的顺序。</p>
+          <div class="media">
+            <div class="media-body">
+              <h5 class="mt-0 mb-1">上古神话演义</h5>
+              本书非常详细的介绍了中国古代的神话故事，如：盘古开天、女娲造人、共工触天、精卫填海、后羿射日、大禹治水、夸父追日、蚩尤之战等传说......这部书，演说上古史的神话，原想专说夏禹王治水一段故事。但是既然叫 史，必定有一个来源，要说明这个来源，不能不从开天辟地说起。天何以要开， 地何地要辟呢？原来我们所住的地球，亦和我们人类一样，有生有死。不过地球 的死，不必一定是地球整体的毁坏，只要是住在地球上的生物统统死了，那便是 地球死了。这样大一个地球，哪个能够弄它死？当然是阴神一派的魔力。
+            </div>
+            <img class="ml-3" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_171f8812972%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_171f8812972%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213%22%20y%3D%2236.8%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 64px; height: 64px;">
+          </div>
+          <hr>
+          <h6>列表呈现</h6>
+          <ul class="list-unstyled">
+            <li class="media">
+              <img class="mr-3" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_171f8812975%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_171f8812975%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213%22%20y%3D%2236.8%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 64px; height: 64px;">
+              <div class="media-body">
+                <h5 class="mt-0 mb-1">三宝太监西洋记</h5>
+                作者将明代永乐年间郑和七次奉使“西洋”的史实敷衍描绘成神魔小说，希望藉此激励明代君臣勇于抗击倭寇，重振国威。
+              </div>
+            </li>
+            <li class="media my-4">
+              <img class="mr-3" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_171f8812978%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_171f8812978%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213%22%20y%3D%2236.8%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 64px; height: 64px;">
+              <div class="media-body">
+                <h5 class="mt-0 mb-1">南北史演义</h5>
+                该书叙述了南北朝一百七十年间由分裂到对峙统一的史实，观点平实，内容丰富，论述有法，用语雅洁，自评自注，理趣兼备，洵为通俗史著的经典。
+              </div>
+            </li>
+            <li class="media">
+              <img class="mr-3" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_171f881297a%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_171f881297a%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213%22%20y%3D%2236.8%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 64px; height: 64px;">
+              <div class="media-body">
+                <h5 class="mt-0 mb-1">说岳全传</h5>
+                《说岳全传》是清代钱彩编次、金丰增订的长篇英雄传奇小说，最早刊本为金氏余庆堂刻本，共20卷80回。前61回是岳飞的“英雄谱”和“创业史”；后19回，主要讲述岳飞死后，岳雷扫北的故事。歌颂了岳飞等将士英勇作战、精忠报国的忠勇行为，鞭笞了秦桧等人卖国求荣、陷害忠良的丑恶罪行。
+              </div>
+            </li>
+          </ul>
+          
+        </div>
+      </div>
+    </div>
+        
+  </div>
+  
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/main.min.js"></script>
+</body>
+</html>

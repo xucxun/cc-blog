@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>工具提示 - 光年(Light Year Admin V4)后台管理系统模板</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+<meta name="keywords" content="LightYear,LightYearAdmin,光年,后台模板,后台管理系统,光年HTML模板">
+<meta name="description" content="Light Year Admin V4是一个后台管理系统的HTML模板，基于Bootstrap v4.4.1。">
+<meta name="author" content="yinqi">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/materialdesignicons.min.css" rel="stylesheet">
+<link href="css/style.min.css" rel="stylesheet">
+</head>
+  
+<body>
+<div class="container-fluid p-t-15">
+  
+  <div class="row">
+    
+    <div class="col-lg-12">
+      <div class="card">
+        <header class="card-header"><div class="card-title">工具提示</div></header>
+        <div class="card-body">
+          
+          <p>使用工具提示插件时应了解以下：</p>
+          <ul>
+            <li>Tooltip提示组件依赖于 <a href="https://popper.js.org/" target="_blank">Popper.js</a> ，你必须将<a href="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" target="_blank">popper.min.js</a> 文件放在 bootstrap.js之前调用，或者使用 <code>bootstrap.bundle.min.js</code> / <code>bootstrap.bundle.js</code> 这两个已经包含了 Popper.js 的脚本。</li>
+            <li>如果自行编译JS，请包含 <code>util.js</code> 文件。</li>
+            <li>出于性能安排，Tooltip提示是一个可选插件，所以 <strong>你必须自己初始化它们</strong>。</li>
+            <li>标题（或内容）零长度情况下，Tooltip提示插件不会显示（生效）。</li>
+            <li>指定 <code>container: 'body'</code> 以避免复杂组年（如输入框组、按钮组等）中渲染呈出混乱（出问题）。</li>
+            <li>在隐藏元素上触发Tooltip提示插件不会起作用（无效行为）。</li>
+            <li> Tooltip提示插件的<code>.disabled</code> 或 <code>disabled</code> 元素必须放在外层（父层）元素上。</li>
+            <li>如果从一个跨多行的链接上触发Tooltip提示插件，提示将居中，在你的<code>&lt;a&gt;</code>上使用<code>white-space: nowrap;</code> 可避免这种行为（即回归左右对齐）。</li>
+            <li>必须先隐藏Tooltip提示插件，然后才能从DOM中删除相应的元素。</li>
+          </ul>
+          <p>在网页上初始化所有的tooltip提示插件一个途径就是用 <code>data-toggle</code> 来选择它们：</p>
+          <pre>$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})</pre>
+          <h6 class="mt-3">示例</h6>
+          <p>《儿女英雄传》原名《金玉缘》，清代<a href="#!" data-toggle="tooltip" data-original-title="姓费莫氏，字铁仙。">文康</a>作。后经人弥补缺失，改名为《儿女英雄传》。</p>
+          <p>《儿女英雄传》描写的是清朝副将<a href="#!" data-toggle="tooltip" title="" data-original-title="默认提示">何杞</a>被纪献唐陷害，死于狱中，其女何玉凤改名十三妹，出入江湖，立志为父报仇。淮阴县令安学海获罪，其子安骥筹银千两前去营救。安骥和民女张金凤遇险于能仁寺，幸亏玉凤及时相救，始免于难。事后，玉凤做媒，将张金凤许配给安骥，并解囊赠金、借弓退寇，使安骥一行人平安到达淮阴。后来纪献唐为朝廷所杀，玉凤见仇已报，打算出家，为人劝阻，也嫁给安骥。金凤、玉凤相处亲如姊妹。这就是它初名<a href="#!" data-toggle="tooltip" data-original-title="又名《日下新书》">《金玉缘》</a>的原因。</p>
+          <h6 class="mt-3">互动演示</h6>
+          <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on 顶部">
+            Tooltip on 顶部
+          </button>
+          <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Tooltip on 右侧">
+            Tooltip on 右侧
+          </button>
+          <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on 底部">
+            Tooltip on 底部
+          </button>
+          <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="Tooltip on 左侧">
+            Tooltip on 左侧
+          </button>
+          <p class="mt-3">而且支持自定义HTML</p>
+          <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-html="true" title="<em>Tooltip</em> <u>with</u> <b>HTML</b>">
+            使用HTML标签的Tooltip
+          </button>
+          
+        </div>
+      </div>
+    </div>
+        
+  </div>
+  
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/main.min.js"></script>
+</body>
+</html>

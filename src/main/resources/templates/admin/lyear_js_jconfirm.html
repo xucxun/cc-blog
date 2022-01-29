@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>对话框 - 光年(Light Year Admin V4)后台管理系统模板</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+<meta name="keywords" content="LightYear,LightYearAdmin,光年,后台模板,后台管理系统,光年HTML模板">
+<meta name="description" content="Light Year Admin V4是一个后台管理系统的HTML模板，基于Bootstrap v4.4.1。">
+<meta name="author" content="yinqi">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/materialdesignicons.min.css" rel="stylesheet">
+<link href="js/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
+<link href="css/style.min.css" rel="stylesheet">
+</head>
+  
+<body>
+<div class="container-fluid p-t-15">
+  
+  <div class="row">
+    
+    <div class="col-lg-12">
+      <div class="card">
+        <header class="card-header"><div class="card-title">对话框</div></header>
+        <div class="card-body">
+          
+          <p>插件使用用jquery-confirm v3.3.4，文档地址：<a href="https://www.jquery-confirm.cn/" target="_blank">https://www.jquery-confirm.cn/</a></p>
+          <div class="row">
+            <div class="col-md-3">
+              <p>优雅的警报。</p>
+              <button class="btn btn-primary btn-block example-p-1">提示</button>
+            </div>
+            <div class="col-md-3">
+              <p>堆叠确认</p>
+              <button class="btn btn-primary btn-block example-p-2">确认</button>
+            </div>
+            <div class="col-md-3">
+              <p>成功，错误，警告</p>
+              <button class="btn btn-primary btn-block example-p-70-type">Alert 类型</button>
+            </div>
+            <div class="col-md-3">
+              <p>需要输入吗？</p>
+              <button class="btn btn-primary btn-block example-p-7-1">提示</button>
+            </div>
+          </div>
+          
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <p>它也是一个对话框。</p>
+              <button class="btn btn-primary btn-block example-p-4">对话框</button>
+            </div>
+            <div class="col-md-3">
+              <p>不太重要的model</p>
+              <button class="btn btn-primary btn-block example-p-3">背景消除</button>
+            </div>
+            <div class="col-md-3">
+              <p>异部加载</p>
+              <button class="btn btn-primary btn-block example-p-5">异部加载</button>
+            </div>
+            <div class="col-md-3">
+              <p>一些动作可能很关键</p>
+              <button class="btn btn-primary btn-block example-p-6">自动关闭</button>
+            </div>
+          </div>
+          
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <p>响应按键</p>
+              <button class="btn btn-primary btn-block example-p-7">Keystrokes</button>
+            </div>
+            <div class="col-md-3">
+              <p>自动居中</p>
+              <button class="btn btn-primary btn-block example-pc-1">Alignment</button>
+            </div>
+            <div class="col-md-3">
+              <p>正在载入图片</p>
+              <button class="btn btn-primary btn-block example-pc-2">Images</button>
+            </div>
+            <div class="col-md-3">
+              <p>干净的动画</p>
+              <button class="btn btn-primary btn-block example-pc-3">Animations</button>
+            </div>
+          </div>
+          
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <p>可拖动的</p>
+              <button class="btn btn-primary btn-block example-p-7-2">Draggable</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
+</div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery-confirm/jquery-confirm.min.js"></script>
+<script type="text/javascript" src="js/main.min.js"></script>
+<script type="text/javascript">
+$('.example-p-1').on('click',
+function() {
+    $.alert({
+        title: '警告框',
+        content: '它一次可以顺利地做多次确认。<br>单击“确认”或“取消”以获取另一个模式',
+        icon: 'mdi mdi-rocket',
+        animation: 'scale',
+        closeAnimation: 'scale',
+        buttons: {
+            okay: {
+                text: '确认',
+                btnClass: 'btn-blue'
+            }
+        }
+    });
+});
+$('.example-p-2').on('click', function() {
+    $.confirm({
+        title: '安全的行动',
+        content: '笑江湖浪迹十年游，空负少年头。对铜驼巷陌，吟情渺渺，心事悠悠！酒冷诗残梦断，南国正清秋。',
+        icon: 'mdi mdi-comment-question',
+        animation: 'scale',
+        closeAnimation: 'scale',
+        opacity: 0.5,
+        buttons: {
+            'confirm': {
+                text: '继续',
+                btnClass: 'btn-blue',
+                action: function() {
+                    $.confirm({
+                        title: '这也许很关键',
+                        content: '关键行动可以有多个这样的确认。',
+                        icon: 'mdi mdi-alert',
+                        animation: 'scale',
+                        closeAnimation: 'zoom',
+                        buttons: {
+                            confirm: {
+                                text: '是的，当然！',
+                                btnClass: 'btn-orange',
+                                action: function() {
+                                    $.alert('一个非常关键的动作被 <strong>触发了!</strong>');
+                                }
+                            },
+                            '取消': function() {
+                                $.alert('您点击了 <strong>取消</strong>');
+                            }
+                        }
+                    });
+                }
+            },
+            '取消': function() {
+                $.alert('您点击了 <strong>取消</strong>');
+            },
+            moreButtons: {
+                text: '其他',
+                action: function() {
+                    $.alert('您点击了 <strong>其他</strong>');
+                }
+            },
+        }
+    });
+});
+// 该效果因为div元素有overflow-x:hidden，输入框获取焦点后阴影效果不好看，所以在form-group上增加p-1
+$('.example-p-7-1').on('click', function() {
+    $.confirm({
+        title: '简单的形式',
+        //content: 'url:form.html',  // 也可以采用url形式
+        content: '<div class="form-group p-1 mb-0">' + 
+                 '  <label class="control-label">您的名字</label>' +
+                 '  <input autofocus="" type="text" id="input-name" placeholder="请输入您的名字" class="form-control">' +
+                 '</div>',
+        buttons: {
+            sayMyName: {
+                text: '我的名字',
+                btnClass: 'btn-orange',
+                action: function() {
+                    var input = this.$content.find('input#input-name');
+                    var errorText = this.$content.find('.text-danger');
+                    if (!$.trim(input.val())) {
+                        $.alert({
+                            content: "name 字段不能为空。",
+                            type: 'red'
+                        });
+                        return false;
+                    } else {
+                        $.alert('您好！ ' + input.val() + ', 希望你今天过得愉快！');
+                    }
+                }
+            },
+            '稍等': function() {}
+        }
+    });
+});
+$('.example-p-70-type').on('click', function() {
+    $.alert({
+        title: '错误提示',
+        icon: 'mdi mdi-alert',
+        type: 'orange',
+        content: '有问题，请稍后再试。' + '<hr>' + '更多类型：red、green、orange、blue、purple、dark',
+    });
+});
+$('.example-p-3').on('click', function() {
+    $.alert({
+        title: '背景消除',
+        content: '单击模态框外部以将其关闭。',
+        animation: 'scale',
+        closeAnimation: 'bottom',
+        backgroundDismiss: true,
+        buttons: {
+            okay: {
+                text: '确认',
+                btnClass: 'btn-blue',
+                action: function() {}
+            }
+        }
+    });
+});
+$('.example-p-4').on('click', function() {
+    $.dialog({
+        title: '冰魄寒光剑',
+        content: '如果只需要一个没有按钮的弹出窗口, <strong>没问题！</strong><br>' + '<h4>禁用所有按钮</h4>' + '<h5>然后你得到一个对话模态框</h5>' + '<h6>如果这里没有按钮，关闭图标就会显示出来 (你需要一些东西来关闭模态框。)</h6>' + '<button type="button" class="btn btn-success">单击我更改内容</button>',
+        animation: 'scale',
+        onOpen: function() {
+            var that = this;
+            this.$content.find('button').click(function() {
+                that.setContent('就这么简单！');
+            })
+        }
+    });
+});
+$('.example-p-5').on('click', function() {
+    $.dialog({
+        title: '异步内容',
+        content: 'url:README.md',
+        animation: 'scale',
+        columnClass: 'large',
+        closeAnimation: 'scale',
+        backgroundDismiss: true,
+    });
+});
+$('.example-p-6').on('click', function() {
+    $.confirm({
+        title: '自动关闭',
+        content: '有些动作可能很关键，用自动关闭来防止。计时器用完后，此对话框将自动触发取消。',
+        autoClose: 'cancelAction|10000',
+        escapeKey: 'cancelAction',
+        buttons: {
+            confirm: {
+                btnClass: 'btn-red',
+                text: '删除 Ben 的帐户',
+                action: function() {
+                    $.alert('你删除了 Ben 的帐户！');
+                }
+            },
+            cancelAction: {
+                text: '取消',
+                action: function() {
+                    $.alert('Ben 刚刚得救了！');
+                }
+            }
+        }
+    });
+});
+$('.example-p-7').on('click', function() {
+    $.confirm({
+        title: '按键',
+        escapeKey: true,
+        content: '按 退出键 关闭模态框。按 回车键 触发正常。按 shift或ctrl键 触发取消。',
+        backgroundDismiss: true,
+        buttons: {
+            okay: {
+                text: '确认',
+                keys: ['enter'],
+                action: function() {
+                    $.alert('<strong>确认按钮</strong> 被触发。');
+                }
+            },
+            cancel: {
+                text: '取消',
+                keys: ['ctrl', 'shift'],
+                action: function() {
+                    $.alert('<strong>取消按钮</strong> 被触发。');
+                }
+            }
+        },
+    });
+});
+$('.example-pc-1').on('click', function() {
+    $.confirm({
+        title: '优雅地居中对齐',
+        content: '<p>您可以添加内容，而不必担心对齐问题。我们的目标是制作一个交互式对话。</p>' + '<button type="button" class="btn btn-success">点击我增加更多内容</button><div id="contentArea"></div> ',
+        buttons: {
+            someButton: {
+                text: '增加内容',
+                btnClass: 'btn-green',
+                action: function() {
+                    this.$content.find('#contentArea').append('<br>难消受灯昏罗帐，怅昙花一现恨难休！飘零惯，金戈铁马，拼葬荒丘！');
+                    return false;
+                }
+            },
+            someOtherButton: {
+                text: '清除内容',
+                btnClass: 'btn-orange',
+                action: function() {
+                    this.$content.find('#contentArea').html('');
+                    return false;
+                }
+            },
+            '关闭': function() {}
+        },
+        onOpen: function() {
+            var that = this;
+            this.$content.find('button').click(function() {
+                that.$content.find('#contentArea').append('<br>这太棒了！！！！');
+            });
+        },
+    });
+});
+$('.example-pc-2').on('click', function() {
+    $.confirm({
+        title: '添加图片',
+        content: '<p>葫芦娃</p>' + '<img src="images/users/avatar-1.png">',
+        animation: 'scale',
+        animationClose: 'top',
+        buttons: {
+            confirm: {
+                text: '添加更多',
+                btnClass: 'btn-blue',
+                action: function() {
+                    this.$content.append('<img src="images/users/avatar-2.png">');
+                    return false;
+                }
+            },
+            '取消': function() {}
+        },
+    });
+});
+$(' .example-pc-3').on('click', function() {
+    $.alert({
+        title: '动画',
+        content: 'jquery confirm提供了许多开箱即用的打开和关闭动画。<br>最棒的是，你也可以添加自定义的。',
+        animation: 'scale',
+        closeAnimation: 'right',
+        buttons: {
+            '放大': function() {
+                this.setCloseAnimation('zoom');
+            },
+            '旋转': function() {
+                this.setCloseAnimation('rotate');
+            },
+            '缩小': function() {
+                this.setCloseAnimation('scale');
+            },
+            '向上': function() {
+                this.setCloseAnimation('top');
+            }
+        },
+        backgroundDismiss: function() {
+            return false;
+        },
+    });
+});
+$('.example-p-7-2').on('click', function() {
+    $.alert({
+        title: '可拖动的对话',
+        content: '此对话框是可拖动的，请使用标题将其拖动。它不会触碰屏幕边框。',
+        type: 'blue',
+        animation: 'scale',
+        draggable: true,
+    });
+})
+</script>
+</body>
+</html>

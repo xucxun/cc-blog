@@ -1,6 +1,8 @@
 package com.example.blog.service.impl;
 
+import com.example.blog.dao.LoginTicketMapper;
 import com.example.blog.dao.UserMapper;
+import com.example.blog.entity.LoginTicket;
 import com.example.blog.entity.User;
 import com.example.blog.service.UserService;
 import com.example.blog.util.BlogConstant;
@@ -30,8 +32,12 @@ public class UserServiceImpl implements UserService, BlogConstant{
     @Autowired
     private TemplateEngine templateEngine;
 
+    @Autowired
+    private LoginTicketMapper loginTicketMapper;
+
     @Value("${blog.path.domain}")
     private String domain;
+
 
 
     @Override
@@ -62,6 +68,10 @@ public class UserServiceImpl implements UserService, BlogConstant{
             map.put("passwordMsg", "密码不能为空！");
             return map;
         }
+        if (registerUser.getPassword().length() < 6) {
+            map.put("passwordMsg", "密码至少需要6位！");
+            return map;
+        }
         if(!registerUser.getPassword().equals(confirmPassword)){
             map.put("confirmPasswordMsg","两次输入的密码不一致！");
             return map;
@@ -80,7 +90,7 @@ public class UserServiceImpl implements UserService, BlogConstant{
         registerUser.setPassword(BlogUtil.md5(registerUser.getPassword() + registerUser.getSalt()));
         registerUser.setRole(0);    //0-普通用户;
         registerUser.setStatus(0);  //0-未激活;
-        registerUser.setActivationCode(BlogUtil.generateUUID());
+        registerUser.setActivationCode(BlogUtil.generateUUID());   //生成唯一验证码
         //获取牛客网随机图片作为用户默认头像
         registerUser.setAvatar(String.format("http://images.nowcoder.com/head/%dt.png", new Random().nextInt(1000)));
         registerUser.setCreateTime(new Date());
@@ -92,7 +102,7 @@ public class UserServiceImpl implements UserService, BlogConstant{
         //生成激活链接,用于激活用户状态
         String url = domain  + "/activation/" + registerUser.getId() + "/" +registerUser.getActivationCode();
         context.setVariable("url", url);
-        //使用模板引擎，利用thymeleaf，将context放到/mail/activation.html文件中，然后再发送给邮箱
+        //使用模板引擎配置邮箱内容发送给邮箱
         String content = templateEngine.process("/mail/activation", context);
         mailClient.sendMail(registerUser.getEmail(), "激活账号", content);
 
@@ -109,6 +119,70 @@ public class UserServiceImpl implements UserService, BlogConstant{
         } else {
             return ACTIVATION_FAILURE;
         }
+    }
+
+    @Override
+    public Map<String, Object> login(String account, String password, int expiredSeconds) {
+        Map<String, Object> map = new HashMap<>();
+
+        if (StringUtils.isBlank(account)){
+            map.put("accountMsg", "账号不能为空！");
+            return map;
+        }
+        if (StringUtils.isBlank(password)) {
+            map.put("passwordMsg", "密码不能为空！");
+            return map;
+        }
+
+        User user = userMapper.selectByAccount(account);
+        if (user == null) {
+            map.put("accountMsg", "该账号不存在！");
+            return map;
+        }
+
+        // 验证状态
+        if (user.getStatus() == 0) {
+            map.put("accountMsg", "该账号未激活！");
+            return map;
+        }
+
+        if (user.getStatus() == 2) {
+            map.put("accountMsg", "该账号已被拉黑！请联系管理员xucxun@qq.com！");
+            return map;
+        }
+        // 验证密码
+        password = BlogUtil.md5(password + user.getSalt());
+        if (!user.getPassword().equals(password)) {
+            map.put("passwordMsg", "密码不正确！");
+            return map;
+        }
+
+        // 生成登录凭证，即cookie
+        LoginTicket loginTicket = new LoginTicket();
+        loginTicket.setUserId(user.getId());
+        loginTicket.setTicket(BlogUtil.generateUUID());
+        loginTicket.setStatus(0);  //0-有效
+        //ms为单位，需要乘以1000L。需要转换为long型，否则会发生数据丢失
+        loginTicket.setExpired(new Date(System.currentTimeMillis() + expiredSeconds * 1000L));
+        loginTicketMapper.insertLoginTicket(loginTicket);
+
+        map.put("ticket", loginTicket.getTicket());
+        return map;
+    }
+
+    @Override
+    public void logout(String ticket) {
+        loginTicketMapper.updateStatus(ticket,1);
+    }
+
+    @Override
+    public int updateAvatar(int userId, String avatar) {
+        return userMapper.updateAvatar(userId, avatar);
+    }
+
+    public LoginTicket findLoginTicket(String ticket) {
+        return loginTicketMapper.selectByTicket(ticket);
+
     }
 
 

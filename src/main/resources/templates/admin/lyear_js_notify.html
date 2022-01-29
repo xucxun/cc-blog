@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>通知消息 - 光年(Light Year Admin V4)后台管理系统模板</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+<meta name="keywords" content="LightYear,LightYearAdmin,光年,后台模板,后台管理系统,光年HTML模板">
+<meta name="description" content="Light Year Admin V4是一个后台管理系统的HTML模板，基于Bootstrap v4.4.1。">
+<meta name="author" content="yinqi">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/materialdesignicons.min.css" rel="stylesheet">
+<link href="css/animate.min.css" rel="stylesheet">
+<link href="css/style.min.css" rel="stylesheet">
+</head>
+  
+<body>
+<div class="container-fluid p-t-15">
+  
+  <div class="row">
+    
+    <div class="col-lg-12">
+      <div class="card">
+        <header class="card-header"><div class="card-title">通知消息</div></header>
+        <div class="card-body">
+          
+          <p>插件使用用Bootstrap Notify 3.1.3，文档地址：<a href="http://bootstrap-notify.remabledesigns.com/" target="_blank">http://bootstrap-notify.remabledesigns.com/</a>，github地址：<a href="https://github.com/mouse0270/bootstrap-notify" target="_blank">https://github.com/mouse0270/bootstrap-notify</a>。</p>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>图标</label>
+                <input class="form-control" name="icon" id="icon" placeholder="请输入mdi字体图标类" value="mdi mdi-alert" />
+              </div>
+              <div class="form-group">
+                <label>标题</label>
+                <input class="form-control" name="title" id="title" placeholder="请输入标题" value="光年后台模板" />
+              </div>
+              <div class="form-group">
+                <label>消息内容</label>
+                <textarea class="form-control" name="message" id="message" placeholder="请输入消息内容">Light Year Admin V4是一个后台管理系统的HTML模板，基于Bootstrap v4.4.1。</textarea>
+              </div>
+              <div class="form-group">
+                <label>位置</label>
+                <div class="clearfix mb-1">
+                  <div class="custom-control custom-radio custom-control-inline">
+	                <input type="radio" id="positionRadio1" name="position" class="custom-control-input" value="top-left">
+	                <label class="custom-control-label" for="positionRadio1">左上角</label>
+	              </div>
+	              <div class="custom-control custom-radio custom-control-inline">
+	                <input type="radio" id="positionRadio2" name="position" class="custom-control-input" value="top-center">
+	                <label class="custom-control-label" for="positionRadio2">上中</label>
+	              </div>
+	              <div class="custom-control custom-radio custom-control-inline">
+	                <input type="radio" id="positionRadio3" name="position" class="custom-control-input" checked value="top-right">
+	                <label class="custom-control-label" for="positionRadio3">右上角</label>
+	              </div>
+                </div>
+                <div class="clearfix">
+	              <div class="custom-control custom-radio custom-control-inline">
+	                <input type="radio" id="positionRadio4" name="position" class="custom-control-input" value="bottom-left">
+	                <label class="custom-control-label" for="positionRadio4">左下角</label>
+	              </div>
+	              <div class="custom-control custom-radio custom-control-inline">
+	                <input type="radio" id="positionRadio5" name="position" class="custom-control-input" value="bottom-center">
+	                <label class="custom-control-label" for="positionRadio5">下中</label>
+	              </div>
+	              <div class="custom-control custom-radio custom-control-inline">
+	                <input type="radio" id="positionRadio6" name="position" class="custom-control-input" value="bottom-right">
+	                <label class="custom-control-label" for="positionRadio6">右下角</label>
+	              </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>消息类型</label>
+                <div class="clearfix">
+	              <div class="custom-control custom-radio custom-control-inline">
+	                <input type="radio" id="typeRadio1" name="type" class="custom-control-input" value="info" checked>
+	                <label class="custom-control-label" for="typeRadio1">信息</label>
+	              </div>
+	              <div class="custom-control custom-radio custom-control-inline">
+	                <input type="radio" id="typeRadio2" name="type" class="custom-control-input" value="success">
+	                <label class="custom-control-label" for="typeRadio2">成功</label>
+	              </div>
+	              <div class="custom-control custom-radio custom-control-inline">
+	                <input type="radio" id="typeRadio3" name="type" class="custom-control-input" value="warning">
+	                <label class="custom-control-label" for="typeRadio3">警告</label>
+	              </div>
+	              <div class="custom-control custom-radio custom-control-inline">
+	                <input type="radio" id="typeRadio4" name="type" class="custom-control-input" value="danger">
+	                <label class="custom-control-label" for="typeRadio4">错误</label>
+	              </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>关闭后回调</label>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="onClosedSwitch">
+                  <label class="custom-control-label" for="onClosedSwitch"></label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>允许关闭</label>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="dismissSwitch" value="1" checked>
+                  <label class="custom-control-label" for="dismissSwitch"></label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>悬停时暂停</label>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="hoverSwitch" value="1">
+                  <label class="custom-control-label" for="hoverSwitch"></label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>最新的居上</label>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="newestSwitch" value="1">
+                  <label class="custom-control-label" for="newestSwitch"></label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>URL</label>
+                <input class="form-control" name="url" id="url" placeholder="请输入需要跳转的URL地址" value="" />
+              </div>
+              <div class="form-group">
+                <label>URL打开方式</label>
+                <input class="form-control" name="target" id="target" placeholder="请输入URL打开方式" value="_blank" />
+              </div>
+              <div class="form-group">
+                <label>显示动画方法</label>
+                <input class="form-control" name="showMethod" id="showMethod" placeholder="请输入显示动画方法" value="animated fadeInDown" />
+              </div>
+              <div class="form-group">
+                <label>关闭动画方法</label>
+                <input class="form-control" name="hideMethod" id="hideMethod" placeholder="请输入关闭动画方法" value="animated fadeOutUp" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>间距</label>
+                <input class="form-control" name="spacing" id="spacing" placeholder="请输入间距大小" value="10" min="0" />
+              </div>
+              <div class="form-group">
+                <label>X轴偏移</label>
+                <input class="form-control" name="offsetxaxis" id="offsetxaxis" placeholder="请输入X轴偏移大小" value="20" min="0" />
+              </div>
+              <div class="form-group">
+                <label>Y轴偏移</label>
+                <input class="form-control" name="offsetyaxis" id="offsetyaxis" placeholder="请输入Y轴偏移大小" value="20" min="0" />
+              </div>
+              <div class="form-group">
+                <label>延迟</label>
+                <input class="form-control" name="delay" id="delay" placeholder="请输入间距大小" value="5000" min="0" />
+              </div>
+              <div class="form-group">
+                <label>z-index</label>
+                <input class="form-control" name="zindex" id="zindex" placeholder="请输入间距大小" value="1031" min="0" />
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group mb-0">
+                <button type="button" class="btn btn-primary" id="runExample">显示消息</button>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-lg-12">
+      <div class="card">
+        <header class="card-header"><div class="card-title">文档</div></header>
+        <div class="card-body">
+          
+          <p>插件有用到一些动画效果，请结合 <code>animate.min.css</code> 使用。</p>
+          <pre>$.notify({
+    // options
+    message: 'Hello World' 
+},{
+    // settings
+    type: 'danger'
+});</pre>
+          <p>所有可用的 Options/Settings</p>
+          <pre>$.notify({
+    // options
+    icon: 'glyphicon glyphicon-warning-sign',
+    title: 'Bootstrap notify',
+    message: 'Turning standard Bootstrap alerts into "notify" like notifications',
+    url: 'https://github.com/mouse0270/bootstrap-notify',
+    target: '_blank'
+},{
+    // settings
+    element: 'body',
+    position: null,
+    type: "info",
+    allow_dismiss: true,
+    newest_on_top: false,
+    showProgressbar: false,
+    placement: {
+    	from: "top",
+    	align: "right"
+    },
+    offset: 20,
+    spacing: 10,
+    z_index: 1031,
+    delay: 5000,
+    timer: 1000,
+    url_target: '_blank',
+    mouse_over: null,
+    animate: {
+    	enter: 'animated fadeInDown',
+    	exit: 'animated fadeOutUp'
+    },
+    onShow: null,
+    onShown: null,
+    onClose: null,
+    onClosed: null,
+    icon_type: 'class',
+    template: '&lt;div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert"&gt;' +
+    	'&lt;button type="button" aria-hidden="true" class="close" data-notify="dismiss"&gt;×&lt;/button&gt;' +
+    	'&lt;span data-notify="icon"&gt;&lt;/span&gt; ' +
+    	'&lt;span data-notify="title"&gt;{1}&lt;/span&gt; ' +
+    	'&lt;span data-notify="message"&gt;{2}&lt;/span&gt;' +
+    	'&lt;div class="progress" data-notify="progressbar"&gt;' +
+    		'&lt;div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"&gt;&lt;/div&gt;' +
+    	'&lt;/div&gt;' +
+    	'&lt;a href="{3}" target="{4}" data-notify="url"&gt;&lt;/a&gt;' +
+    '&lt;/div&gt;' 
+});</pre>
+          <h6>选项</h6>
+          <table class="table table-bordered">
+		    <thead>
+		      <tr>
+		        <th>Name</th>
+		        <th>Type / Values</th>
+		        <th>Required</th>
+		        <th>Description</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr>
+		        <td data-title="Code">icon</td>
+		        <td data-title="Type / Values"><em>class</em> | <em>src</em></td>
+		        <td data-title="Required"><code>No</code></td>
+                <td data-title="Description">这是将在通知通知中显示的图标。此图标可以是 class（字体图标）或图片url。如果您想使用图片url，请记住必须在选项中将icon_type 设置为 <code>image</code>。</td>
+		      </tr>
+		      <tr>
+		        <td data-title="Code">title</td>
+		        <td data-title="Type / Values"><em>string</em></td>
+		        <td data-title="Required"><code>No</code></td>
+		        <td data-title="Description">这是将在通知通知中显示的标题。请记住，除非您在css中设置了[data-notify="title"]样式，否则此样式看起来与消息相同。</td>
+		      </tr>
+		      <tr>
+		        <td data-title="Code">message</td>
+		        <td data-title="Type / Values"><em>string</em></td>
+		        <td data-title="Required"><code>Yes</code></td>
+		        <td data-title="Description">这是将在通知通知中显示的消息。</td>
+		      </tr>
+		      <tr>
+		        <td data-title="Code">url</td>
+		        <td data-title="Type / Values"><em>web address</em></td>
+		        <td data-title="Required"><code>No</code></td>
+		        <td data-title="Description">如果设置此值，则会使整个通知（关闭按钮除外）成为可单击区域。如果用户单击此区域，则会将它们带到此处指定的url。</td>
+		      </tr>
+		      <tr>
+		        <td data-title="Code">target</td>
+		        <td data-title="Type / Values"><em>_blank</em> | <em>_self</em> | <em>_parent</em> | <em>_top</em></td>
+		        <td data-title="Required"><code>no</code></td>
+		        <td data-title="Description">target属性指定打开链接通知的位置。</td>
+		      </tr>
+		    </tbody>
+		  </table>
+          <h6>设置</h6>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type / Values</th>
+                <th>Default</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-title="Code">element</td>
+                <td data-title="Type / Values"><em>string</em></td>
+                <td data-title="Default"><code>body</code></td>
+                <td data-title="Description">将通知附加到特定元素。如果元素设置为文档正文以外的任何内容，则它将从 <code>position:fixed</code> 切换到 <code>position:absolute</code>。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">position</td>
+                <td data-title="Type / Values"><em>static</em> | <em>fixed</em> | <em>relative</em> | <em>absolute</em> | <em><code>null</code></em></td>
+                <td data-title="Default"><code>null</code></td>
+                <td data-title="Description">允许用户指定通知容器元素的自定义位置。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">type</td>
+                <td data-title="Type / Values"><em>string</em></td>
+                <td data-title="Default"><code>info</code></td>
+                <td data-title="Description">使用引导本地警报样式定义通知的样式。请记住，生成通知时，该类型的前缀是 <code>alert-</code>。使用原有警告框样式时，这不是问题，但如果在设置css时创建了新样式（如pink），则必须使用类 <code>alert-pink</code>。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">allow_dismiss</td>
+                <td data-title="Type / Values"><em>boolean</em></td>
+                <td data-title="Default"><code>true</code></td>
+                <td data-title="Description">如果将此值设置为false，它将隐藏有 <code>data-grow="disside"</code> 的元素。请记住，如果修改 <code>template</code> 设置，并且不包含 <code>data-notify="dismiss"</code> 元素，即使此设置为true，也不会有任何元素供用户单击以关闭通知。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">showProgressbar</td>
+                <td data-title="Type / Values"><em>boolean</em></td>
+                <td data-title="Default"><code>false</code></td>
+                <td data-title="Description">此 <code>boolean</code> 用于确定通知是否应显示进度条。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">placement.from</td>
+                <td data-title="Type / Values"><em>string</em></td>
+                <td data-title="Default"><code>top</code></td>
+                <td data-title="Description">这将控制通知将放在元素的 <code>top</code> 或 <code>bottom</code> 的位置。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">placement.align</td>
+                <td data-title="Type / Values"><em>string</em></td>
+                <td data-title="Default"><code>right</code></td>
+                <td data-title="Description">这将控制通知是否将放置在元素的 <code>left</code>、<code>center</code> 或 <code>right</code>。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">offset</td>
+                <td data-title="Type / Values"><em>integer</em></td>
+                <td data-title="Default"><code>20</code></td>
+                <td data-title="Description">这将在元素和通知之间创建一个内边距空间。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">offset.x</td>
+                <td data-title="Type / Values"><em>integer</em></td>
+                <td data-title="Default"><code>20</code></td>
+                <td data-title="Description">这将在元素和通知之间的 <code>x</code> 轴上添加一个内边距空间。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">offset.y</td>
+                <td data-title="Type / Values"><em>integer</em></td>
+                <td data-title="Default"><code>20</code></td>
+                <td data-title="Description">这将在元素和通知之间的 <code>y</code> 轴上添加一个内边距空间。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">spacing</td>
+                <td data-title="Type / Values"><em>integer</em></td>
+                <td data-title="Default"><code>10</code></td>
+                <td data-title="Description">这将在具有相同位置的通知之间添加一个 <code>pixels</code> 的内边距，在它们的边之间创建一个空间。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">z_index</td>
+                <td data-title="Type / Values"><em>integer</em></td>
+                <td data-title="Default"><code>1031</code></td>
+                <td data-title="Description">很简单，这将设置通知的css属性 <code>z-index</code> 。如果有其他元素与通知重叠，则可能需要提高此数字。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">delay</td>
+                <td data-title="Type / Values"><em>integer</em></td>
+                <td data-title="Default"><code>5000</code></td>
+                <td data-title="Description">如果 <code>delay</code> 设置为高于 <code>0</code> 的值，则在 <code>delay</code> 期间结束后，通知将自动关闭。请记住延迟使用毫秒，因此 <code>5000</code> 是 <code>5</code> 秒。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">timer</td>
+                <td data-title="Type / Values"><em>integer</em></td>
+                <td data-title="Default"><code>1000</code></td>
+                <td data-title="Description">这是在每个 <code>timer</code> 毫秒时从通知中删除的毫秒数。因此，为了减少每1000毫秒的混淆，将从 <code>notify</code> 延迟的剩余时间中删除1000毫秒。 如果设置得更高，则在计时器用完之前，不会删除通知。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">url_target</td>
+                <td data-title="Type / Values"><em>_blank</em> | <em>_self</em> | <em>_parent</em> | <em>_top</em></td>
+                <td data-title="Default"><code>'_blank'</code></td>
+                <td data-title="Description">这将设置通知的url地址打开方式。 请检查 <code>HTML &lt;a&gt;</code> 标签的 <code>target</code> 属性以了解有关这些选项。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">mouse_over</td>
+                <td data-title="Type / Values"><em>pause</em> | <em><code>null</code></em></td>
+                <td data-title="Default"><code>null</code></td>
+                <td data-title="Description">默认情况下，此操作不起任何作用。如果将此选项设置为暂停，则它将<code>pause</code>通知延迟的计时器。从版本2.0.0之后，计时器将不会重置，它将从最后一次计时开始继续。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">animate.enter</td>
+                <td data-title="Type / Values">string</td>
+                <td data-title="Default"><code>animated fadeInDown</code></td>
+                <td data-title="Description">这将控制用于在屏幕上生成通知的动画。从版本2.0.0之后，此插件没有与任何动画一起打包。请用 <a href="http://daneden.me/" target="_blank">Daniel Eden</a> 编写的 <a href="http://daneden.github.io/animate.css/" target="_blank">Animate.css</a>。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">animate.exit</td>
+                <td data-title="Type / Values">string</td>
+                <td data-title="Default"><code>animated fadeOutUp</code></td>
+                <td data-title="Description">这将控制用于在屏幕上生成通知的动画。从版本2.0.0之后，此插件没有与任何动画一起打包。请用 <a href="http://daneden.me/" target="_blank">Daniel Eden</a> 编写的 <a href="http://daneden.github.io/animate.css/" target="_blank">Animate.css</a>。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">onShow</td>
+                <td data-title="Type / Values">function</td>
+                <td data-title="Default"><code>null</code></td>
+                <td data-title="Description">调用 <code>show</code> 实例方法时，此事件立即激发。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">onShow</td>
+                <td data-title="Type / Values">function</td>
+                <td data-title="Default"><code>null</code></td>
+                <td data-title="Description">当消息框对用户可见时（将等待CSS转换完成）触发此事件。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">onClose</td>
+                <td data-title="Type / Values">function</td>
+                <td data-title="Default"><code>null</code></td>
+                <td data-title="Description">此事件在通知关闭时立即触发。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">onClosed</td>
+                <td data-title="Type / Values">function</td>
+                <td data-title="Default"><code>null</code></td>
+                <td data-title="Description">当消息框完成关闭并从 <code>Document</code> 中移除时，将触发此事件（将等待CSS转换完成）。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">icon_type</td>
+                <td data-title="Type / Values">string</td>
+                <td data-title="Default"><code>class</code></td>
+                <td data-title="Description">这是用来让插件知道你是使用图标字体，还是你使用图片。如果此设置未设置为 <code>image</code>，则默认为 <code>class</code>。请记住，如果你使用的是一个图片，你需将 <code>icon</code> 设置为图片的地址。</td>
+              </tr>
+              <tr>
+                <td data-title="Code">template</td>
+                <td data-title="Type / Values">HTML</td>
+                <td data-title="Default"><code>code below</code></td>
+                <td data-title="Description">自3.0.0版以来，模板选项已经进行了修改，希望能让用户更好地控制布局。请在上面找到默认模板的代码。</td>
+              </tr>
+            </tbody>
+          </table>
+          
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
+</div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-notify.min.js"></script>
+<script type="text/javascript" src="js/main.min.js"></script>
+<script type="text/javascript">
+function testOnClosed() {
+    alert('消息框关闭后弹出');
+}
+$('#runExample').click(function() {
+	$.notify({
+		icon: $('#icon').val(),
+		title: $('#title').val(),
+		message: $('#message').val(),
+		url: $('#url').val(),
+		target: $('#target').val()
+	},{
+		type: $('input[name="type"]:checked').val(),
+		allow_dismiss: $('#dismissSwitch').is(':checked'),
+		newest_on_top: $('#newestSwitch').is(':checked'),
+		placement: {
+			from: $('input[name="position"]:checked').val().split("-")[0],
+			align: $('input[name="position"]:checked').val().split("-")[1]
+		},
+		offset: {
+			x: $('#offsetxaxis').val(),
+			y: $('#offsetyaxis').val()
+		},
+		spacing: $('#spacing').val(),
+		z_index: $('#zindex').val(),
+		delay: $('#delay').val(),
+        animate: {
+            enter: $('#showMethod').val(),
+            exit: $('#hideMethod').val()
+        },
+        onClosed: ($('#onClosedSwitch').is(':checked') ? testOnClosed : null),
+		mouse_over: ($('#hoverSwitch').is(':checked') ? "pause" : null)
+	});
+	return false;
+});
+</script>
+</body>
+</html>

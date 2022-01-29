@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>日期选择器 - 光年(Light Year Admin V4)后台管理系统模板</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+<meta name="keywords" content="LightYear,LightYearAdmin,光年,后台模板,后台管理系统,光年HTML模板">
+<meta name="description" content="Light Year Admin V4是一个后台管理系统的HTML模板，基于Bootstrap v4.4.1。">
+<meta name="author" content="yinqi">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/materialdesignicons.min.css" rel="stylesheet">
+<link href="js/bootstrap-datepicker/bootstrap-datepicker3.min.css" rel="stylesheet">
+<link href="js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<link href="js/bootstrap-clockpicker/bootstrap-clockpicker.min.css" rel="stylesheet">
+<link href="css/style.min.css" rel="stylesheet">
+</head>
+  
+<body>
+<div class="container-fluid p-t-15">
+  
+  <div class="row">
+    
+    <div class="col-lg-12">
+      <div class="card">
+        <header class="card-header"><div class="card-title">日期选择器</div></header>
+        <div class="card-body">
+          
+          <p>插件使用Bootstrap-datepicker 1.9，插件只有中文简体和繁体的配置文件，如需其他语言的请自行下载，github地址：<a href="https://github.com/uxsolutions/bootstrap-datepicker" target="_blank">https://github.com/uxsolutions/bootstrap-datepicker</a>，<a href="https://bootstrap-datepicker.readthedocs.io/en/latest/" target="_blank">点击查看文档</a>。</p>
+          <p>给需要用到日期选择器的输入框增加 <code>data-provide="datepicker"</code> 。</p>
+          <div class="form-group">
+            <input type="text" class="form-control" data-provide="datepicker" data-autoclose="true" />
+          </div>
+          <p><code>data-date-highlight="true"</code> 则可以让日期选择器凸显当前日期。</p>
+          <div class="form-group">
+            <div class="input-group">
+              <input type="text" class="form-control" data-provide="datepicker" data-today-highlight="true" data-autoclose="false" />
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+              </div>
+            </div>
+          </div>
+          
+          <p><code>data-multidate="true"</code> 指定可以选择多个日期。</p>
+          <div class="form-group">
+            <input type="text" class="form-control" data-provide="datepicker" data-multidate="true" data-autoclose="false" />
+          </div>
+          
+          <h6>日期范围选取</h6>
+          <p>给 <code>.input-group</code> 的元素加上 <code>data-provide="datepicker"</code>。</p>
+          <div class="form-group">
+            <div class="input-group" data-provide="datepicker">
+              <div class="input-group-prepend">
+                <span class="input-group-text">从</span>
+              </div>
+              <input type="text" class="form-control">
+              <div class="input-group-prepend input-group-append">
+                <span class="input-group-text">至</span>
+              </div>
+              <input type="text" class="form-control">
+            </div>
+          </div>
+ 
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-lg-12">
+      <div class="card">
+        <header class="card-header"><div class="card-title">时间日期选择器</div></header>
+        <div class="card-body">
+          
+          <p>插件使用bootstrap-datetimepicker 4.17.47，是bootstrap-datepicker项目的一个分支，主要新增了时间的选择，github地址：<a href="http://eonasdan.github.io/bootstrap-datetimepicker/" target="_blank">http://eonasdan.github.io/bootstrap-datetimepicker/</a>。</p>
+          <p>给需要用到时间日期选择器的输入框，增加 <code>data-provide="datetimepicker"</code>，可修改 <code>data-format</code> 来实现单独使用时间选择。</p>
+          <div class="form-group">
+            <input class="form-control" type="text" data-provide="datetimepicker" name="datetime" placeholder="请选择具体时间" value="" data-side-by-side="true" data-format="YYYY-MM-DD HH:mm" />
+          </div>
+          <div class="callout callout-info">
+            使用bootstrap-datetimepicker插件，需要moment.min.js支持。
+          </div>
+          
+        </div>
+      </div>      
+    </div>
+    
+    <div class="col-lg-12">
+      <div class="card">
+        <header class="card-header"><div class="card-title">时间选择器</div></header>
+        <div class="card-body">
+          
+          <p>插件使用clockpicker 0.07，github地址：<a href="https://weareoutman.github.io/clockpicker/" target="_blank">https://weareoutman.github.io/clockpicker/</a>。</p>
+          <p>给需要用到时间选择器的输入框，增加 <code>data-provide="clockpicker"</code>。</p>
+          <div class="form-group">
+            <input type="text" class="form-control" data-provide="clockpicker" data-autoclose="true" />
+          </div>
+          
+        </div>
+      </div>      
+    </div>
+    
+  </div>
+  
+</div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!--日期选择器-->
+<script type="text/javascript" src="js/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<!--时间日期选择器-->
+<script type="text/javascript" src="js/moment.js/moment.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="js/moment.js/locale/zh-cn.min.js"></script>
+<!--时间选择器-->
+<script type="text/javascript" src="js/bootstrap-clockpicker/bootstrap-clockpicker.min.js"></script>
+<script type="text/javascript" src="js/main.min.js"></script>
+</body>
+</html>

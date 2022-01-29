@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>间隔 - 光年(Light Year Admin V4)后台管理系统模板</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+<meta name="keywords" content="LightYear,LightYearAdmin,光年,后台模板,后台管理系统,光年HTML模板">
+<meta name="description" content="Light Year Admin V4是一个后台管理系统的HTML模板，基于Bootstrap v4.4.1。">
+<meta name="author" content="yinqi">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/materialdesignicons.min.css" rel="stylesheet">
+<link href="css/style.min.css" rel="stylesheet">
+</head>
+  
+<body>
+<div class="container-fluid p-t-15">
+  
+  <div class="row">
+    
+    <div class="col-lg-12">
+      <div class="card">
+        <header class="card-header"><div class="card-title">间隔</div></header>
+        <div class="card-body">
+          
+          <p>系统提供了一组缩写CSS，并赋予 <code>margin</code> 或 <code>padding</code> 值，包括对单个属性、所有 属性以及垂直、水平等属性的支持，距离单位是在采用 <code>0.25rem</code> 到 <code>3rem</code>，Class来源于Sass map定义。</p>
+          <h6>缩写CSS符约定</h6>
+          <p>Spacing 通用样式适用于所有屏幕尺寸，从 <code>xs</code> 到 <code>xl</code> 各种规格尺寸。因为这些类是从 <code>min-width: 0</code> 及以上开始引用的，所以不受媒体查询的约束，然而，其余的屏幕断点（设备解析）包含屏幕尺寸缩写。</p>
+          <p>对于 <code>xs</code> 屏幕，使用固定格式 <code>{property}{sides}-{size}</code> 命名CSS方法，对于 <code>sm</code>、 <code>md</code>、<code>lg</code>、 <code>xl</code> 使用 <code>{property}{sides}-{breakpoint}-{size}</code> 格式命名CSS方法。</p>
+          <p>如果 <em>属性</em> 是下列之一：</p>
+          <ul>
+            <li><code>m</code> - 这个Class属性会设定 <code>margin</code> 值</li>
+            <li><code>p</code> - 这个Class属性会设定 <code>padding</code> 值</li>
+          </ul>
+          <p> <em>边缘</em> 设定：</p>
+          <ul>
+            <li><code>t</code> - 这个Class属性会设定 <code>margin-top</code> 或 <code>padding-top</code></li>
+            <li><code>b</code> - 这个Class属性会设定 <code>margin-bottom</code> 或 <code>padding-bottom</code></li>
+            <li><code>l</code> - 这个Class属性会设定 <code>margin-left</code> 或 <code>padding-left</code></li>
+            <li><code>r</code> - 这个Class属性会设定 <code>margin-right</code> 或 <code>padding-right</code></li>
+            <li><code>x</code> - 这个Class属性会设定 <code>*-left</code> 和 <code>*-right</code> 两个值。</li>
+            <li><code>y</code> - 这个Class属性会设定 <code>*-top</code> 和 <code>*-bottom</code> 两个值</li>
+            <li>空白 - 这个Class属性会设定 <code>margin</code> 或 <code>padding</code> 元素的四个边。</li>
+          </ul>
+          <p> <em>尺寸规格</em>定义：</p>
+          <ul>
+            <li><code>0</code> - 这个Class属性会设定 <code>margin</code> 或 <code>padding</code> 的样式值为 <code>0</code></li>
+            <li><code>1</code> - (默认时)这个Class属性会设定 <code>margin</code> 或 <code>padding</code> 以 <code>$spacer * .25</code>规格呈现</li>
+            <li><code>2</code> - (默认时) 这个Class属性会设定 <code>margin</code> 或 <code>padding</code> 以 <code>$spacer * .5</code>规格呈现</li>
+            <li><code>3</code> - (默认时)这个Class属性会设定 <code>margin</code> 或 <code>padding</code> 以 <code>$spacer</code>规格呈现</li>
+            <li><code>4</code> - (默认时) 这个Class属性会设定 <code>margin</code> 或 <code>padding</code> 以 <code>$spacer * 1.5</code>规格呈现</li>
+            <li><code>5</code> - (默认时)这个Class属性会设定 <code>margin</code> 或 <code>padding</code> 以 <code>$spacer * 3</code>规格呈现</li>
+            <li><code>auto</code> - 这个Class属性会设定 <code>margin</code> 值 auto（按浏览器默认值自由展现）。</li>
+          </ul>
+          <p>(你也可以对<code>$spacers</code>的 Sass map 调整，包括添加条目来增加更多尺寸。)</p>
+          <p>以下是这些Class样式的代表性的示例</p>
+          <pre>.mt-0 {
+  margin-top: 0 !important;
+}
+
+.ml-1 {
+  margin-left: ($spacer * .25) !important;
+}
+
+.px-2 {
+  padding-left: ($spacer * .5) !important;
+  padding-right: ($spacer * .5) !important;
+}
+
+.p-3 {
+  padding: $spacer !important;
+}</pre>
+          <h6>水平居中</h6>
+          <p>此外，Bootstrap也包括一个 <code>.mx-auto</code> 类，用于固定宽度的盒模型水平居中，具有 <code>display: block</code> 和 <code>width</code> 设置水平边距内容的auto居中。</p>
+          <div class="border-example">
+            <div class="mx-auto" style="width: 200px;background-color: rgba(0,0,255,.1)">
+              Centered element
+            </div>
+          </div>
+          <pre>&lt;div class="mx-auto" style="width: 200px;background-color: rgba(0,0,255,.1)"&gt;
+  Centered element
+&lt;/div&gt;</pre>
+          <h6>负值边距属性</h6>
+          <p>在CSS中, <code>margin</code> 性可以使用负值( <code>padding</code> 不能)。截至4.2, 我们为上面列出的每个非零整数大小添加了负边际效用(例如, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>, <code>5</code> ).这些实用程序非常适合跨断点自定义网格列边距。</p>
+          <p>语法与默认的正边距实用程序几乎相同,但在请求的大小之前添加了 <code>n</code>。这是一个与 <code>.mt-1</code> 相反的示例:</p>
+          <pre>.mt-n1 {
+  margin-top: -0.25rem !important;
+}</pre>
+          <p>这是一个在中( <code>md</code> )断点及以上定制Bootstrap网格的示例。我们用 <code>.px-md-5</code> 增加了 <code>.col</code> 填充,然后在父 <code>.row</code> 上用 <code>.mx-md-n5</code> 来抵消。</p>
+          <div class="border-example">
+            <div class="row mx-md-n5">
+              <div class="col px-md-5"><div class="p-3 border bg-light">Custom column padding</div></div>
+              <div class="col px-md-5"><div class="p-3 border bg-light">Custom column padding</div></div>
+            </div>
+          </div>
+          <pre>&lt;div class="row mx-md-n5"&gt;
+  &lt;div class="col px-md-5"&gt;&lt;div class="p-3 border bg-light"&gt;Custom column padding&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="col px-md-5"&gt;&lt;div class="p-3 border bg-light"&gt;Custom column padding&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+          
+        </div>
+      </div>
+    </div>
+        
+  </div>
+  
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/main.min.js"></script>
+</body>
+</html>

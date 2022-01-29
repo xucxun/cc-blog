@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>列表组 - 光年(Light Year Admin V4)后台管理系统模板</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+<meta name="keywords" content="LightYear,LightYearAdmin,光年,后台模板,后台管理系统,光年HTML模板">
+<meta name="description" content="Light Year Admin V4是一个后台管理系统的HTML模板，基于Bootstrap v4.4.1。">
+<meta name="author" content="yinqi">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/materialdesignicons.min.css" rel="stylesheet">
+<link href="css/style.min.css" rel="stylesheet">
+</head>
+  
+<body>
+<div class="container-fluid p-t-15">
+  
+  <div class="row">
+    
+    <div class="col-lg-12">
+      <div class="card">
+        <header class="card-header"><div class="card-title">列表组</div></header>
+        <div class="card-body">
+          
+          <h6>基本示例</h6>
+          <ul class="list-group">
+            <li class="list-group-item">第一回　甄士隐梦幻识通灵　贾雨村风尘怀闺秀</li>
+            <li class="list-group-item">第二回　贾夫人仙逝扬州城　冷子兴演说荣国府</li>
+            <li class="list-group-item">第三回　贾雨村夤缘复旧职　林黛玉抛父进京都</li>
+            <li class="list-group-item">第四回　薄命女偏逢薄命郎　葫芦僧乱判葫芦案</li>
+            <li class="list-group-item">第五回　游幻境指迷十二钗　饮仙醪曲演红楼梦</li>
+          </ul>
+          <h6 class="mt-3">列表(启用)状态</h6>
+          <ul class="list-group">
+            <li class="list-group-item active">第六回　贾宝玉初试云雨情　刘姥姥一进荣国府</li>
+            <li class="list-group-item">第七回　送宫花贾琏戏熙凤　宴宁府宝玉会秦钟</li>
+            <li class="list-group-item">第八回　比通灵金莺微露意　探宝钗黛玉半含酸</li>
+            <li class="list-group-item">第九回　恋风流情友入家塾　起嫌疑顽童闹学堂</li>
+            <li class="list-group-item">第十回　金寡妇贪利权受辱　张太医论病细穷源</li>
+          </ul>
+          <h6 class="mt-3">列表(禁用)状态</h6>
+          <ul class="list-group">
+            <li class="list-group-item disabled">第十一回　庆寿辰宁府排家宴　见熙凤贾瑞起淫心</li>
+            <li class="list-group-item">第十二回　王熙凤毒设相思局　贾天祥正照风月鉴</li>
+            <li class="list-group-item">第十三回　秦可卿死封龙禁尉　王熙凤协理宁国府</li>
+            <li class="list-group-item">第十四回　林如海捐馆扬州城　贾宝玉路谒北静王</li>
+            <li class="list-group-item">第十五回　王凤姐弄权铁槛寺　秦鲸卿得趣馒头庵</li>
+          </ul>
+          <h6 class="mt-3">链接和按钮</h6>
+          <p>使用 <code>&lt;a&gt;</code> 或 <code>&lt;button&gt;</code>来创建具有 hover、禁用、悬停和活动状态的列表组.list-group-item-action，我们分离这些Class样式，以确保由非交互元素组成的列表群组(如 <code>&lt;li&gt;</code> 或 <code>&lt;div&gt;</code>)不提供可点击或触击（即可以用一个父<code>&lt;div&gt;</code>代替<code>&lt;ul&gt;</code>-译者注）。</p>
+          <p>请务必 不要在这里使用 <code>.btn</code> 标准样式。</p>
+          <div class="list-group">
+            <a href="#!" class="list-group-item list-group-item-action active">
+              第十六回　贾元春才选凤藻宫　秦鲸卿夭逝黄泉路
+            </a>
+            <a href="#!" class="list-group-item list-group-item-action">第十七回　大观园试才题对额　荣国府归省庆元宵</a>
+            <a href="#!" class="list-group-item list-group-item-action">第十八回　皇恩重元妃省父母	天伦乐宝玉呈才藻</a>
+            <a href="#!" class="list-group-item list-group-item-action">第十九回　情切切良宵花解语　意绵绵静日玉生香</a>
+            <a href="#!" class="list-group-item list-group-item-action disabled">第二十回　王熙凤正言弹妒意　林黛玉俏语谑娇音</a>
+          </div>
+          <p class="mt-3">使用<code>&lt;button&gt;</code>元素，你还可以使用<code>disabled</code> 属性来达到禁用状态指示（或引用 <code>.disabled</code> 样式），不过这一属性不支持HTML5中的 <code>&lt;a&gt;</code>标签。</p>
+          <div class="list-group">
+            <button type="button" class="list-group-item list-group-item-action active">
+              第二十一回　贤袭人娇嗔箴宝玉　俏平儿软语救贾琏
+            </button>
+            <button type="button" class="list-group-item list-group-item-action">第二十二回　听曲文宝玉悟禅机　制灯迷贾政悲谶语</button>
+            <button type="button" class="list-group-item list-group-item-action">第二十三回　西厢记妙词通戏语　牡丹亭艳曲警芳心</button>
+            <button type="button" class="list-group-item list-group-item-action">第二十四回　醉金刚轻财尚义侠　痴女儿遗帕惹相思</button>
+            <button type="button" class="list-group-item list-group-item-action" disabled>第二十五回　魇魔法姊弟逢五鬼　红楼梦通灵遇双真</button>
+          </div>
+          <h6 class="mt-3">Flush边缘对齐</h6>
+          <p>加入 <code>.list-group-flush</code> 选择器，可以实现移除部分边框以及圆角，从而产生边缘贴齐的列表组，这在诸如Card卡片等容器中很实用（达成更好的呈现效果）。</p>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">第二十六回　蜂腰桥设言传心事　潇湘馆春困发幽情</li>
+            <li class="list-group-item">第二十七回　滴翠亭杨妃戏彩蝶　埋香冢飞燕泣残红</li>
+            <li class="list-group-item">第二十八回　蒋玉菡情赠茜香罗　薛宝钗羞笼红麝串</li>
+            <li class="list-group-item">第二十九回　享福人福深还祷福　痴情女情重愈斟情</li>
+            <li class="list-group-item">第三十回　宝钗借扇机带双敲　龄官划蔷痴及局外</li>
+          </ul>
+          <h6 class="mt-3">上下文语境颜色呈现样式</h6>
+          <ul class="list-group">
+            <li class="list-group-item">第三十一回　撕扇子作千金一笑　因麒麟伏白首双星</li>
+            <li class="list-group-item list-group-item-primary">第三十二回　诉肺腑心迷活宝玉　含耻辱情烈死金钏</li>
+            <li class="list-group-item list-group-item-secondary">第三十三回　手足耽耽小动唇舌　不肖种种大承笞挞</li>
+            <li class="list-group-item list-group-item-success">第三十四回　情中情因情感妹妹　错里错以错劝哥哥</li>
+            <li class="list-group-item list-group-item-danger">第三十五回　白玉钏亲尝莲叶羹　黄金莺巧结梅花络</li>
+            <li class="list-group-item list-group-item-warning">第三十六回　绣鸳鸯梦兆绛芸轩　识分定情悟梨香院</li>
+            <li class="list-group-item list-group-item-info">第三十七回　秋爽斋偶结海棠社　蘅芜苑夜拟菊花题</li>
+            <li class="list-group-item list-group-item-light">第五十七回　慧紫鹃情辞试忙玉　慈姨妈爱语慰痴颦</li>
+            <li class="list-group-item list-group-item-dark">第五十八回　杏子阴假凤泣虚凰　茜纱窗真情揆痴理</li>
+          </ul>
+          <p class="mt-3">情景式class也可以使用 <code>.list-group-item-action</code> 样式，注意，在上述示例中，不存在 <code>hover</code> 样式指示器，事实上它是支持的，而且还支持 <code>.active</code> 状态指示-我们可以应用它们在上下文情景列表组的项目上进行活动状态选择指示。</p>
+          <div class="list-group">
+            <a href="#!" class="list-group-item list-group-item-action">第五十九回　柳叶渚边嗔莺咤燕　绛云轩里召将飞符</a>
+            <a href="#!" class="list-group-item list-group-item-action list-group-item-primary">第三十八回　林潇湘魁夺菊花诗　薛蘅芜讽和螃蟹咏</a>
+            <a href="#!" class="list-group-item list-group-item-action list-group-item-secondary">第三十九回　村姥姥是信口开合　情哥哥偏寻根究底</a>
+            <a href="#!" class="list-group-item list-group-item-action list-group-item-success">第四十回　史太君两宴大观园　金鸳鸯三宣牙牌令</a>
+            <a href="#!" class="list-group-item list-group-item-action list-group-item-danger">第四十一回　栊翠庵茶品梅花雪　怡红院劫遇母蝗虫</a>
+            <a href="#!" class="list-group-item list-group-item-action list-group-item-warning">第四十二回　蘅芜君兰言解疑癖　潇湘子雅谑补余香</a>
+            <a href="#!" class="list-group-item list-group-item-action list-group-item-info">第四十三回　闲取乐偶攒金庆寿　不了情暂撮土为香</a>
+            <a href="#!" class="list-group-item list-group-item-action list-group-item-light">第四十四回　变生不测凤姐泼醋　喜出望外平儿理妆</a>
+            <a href="#!" class="list-group-item list-group-item-action list-group-item-dark">第四十五回　金兰契互剖金兰语　风雨夕闷制风雨词</a>
+          </div>
+          <h6 class="mt-3">引入badge微章</h6>
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              第四十六回　尴尬人难免尴尬事　鸳鸯女誓绝鸳鸯偶
+              <span class="badge badge-primary badge-pill">14</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              第四十七回　呆霸王调情遭苦打　冷郎君惧祸走他乡
+              <span class="badge badge-primary badge-pill">2</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              第四十八回　情人情误思游艺慕　雅女雅集苦吟诗
+              <span class="badge badge-primary badge-pill">1</span>
+            </li>
+          </ul>
+          <h6 class="mt-3">自定义内容</h6>
+          <div class="list-group">
+            <a href="#!" class="list-group-item list-group-item-action flex-column align-items-start active">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">第四十九回　琉璃世界白雪红梅　脂粉香娃割腥啖膻</h5>
+                <small>3天前</small>
+              </div>
+              <p class="mb-1">话说香菱见众人正说笑，他便迎上去笑道：“你们看这一首。若使得，我便还学，若还不好，我就死了这作诗的心了。”说着，把诗递与黛玉及众人看时，只见写道是：</p>
+              <small>精华欲掩料应难，影自娟娟魄自寒。一片砧敲千里白，半轮鸡唱五更残。绿蓑江上秋闻笛，红袖楼头夜倚栏。</small>
+            </a>
+            <a href="#!" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">第五十回　芦雪庵争联即景诗　暖香坞雅制春灯谜</h5>
+                <small class="text-muted">3天前</small>
+              </div>
+              <p class="mb-1">话说薛宝钗道：“到底分个次序，让我写出来。”说着，便令众人拈阄为序。起首恰是李氏，然后按次各各开出。凤姐儿说道：“既是这样说，我也说一句在上头。”众人都笑说道：“更妙了！”宝钗便将稻香老农之上补了一个“凤”字，李纨又将题目讲与他听。</p>
+              <small class="text-muted">凤姐儿想了半日，笑道：“你们别笑话我。我只有一句粗话，下剩的我就不知道了。”</small>
+            </a>
+            <a href="#!" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">第五十一回　薛小妹新编怀古诗　胡庸医乱用虎狼药</h5>
+                <small class="text-muted">3天前</small>
+              </div>
+              <p class="mb-1">众人闻得宝琴将素习所经过各省内的古迹为题，作了十首怀古绝句，内隐十物，皆说这自然新巧。都争着看时，只见写道是：</p>
+              <small class="text-muted">赤壁怀古其一 赤壁沉埋水不流，徒留名姓载空舟。喧阗一炬悲风冷，无限英魂在内游。</small>
+            </a>
+          </div>
+          <h6 class="mt-3">JavaScript 行为</h6>
+          <div class="row">
+            <div class="col-4">
+              <div class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">第五十二回 俏平儿情掩虾须镯　勇晴雯病补雀金裘</a>
+                <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">第五十四回 宁国府除夕祭宗祠　荣国府元宵开夜宴</a>
+                <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">第五十五回 史太君破陈腐旧套　王熙凤效戏彩斑衣</a>
+                <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">第五十六回 辱亲女愚妾争闲气　欺幼主刁奴蓄险心</a>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+                  <p>贾母道：“正是这话了。上次我要说这话，我见你们的大事多，如今又添出这些事来，你们固然不敢抱怨，未免想着我只顾疼这些小孙子孙女儿们，就不体贴你们这当家人了。你既这么说出来，更好了。”因此时薛姨妈李婶都在座，邢夫人及尤氏婆媳也都过来请安，还未过去，贾母向王夫人等说道：“今儿我才说这话，素日我不说，一则怕逞了凤丫头的脸，二则众人不伏。今日你们都在这里，都是经过妯娌姑嫂的，还有他这样想的到的没有？”薛姨妈、李婶、尤氏等齐笑说：“真个少有。别人不过是礼上面子情儿，实在他是真疼小叔子小姑子。就是老太太跟前，也是真孝顺。”贾母点头叹道：“我虽疼他，我又怕他太伶俐也不是好事。”凤姐儿忙笑道：“这话老祖宗说差了。世人都说太伶俐聪明，怕活不长。世人都说得，人人都信，独老祖宗不当说，不当信。老祖宗只有伶俐聪明过我十倍的，怎么如今这样福寿双全的？只怕我明儿还胜老祖宗一倍呢！我活一千岁后，等老祖宗归了西，我才死呢。”贾母笑道：“众人都死了，单剩下咱们两个老妖精，有什么意思。”说的众人都笑了。</p>
+                </div>
+                <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                  <p>话说宝玉见晴雯将雀裘补完，已使的力尽神危，忙命小丫头子来替他捶着，彼此捶打了一会歇下。没一顿饭的工夫，天已大亮，且不出门，只叫快传大夫。一时王太医来了，诊了脉，疑惑说道：“昨日已好了些，今日如何反虚微浮缩起来，敢是吃多了饮食？不然就是劳了神思。外感却倒清了，这汗后失于调养，非同小可。”一面说，一面出去开了药方进来。宝玉看时，已将疏散驱邪诸药减去了，倒添了茯苓，地黄，当归等益神养血之剂。宝玉忙命人煎去，一面叹说：“这怎么处！倘或有个好歹，都是我的罪孽。”晴雯睡在枕上嗐道：“好太爷！你干你的去罢，那里就得痨病了。”宝玉无奈，只得去了。至下半天，说身上不好就回来了。晴雯此症虽重，幸亏他素习是个使力不使心的，再素习饮食清淡，饥饱无伤。这贾宅中的风俗秘法，无论上下，只一略有些伤风咳嗽，总以净饿为主，次则服药调养。故于前日一病时，净饿了两三日，又谨慎服药调治，如今劳碌了些，又加倍培养了几日，便渐渐的好了。近日园中姊妹皆各在房中吃饭，炊爨饮食亦便，宝玉自能变法要汤要羹调停，不必细说。</p>
+                </div>
+                <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+                  <p>却说贾珍贾琏暗暗预备下大簸箩的钱，听见贾母说“赏”，他们也忙命小厮们快撒钱。只听满台钱响，贾母大悦。</p>
+                  <p>刚将年事忙过，凤姐儿便小月了，在家一月，不能理事，天天两三个太医用药。凤姐儿自恃强壮，虽不出门，然筹画计算，想起什么事来，便命平儿去回王夫人，任人谏劝，他只不听。王夫人便觉失了膀臂，一人能有许多的精神？凡有了大事，自己主张；将家中琐碎之事，一应都暂令李纨协理。李纨是个尚德不尚才的，未免逞纵了下人。王夫人便命探春合同李纨裁处，只说过了一月，凤姐将息好了，仍交与他。谁知凤姐禀赋气血不足，兼年幼不知保养，平生争强斗智，心力更亏，故虽系小月，竟着实亏虚下来，一月之后，复添了下红之症。他虽不肯说出来，众人看他面目黄瘦，便知失于调养。王夫人只令他好生服药调养，不令他操心。他自己也怕成了大症，遗笑于人，便想偷空调养，恨不得一时复旧如常。谁知一直服药调养到八九月间，才渐渐的起复过来，下红也渐渐止了。此是后话。</p>
+                </div>
+                <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+                  <p>且说元宵已过，只因当今以孝治天下，目下宫中有一位太妃欠安，故各嫔妃皆为之减膳谢妆，不独不能省亲，亦且将宴乐俱免。故荣府今岁元宵亦无灯谜之集。</p>
+                  <p>平儿进入厅中，他姊妹三人正议论些家务，说的便是年内赖大家请吃酒，他家花园中事故。见他来了，探春便命他脚踏上坐了，因说道：“我想的事不为别的，因想着我们一月有二两月银外，丫头们又另有月钱。前儿又有人回，要我们一月所用的头油脂粉，每人又是二两。这又同才刚学里的八两一样，重重叠叠，事虽小，钱有限，看起来也不妥当。你奶奶怎么就没想到这个？”平儿笑道：“这有个原故：姑娘们所用的这些东西，自然是该有分例。每月买办买了，令女人们各房交与我们收管，不过预备姑娘们使用就罢了，没有一个我们天天各人拿钱找人买头油又是脂粉去的理。所以外头买办总领了去，按月使女人按房交与我们的。姑娘们的每月这二两，原不是为买这些的，原为的是一时当家的奶奶太太或不在，或不得闲，姑娘们偶然一时可巧要几个钱使，省得找人去。这原是恐怕姑娘们受委屈，可知这个钱并不是买这个才有的。如今我冷眼看着，各房里的我们的姊妹都是现拿钱买这些东西的，竟有一半。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+        
+  </div>
+  
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/main.min.js"></script>
+</body>
+</html>

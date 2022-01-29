@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>文本 - 光年(Light Year Admin V4)后台管理系统模板</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+<meta name="keywords" content="LightYear,LightYearAdmin,光年,后台模板,后台管理系统,光年HTML模板">
+<meta name="description" content="Light Year Admin V4是一个后台管理系统的HTML模板，基于Bootstrap v4.4.1。">
+<meta name="author" content="yinqi">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/materialdesignicons.min.css" rel="stylesheet">
+<link href="css/style.min.css" rel="stylesheet">
+</head>
+  
+<body>
+<div class="container-fluid p-t-15">
+  
+  <div class="row">
+    
+    <div class="col-lg-12">
+      <div class="card">
+        <header class="card-header"><div class="card-title">文本</div></header>
+        <div class="card-body">
+          
+          <p>用于控制文本的对齐、组合、字重等示例以及使用文档。</p>
+          <h6>文本对齐</h6>
+          <p>使用文本对齐class样式类轻松地将文本重新对齐到组件。</p>
+          <div class="border-example">
+            <p class="text-justify">笑江湖浪迹十年游，空负少年头。对铜驼巷陌，吟情渺渺，心事悠悠！酒冷诗残梦断，南国正清秋。把剑凄然望，无处招归舟。明日天涯路远，问谁留楚佩，弄影中洲？数英雄儿女，俯仰古今愁。难消受灯昏罗帐，怅昙花一现恨难休！飘零惯，金戈铁马，拼葬荒丘！</p>
+          </div>
+          <pre>&lt;p class="text-justify"&gt;笑江湖浪迹十年游，空负少年头。对铜驼巷陌，吟情渺渺，心事悠悠！酒冷诗残梦断，南国正清秋。把剑凄然望，无处招归舟。明日天涯路远，问谁留楚佩，弄影中洲？数英雄儿女，俯仰古今愁。难消受灯昏罗帐，怅昙花一现恨难休！飘零惯，金戈铁马，拼葬荒丘！&lt;/p&gt;</pre>
+          <p>左对齐、右对齐、居中对齐，可以使用与栅格系统相同的宽度响应式类（即 <code>text-sm-*</code>、<code>text-lg-*</code> 等方法）来定义。</p>
+          <div class="border-example">
+<p class="text-left">楔子 一阕词来 南国清秋魂梦绕 十年人散 绣房红烛剑光寒（左对齐）</p>
+<p class="text-center">第01章 一女独寻仇 十六年间经几劫 群雄齐出手 五台山上震三军（中间对齐）</p>
+<p class="text-right">第02章 浪迹江湖 水尽萍枯风不语 隐身古刹 空灵幻灭色难留（右对齐）</p>
+
+<p class="text-sm-right">第03章 剑气珠光 不觉坐行皆梦梦 琴声笛韵 无端啼哭尽非非（SM或更宽时右对齐）</p>
+<p class="text-md-right">第04章 比剑压凶人 同门决战 展图寻缉梦 旧侣重来（MD或更宽时右对齐）</p>
+<p class="text-lg-right">第05章 难受温柔 岂为新知忘旧好 惊心恶斗 喜从方窟得真经（LG或更宽时右对齐）</p>
+<p class="text-xl-right">第06章 雾气弥漫 荒村来异士 湖光澈湘 幽谷出征骑（XL或更宽时右对齐）</p>
+          </div>
+          <pre>&lt;p class="text-left"&gt;楔子 一阕词来 南国清秋魂梦绕 十年人散 绣房红烛剑光寒（左对齐）&lt;/p&gt;
+&lt;p class="text-center"&gt;第01章 一女独寻仇 十六年间经几劫 群雄齐出手 五台山上震三军（中间对齐）&lt;/p&gt;
+&lt;p class="text-right"&gt;第02章 浪迹江湖 水尽萍枯风不语 隐身古刹 空灵幻灭色难留（右对齐）&lt;/p&gt;
+
+&lt;p class="text-sm-right"&gt;第03章 剑气珠光 不觉坐行皆梦梦 琴声笛韵 无端啼哭尽非非（SM或更宽时右对齐）&lt;/p&gt;
+&lt;p class="text-md-right"&gt;第04章 比剑压凶人 同门决战 展图寻缉梦 旧侣重来（MD或更宽时右对齐）&lt;/p&gt;
+&lt;p class="text-lg-right"&gt;第05章 难受温柔 岂为新知忘旧好 惊心恶斗 喜从方窟得真经（LG或更宽时右对齐）&lt;/p&gt;
+&lt;p class="text-xl-right"&gt;第06章 雾气弥漫 荒村来异士 湖光澈湘 幽谷出征骑（XL或更宽时右对齐）&lt;/p&gt;</pre>
+          <h6>文本包裹和溢出（换行）处理</h6>
+          <p>使用 <code>.text-wrap</code> 类换行文本。</p>
+          <div class="border-example">
+<div class="badge badge-primary text-wrap" style="width: 6rem;">
+  剑胆琴心 似喜似嗔同命鸟
+</div>
+          </div>
+          <pre>&lt;div class="badge badge-primary text-wrap" style="width: 6rem;"&gt;
+  剑胆琴心 似喜似嗔同命鸟
+&lt;/div&gt;</pre>
+          <p><code>.text-nowrap</code> 样式类可以防止文本换行。</p>
+          <div class="border-example">
+<div class="text-nowrap" style="width: 8rem;background-color: rgba(0, 0, 255, .1)">
+  雪泥鸿爪 亦真亦幻异乡人
+</div>
+          </div>
+          <pre>&lt;div class="text-nowrap" style="width: 8rem;background-color: rgba(0, 0, 255, .1)"&gt;
+  雪泥鸿爪 亦真亦幻异乡人
+&lt;/div&gt;</pre>
+          <p>对于更长的内容，你可以添加一个 <code>.text-truncate</code> 样式，以省略号截断文本（需要结合 <code>display: inline-block</code> 或 <code>display: block</code> 来使用）。</p>
+          <div class="border-example">
+<div class="row">
+  <div class="col-2 text-truncate">
+    第08章 恩怨难明 空山惊恶斗 灵根未断 一语酸迷茫
+  </div>
+</div>
+
+<span class="d-inline-block text-truncate" style="max-width: 150px;">
+  第09章 扑朔迷离 耐心详怪梦 寻幽探秘 无意会高人
+</span>
+          </div>
+          <pre>&lt;div class="row"&gt;
+  &lt;div class="col-2 text-truncate"&gt;
+    第08章 恩怨难明 空山惊恶斗 灵根未断 一语酸迷茫
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;span class="d-inline-block text-truncate" style="max-width: 150px;"&gt;
+  第09章 扑朔迷离 耐心详怪梦 寻幽探秘 无意会高人
+&lt;/span&gt;</pre>
+          <h6>换行</h6>
+          <p>通过使用 <code>.text-break</code> 来设置 <code>overflow-wrap: break-word</code> (和 <code>word-break: break-word</code> 用于IE和Edge兼容性的 <code>break-word</code> )防止长串文本破坏组件的布局。</p>
+          <div class="border-example">
+            <p class="text-break">mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</p>
+          </div>
+          <pre>&lt;p class="text-break"&gt;mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm&lt;/p&gt;</pre>
+          <h6>字母大小写转换</h6>
+          <p>使用文本大小写样式将文字内容由小写，转为大写（不支持中文）。</p>
+          <div class="border-example">
+            <p class="text-lowercase">Lowercased text.</p>
+            <p class="text-uppercase">Uppercased text.</p>
+            <p class="text-capitalize">CapiTaliZed text.</p>
+          </div>
+          <pre>&lt;p class="text-lowercase"&gt;Lowercased text.&lt;/p&gt;
+&lt;p class="text-uppercase"&gt;Uppercased text.&lt;/p&gt;
+&lt;p class="text-capitalize"&gt;CapiTaliZed text.&lt;/p&gt;</pre>
+          <div class="callout callout-warning">注意： <code>text-capitalize</code> 仅支持每一个词的第一个字母转为大写，而其它字母不受影响。</div>
+          <h6 class="mt-3">字体粗细和斜体效果</h6>
+          <p>快速的实体字体粗细定义、斜体。</p>
+          <div class="border-example">
+<p class="font-weight-bold">Bold text.</p>
+<p class="font-weight-bolder">Bolder weight text (relative to the parent element).</p>
+<p class="font-weight-normal">Normal weight text.</p>
+<p class="font-weight-light">Light weight text.</p>
+<p class="font-weight-lighter">Lighter weight text (relative to the parent element).</p>
+<p class="font-italic">Italic text.</p>
+          </div>
+          <pre>&lt;p class="font-weight-bold"&gt;Bold text.&lt;/p&gt;
+&lt;p class="font-weight-bolder"&gt;Bolder weight text (relative to the parent element).&lt;/p&gt;
+&lt;p class="font-weight-normal"&gt;Normal weight text.&lt;/p&gt;
+&lt;p class="font-weight-light"&gt;Light weight text.&lt;/p&gt;
+&lt;p class="font-weight-lighter"&gt;Lighter weight text (relative to the parent element).&lt;/p&gt;
+&lt;p class="font-italic"&gt;Italic text.&lt;/p&gt;</pre>
+          <h6>等宽字体</h6>
+          <p>将选择更改为我们的等宽字体堆栈 <code>.text-monospace</code>。</p>
+          <div class="border-example">
+            <p class="text-monospace">This is in monospace</p>
+          </div>
+          <pre>&lt;p class="text-monospace"&gt;This is in monospace&lt;/p&gt;</pre>
+          <h6>重置颜色</h6>
+          <p>使用 <code>.text-reset</code> 重置文本或链接的颜色，以便从其父级继承颜色。</p>
+          <div class="border-example">
+            <p class="text-muted">
+              Muted text with a <a href="#!" class="text-reset">reset link</a>.
+            </p>
+          </div>
+          <pre>&lt;p class="text-muted"&gt;
+  Muted text with a &lt;a href="#!" class="text-reset"&gt;reset link&lt;/a&gt;.
+&lt;/p&gt;</pre>
+          <h6>文字装饰</h6>
+          <p>使用 <code>.text-decoration-none</code> 类删除文本修饰。</p>
+          <div class="border-example">
+            <a href="#!" class="text-decoration-none">Non-underlined link</a>
+          </div>
+          <pre>&lt;a href="#!" class="text-decoration-none"&gt;Non-underlined link&lt;/a&gt;</pre>
+          
+        </div>
+      </div>
+    </div>
+        
+  </div>
+  
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/main.min.js"></script>
+</body>
+</html>
