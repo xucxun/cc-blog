@@ -132,7 +132,7 @@ public class LoginController implements BlogConstant {
                         HttpSession session,HttpServletResponse response){
 
         String kaptcha = (String) session.getAttribute("kaptcha");
-        if (StringUtils.isBlank(kaptcha) || StringUtils.isBlank(code) || !kaptcha.equalsIgnoreCase(code)){
+        if (StringUtils.isBlank(kaptcha) || StringUtils.isBlank(code) || kaptcha.equals(code)){
             model.addAttribute("codeMsg", "验证码不正确!");
             return("/front/lyear_pages_login_2");
         }

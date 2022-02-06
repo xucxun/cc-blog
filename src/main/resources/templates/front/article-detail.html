@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="icon" th:href="@{/img/icon.png}"/>
+	<link th:href="@{/admin/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/admin/css/materialdesignicons.min.css}" rel="stylesheet">
+	<link th:href="@{/admin/css/style.min.css}" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/css/global.css}" />
+	<link rel="stylesheet" th:href="@{/css/discuss-detail.css}" />
+    <title>文章详情</title>
+	<style  th:inline="css">
+		.media-list-message {
+			margin-top: 2rem;
+			padding-top: 2rem;
+			border-top: 1px solid rgba(77, 82, 89, 0.05);
+		}
+		.media-list-message > li {
+			border-bottom: 1px solid rgba(77, 82, 89, 0.05);
+			margin-bottom: 10px;
+		}
+		.media-list-message .media > a {
+			position: relative;
+			display: inline-block;
+			background-color: #f5f6f7;
+			-webkit-border-radius: 50%;
+			border-radius: 50%;
+			margin-right: 10px;
+		}
+		.media-list-message .media .media {
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+		.media-list-message li:last-child .media {
+			padding-bottom: 0px;
+		}
+		.message-form{
+			position: relative;
+			display: -webkit-box;
+			display: flex;
+			-webkit-box-align: center;
+			align-items: center;
+			padding-top: 10px;
+		}
+		.media-list-message .message-form{
+			padding-bottom: 10px;
+		}
+		.img-avatar-30 {
+			width: 30px;
+			height: 30px;
+		}
+		.message-form .form-control {
+			margin: 0px 5px;
+		}
+		.message-form .form-control:focus {
+			box-shadow: none;
+		}
+		.message-form .mdi {
+			font-size: 20px;
+			color: #4d5259;
+		}
+		.message-btn-close {
+			display: none;
+		}
+		.pull-right {
+			float: right!important;
+		}
+		.media-body > p > a{
+			color: #33cabb;
+		}
+		.media-body ul li{
+			border-bottom: 1px solid rgba(77, 82, 89, 0.05);
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="nk-container">
+		<!-- 头部 -->
+		<header class="bg-dark sticky-top" th:replace="index::header">
+		</header>
+
+		<!-- 内容 -->
+		<div class="main">
+			<!-- 帖子详情 -->
+			<div class="container">
+				<!-- 标题 -->
+				<h6 class="mb-4">
+					<img src="http://static.nowcoder.com/images/img/icons/ico-discuss.png"/>
+					<span th:utext="${article.title}">标题</span>
+					<div class="float-right">
+						<button type="button" class="btn btn-danger btn-sm">置顶</button>
+						<button type="button" class="btn btn-danger btn-sm">加精</button>
+						<button type="button" class="btn btn-danger btn-sm">删除</button>
+					</div>
+				</h6>
+				<!-- 作者 -->
+				<div class="media pb-3 border-bottom">
+					<a href="profile.html">
+						<img th:src="${user.avatar}"  class="align-self-start mr-4 rounded-circle user-header" alt="用户头像" >
+					</a>
+					<div class="media-body">
+						<div th:utext="${user.nickName}" class="mt-0 text-warning">昵称</div>
+						<div class="text-muted mt-3">
+							发布于 <b th:text="${#dates.format(article.createTime,'yyyy-MM-dd HH:mm:ss')}">2022-02-04
+							17:00:00</b>
+							<ul class="d-inline float-right">
+								<li class="d-inline ml-2"><a href="#" class="text-primary">赞 11</a></li>
+								<li class="d-inline ml-2">|</li>
+								<li class="d-inline ml-2"><a href="#message-form" class="text-primary">评论 &nbsp<i th:text="${article.commentCount}">7</i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>	
+				<!-- 正文 -->
+				<div class="mt-4 mb-3 content" th:utext="${article.content}">
+				</div>
+			</div>
+			<!-- 评论 -->
+			<div class="container mt-3">
+				<!-- 评论数量 -->
+				<div class="row">
+					<div class="col-8">
+						<h6><b class="square"></b> <i th:text="${article.commentCount}">30</i>条评论</h6>
+					</div>
+					<div class="col-4 text-right">
+						<a href="#comment-form" class="btn btn-primary btn-sm btn-reply">&nbsp;&nbsp;评&nbsp;&nbsp;论&nbsp;&nbsp;</a>
+					</div>
+				</div>
+				<!-- 评论列表 -->
+				<ul class="list-unstyled media-list-message">
+					<li th:each="commentVOList:${comments}">
+						<div class="media">
+							<a href="#!"><img th:src="${commentVOList.user.avatar}"
+											  class="img-avatar img-avatar-30" alt="大娃"></a>
+							<div class="media-body">
+								<p>
+									<a href="#!"><strong th:utext="${commentVOList.user.nickName}">大娃</strong></a>
+									<a href="#!" class="pull-right text-fade m-l-5 reply-btn" th:href="|#comment-${commentVOListStat.count}|" data-toggle="collapse">回复(<i th:text="${commentVOList.replyCount}">2</i>)</a>
+									<a class="pull-right text-fade" datetime="2022-02-04 17:00:00" th:text="${#dates.format(commentVOList.comment.createTime,'yyyy-MM-dd HH:mm:ss')}">2022-02-04 17:00:00</a>
+								</p>
+								<p th:utext="${commentVOList.comment.content}">您个瓜娃子，谁让你这么弱的，要力量没力量啊。</p>
+								<!-- 回复列表 -->
+								<ul th:id="|comment-${commentVOListStat.count}|" th:class="|list-unstyled ${commentVOList.replyCount>0?'collapse show':'collapse'}|"
+									style="background: #fcfcfc;padding: 10px 15px;">
+									<li class="reply-li" th:each="replyVOList:${commentVOList.replys}">
+										<div class="media">
+											<a href="#!"><img th:src="${replyVOList.user.avatar}" class="img-avatar img-avatar-30" alt="二娃"></a>
+											<div class="media-body">
+												<p>
+													<a href="#!" th:if="${replyVOList.target==null}">
+														<strong th:text="${replyVOList.user.nickName}">二娃</strong>
+													</a>
+													<a href="#!" th:if="${replyVOList.target!=null}">
+														<strong th:text="${replyVOList.user.nickName}">二娃</strong>
+														<a class="text-fade">回复</a>
+														<strong th:text="${replyVOList.target.nickName}"
+																style="color: #33cabb;">大娃
+														</strong>&nbsp;
+													</a>
+													<a href="#!" class="pull-right text-fade m-l-5 reply-reply-btn"
+													    th:href="|#reply-${replyVOListStat.count}|" data-toggle="collapse">回复</a>
+													<a class="pull-right text-fade" datetime="2022-02-04 17:00:00" th:text="${#dates.format(replyVOList.reply.createTime,'yyyy-MM-dd HH:mm:ss')}">2022-02-04 17:00:00</a>
+												</p>
+												<p th:utext="${replyVOList.reply.content}">谢大哥。</p>
+											</div>
+										</div>
+										<div  class="collapse reply-reply-form" th:id="|reply-${replyVOListStat.count}|">
+											<form class="message-form" id="reply" method="post" th:action="@{|/comment/save/${article.id}|}">
+												<img th:src="${user.avatar}" alt="笔下光年" class="img-avatar img-avatar-30" />
+												<input class="form-control" type="text" name="content" th:placeholder="|回复${replyVOList.user.nickName}|">
+												<a class="message-btn-close m-r-10" href="#!"><i class="mdi mdi-close"></i></a>
+												<a class="message-btn-send" href="#!"
+												   onclick="document.getElementById('reply').submit();return false;"><i class="mdi mdi-near-me"></i></a>
+												<input type="hidden" name="entityType" value="2">
+												<input type="hidden" name="entityId" th:value="${commentVOList.comment.id}">
+												<input type="hidden" name="targetId" th:value="${replyVOList.user.id}">
+											</form>
+										</div>
+									</li>
+									<!-- 回复输入框 -->
+									<form class="message-form reply-form" id="respond" method="post" th:action="@{|/comment/save/${article.id}|}">
+										<img th:src="${user.avatar}" alt="笔下光年" class="img-avatar img-avatar-30" />
+										<input class="form-control" type="text" placeholder="输入您想说的话" name="content">
+										<a class="message-btn-close m-r-10" href="#!"><i class="mdi mdi-close"></i></a>
+										<a class="message-btn-send" href="#!"
+										   onclick="document.getElementById('respond').submit();return false;"><i class="mdi mdi-near-me"></i></a>
+										<input type="hidden" name="entityType" value="2">
+										<input type="hidden" name="entityId" th:value="${commentVOList.comment.id}">
+									</form>
+								</ul>
+
+							</div>
+						</div>
+
+					</li>
+				</ul>
+				<!-- 分页 -->
+				<nav class="mt-5" th:replace="index::pagination">
+				</nav>
+
+			</div>
+			<!-- 评论文章 -->
+			<div class="container mt-3 comment-from">
+				<form class="message-form" id="respond-form" method="post"
+					  th:action="@{|/comment/save/${article.id}|}">
+					<img th:src="${user.avatar}" alt="笔下光年" class="img-avatar img-avatar-30" />
+					<input class="form-control" type="text" placeholder="输入您想说的话" name="content">
+					<a class="message-btn-close m-r-10" href="#!"><i class="mdi mdi-close"></i></a>
+					<a class="message-btn-send" href="#!"
+					   onclick="document.getElementById('respond-form').submit();return false;"><i class="mdi mdi-near-me"></i></a>
+					<input type="hidden" name="entityType" value="1">
+					<input type="hidden" name="entityId" th:value="${article.id}">
+				</form>
+			</div>
+
+		</div>
+
+		<!-- 尾部 -->
+		<footer class="bg-dark" th:replace="index::footer">
+		</footer>
+	</div>
+	<script th:src="@{/admin/js/jquery.min.js}" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script th:src="@{/admin/js/bootstrap.min.js}" crossorigin="anonymous"></script>
+	<script th:src="@{/js/global.js}"></script>
+	<script type="text/javascript">
+		$('.btn-reply').on('click', function () {
+			$('.comment-from').find('.form-control').focus();
+		});
+		//评论区样式折叠
+		$('.reply-form .form-control').focus(function () {
+			$('.reply-reply-form').collapse("hide");
+
+		});
+
+		$('.comment-from .form-control').focus(function () {
+			$('.media .media-body ul').removeClass('show');
+			$('.reply-reply-form').collapse("hide");
+		});
+
+		$('.reply-reply-btn').on('click', function () {
+			$('.reply-li').siblings().find('.reply-reply-form').collapse("hide");
+		});
+
+
+			// //跳转评论
+			// $('.btn-reply').on('click', function () {
+			// 	var respond     = $('#respond-form'),
+			// 			respondHtml = respond.prop("outerHTML");
+			// 	$("#respond-form").remove();
+			// 	$('.replyfrom').prepend(respondHtml);
+			// 	$('#respond-form').find('.form-control').focus();
+			// 	$('.message-btn-close').hide();
+			// });
+
+			// // 回复评论
+			// $(document).on('click', '.reply-btn', function() {
+			// 	var parentLi    = $(this).parents('.media').first(),
+			// 			parentID    = $(this).data('id'),
+			// 			respond     = $('#respond-form'),
+			// 			respondHtml = respond.prop("outerHTML");
+			//
+			// 	$("#respond-form").remove();
+			// 	parentLi.after(respondHtml);
+			// 	$("#comment_parent_id").val(parentID);
+			// 	$('#respond-form').find('.form-control').focus();
+			// 	$('.message-btn-close').show();
+			// });
+
+			// $(document).on('click', '.message-btn-close', function() {
+			// 	var respond     = $('#respond-form'),
+			// 			respondHtml = respond.prop("outerHTML");
+			//
+			// 	respond.remove();
+			// 	// $('.media-list-message').after(respondHtml);
+			// 	$('.replyfrom').prepend(respondHtml);
+			// 	$("#comment_parent_id").val('0');
+			// 	$('.message-btn-close').hide();
+			// });
+		// });
+	</script>
+</body>
+</html>

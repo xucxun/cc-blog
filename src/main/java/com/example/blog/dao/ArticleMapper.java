@@ -12,4 +12,10 @@ public interface ArticleMapper {
     List<Article> selectArticlesById(int userId, int offset, int limit);
 
     int selectArticleRows(@Param("userId") int userId);
+
+    int insertArticle(Article article);
+
+    Article selectById(int id);
+
+    int updateCommentCount(@Param("id")int id, @Param("commentCount")int commentCount);
 }

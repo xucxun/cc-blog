@@ -26,4 +26,14 @@ public interface BlogConstant {
      * 记住状态的登录凭证超时时间，7天
      */
     int REMEMBER_EXPIRED_SECONDS = 3600 * 24 * 7;
+
+    /**
+     * 实体类型: 博客
+     */
+    int ENTITY_TYPE_ARTICLE = 1;
+
+    /**
+     * 实体类型: 评论
+     */
+    int ENTITY_TYPE_COMMENT = 2;
 }

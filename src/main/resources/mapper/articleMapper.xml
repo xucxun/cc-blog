@@ -8,6 +8,17 @@
         id, user_id, title, content, type, status, create_time, comment_count, score
     </sql>
 
+    <sql id="insertFields">
+        user_id, title, content, type, status, create_time, comment_count, score
+    </sql>
+    <insert id="insertArticle">
+        insert into article(<include refid="insertFields"></include>)
+        values(#{userId},#{title},#{content},#{type},#{status},#{createTime},#{commentCount},#{score})
+    </insert>
+    <update id="updateCommentCount">
+        update article set comment_count = #{commentCount} where id = #{id}
+    </update>
+
     <select id="selectArticlesById" resultType="Article">
         select <include refid="selectFields"></include>
         from article
@@ -26,6 +37,11 @@
         <if test="userId!=0">
             and user_id = #{userId}
         </if>
+    </select>
+    <select id="selectById" resultType="Article">
+        select <include refid="selectFields"></include>
+        from article
+        where id = #{id} and status != 2
     </select>
 
 </mapper>

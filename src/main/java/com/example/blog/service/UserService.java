@@ -32,7 +32,7 @@ public interface UserService {
      */
     void logout(String ticket);
     /**
-     *
+     *  更新用户头像
      */
     int updateAvatar(int userId, String avatar);
 
