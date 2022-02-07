@@ -142,8 +142,7 @@
 								</p>
 								<p th:utext="${commentVOList.comment.content}">您个瓜娃子，谁让你这么弱的，要力量没力量啊。</p>
 								<!-- 回复列表 -->
-								<ul th:id="|comment-${commentVOListStat.count}|" th:class="|list-unstyled ${commentVOList.replyCount>0?'collapse show':'collapse'}|"
-									style="background: #fcfcfc;padding: 10px 15px;">
+								<ul th:id="|comment-${commentVOListStat.count}|" th:class="|list-unstyled ${commentVOList.replyCount>0?'collapse show':'collapse'}|" style="background: #fcfcfc;padding: 10px 15px;">
 									<li class="reply-li" th:each="replyVOList:${commentVOList.replys}">
 										<div class="media">
 											<a href="#!"><img th:src="${replyVOList.user.avatar}" class="img-avatar img-avatar-30" alt="二娃"></a>
@@ -166,6 +165,7 @@
 												<p th:utext="${replyVOList.reply.content}">谢大哥。</p>
 											</div>
 										</div>
+										<!-- 回复评论的评论 -->
 										<div  class="collapse reply-reply-form" th:id="|reply-${replyVOListStat.count}|">
 											<form class="message-form" id="reply" method="post" th:action="@{|/comment/save/${article.id}|}">
 												<img th:src="${user.avatar}" alt="笔下光年" class="img-avatar img-avatar-30" />
@@ -179,10 +179,10 @@
 											</form>
 										</div>
 									</li>
-									<!-- 回复输入框 -->
+									<!-- 回复评论 -->
 									<form class="message-form reply-form" id="respond" method="post" th:action="@{|/comment/save/${article.id}|}">
 										<img th:src="${user.avatar}" alt="笔下光年" class="img-avatar img-avatar-30" />
-										<input class="form-control" type="text" placeholder="输入您想说的话" name="content">
+										<input class="form-control" type="text" th:placeholder="|回复${commentVOList.user.nickName}|" name="content">
 										<a class="message-btn-close m-r-10" href="#!"><i class="mdi mdi-close"></i></a>
 										<a class="message-btn-send" href="#!"
 										   onclick="document.getElementById('respond').submit();return false;"><i class="mdi mdi-near-me"></i></a>
