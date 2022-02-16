@@ -4,6 +4,7 @@ import com.example.blog.entity.Message;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -18,4 +19,8 @@ public interface MessageMapper {
     int messageCount(@Param("conversationId")String conversationId);
 
     int messageCountUnread(@Param("userId")int userId, @Param("conversationId")String conversationId);
+
+    int insertMessage(Message message);
+
+    int updateStatus(@Param("ids")List<Integer> ids,@Param("status") int status,@Param("updateTime") Date updateTime);
 }

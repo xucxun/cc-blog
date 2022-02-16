@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<title>404</title>
+	<link rel="icon" href="favicon.ico" type="image/ico">
+	<link rel="stylesheet" th:href="@{/admin/css/bootstrap.min.css}"  />
+	<link rel="stylesheet" th:href="@{/admin/css/materialdesignicons.min.css}"  />
+	<link rel="stylesheet" th:href="@{/admin/css/style.min.css}" />
+	<style>
+		html {
+			position: relative;
+			min-height: 100%;
+		}
+		html,body {
+			height: auto;
+			padding-top: 2%;
+		}
+		.footer {
+			bottom: 0;
+			padding: 19px 24px 20px;
+			position: absolute;
+			right: 0;
+			color: #98a6ad;
+			left: 0px;
+		}
+	</style>
+</head>
+
+<body>
+<div class="mt-5 mb-5">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-12">
+				<div class="text-center">
+					<img th:src="@{/img/404.png}" height="140" alt="File not found Image">
+					<h3 class="mt-4">很抱歉，但是那个页面看起来已经不存在了。</h3>
+					<p class="text-muted">我们正在让这个系统更棒。我们很快就回来。</p>
+
+					<a style="margin-top:30px;" th:href="@{/index}" class="btn btn-primary">返回首页</a>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer class="footer text-center">
+	2022 © CC 博客
+</footer>
+</body>
+</html>

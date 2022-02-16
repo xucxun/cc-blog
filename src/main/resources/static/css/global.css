@@ -4,7 +4,7 @@ html {
 
 body {
 	background: #eee;
-	font-family: arial, STHeiti, 'Microsoft YaHei', \5b8b\4f53;
+	/*font-family: arial, STHeiti, 'Microsoft YaHei', \5b8b\4f53;*/
 	font-size: 14px;
 	height: 100%;
 }
@@ -20,24 +20,24 @@ body {
 	padding: 0;
 }
 
-header .navbar-brand {
-	background: url('http://static.nowcoder.com/images/res/logo/logo-v3.png') no-repeat;
-	background-size: 147px 42px;
-	width: 147px;
-	height: 42px;
-	margin: 5px 15px 5px 0;
-}
+/*header .navbar-brand {*/
+/*	background: url('http://static.nowcoder.com/images/res/logo/logo-v3.png') no-repeat;*/
+/*	background-size: 147px 42px;*/
+/*	width: 147px;*/
+/*	height: 42px;*/
+/*	margin: 5px 15px 5px 0;*/
+/*}*/
 
-header .navbar {
-	padding: 5px 0;
-	font-size: 16px;
-}
+/*header .navbar {*/
+/*	padding: 5px 0;*/
+/*	font-size: 16px;*/
+/*}*/
 
-header .badge {
-	position: absolute;
-	top: -3px;
-	left: 33px;
-}
+/*header .badge {*/
+/*	position: absolute;*/
+/*	top: -3px;*/
+/*	left: 33px;*/
+/*}*/
 
 footer {
 	padding: 20px 0;
@@ -68,6 +68,7 @@ footer .company-info li {
 .main .container {
 	background: #fff;
 	padding: 20px;
+	padding-top: 60px;
 }
 
 i {

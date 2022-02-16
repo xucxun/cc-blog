@@ -3,6 +3,7 @@ package com.example.blog.service;
 import com.example.blog.entity.Comment;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CommentService {
 
@@ -15,10 +16,17 @@ public interface CommentService {
      * 统计评论总数
      */
     int countAll(int entityType, int entityId);
+
     /**
      * 保存评论
      */
     int save(Comment comment);
+
+    /**
+     * 根据文章id分页查询评论列表
+     */
+    List<Map<String, Object>> listComments(int articleId, int offset, int limit);
+
 
 
 }

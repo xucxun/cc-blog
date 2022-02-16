@@ -30,7 +30,6 @@ function publish() {
 			// 2秒后,自动隐藏提示框
 			setTimeout(function(){
 				$("#hintModal").modal("hide");
-				// 刷新页面
 				if(data.code == 0) {
 					window.location.reload();
 				}

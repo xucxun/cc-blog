@@ -1,16 +1,17 @@
 package com.example.blog.service.impl;
 
-import com.example.blog.dao.LoginTicketMapper;
 import com.example.blog.dao.UserMapper;
 import com.example.blog.entity.LoginTicket;
 import com.example.blog.entity.User;
 import com.example.blog.service.UserService;
 import com.example.blog.util.BlogConstant;
-import com.example.blog.util.BlogUtil;
 import com.example.blog.util.MailClient;
+import com.example.blog.util.RedisKeyUtil;
+import com.example.blog.util.ResultUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -19,6 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class UserServiceImpl implements UserService, BlogConstant{
@@ -33,7 +35,7 @@ public class UserServiceImpl implements UserService, BlogConstant{
     private TemplateEngine templateEngine;
 
     @Autowired
-    private LoginTicketMapper loginTicketMapper;
+    private RedisTemplate redisTemplate;
 
     @Value("${blog.path.domain}")
     private String domain;
@@ -42,7 +44,16 @@ public class UserServiceImpl implements UserService, BlogConstant{
 
     @Override
     public User findUserById(int id) {
-        return userMapper.selectById(id);
+        User user = getCache(id);
+        if (user == null) {
+            user = initCache(id);
+        }
+        return user;
+    }
+
+    @Override
+    public User findUserByNickName(String nickName) {
+        return userMapper.selectByNickName(nickName);
     }
 
     @Override
@@ -62,6 +73,10 @@ public class UserServiceImpl implements UserService, BlogConstant{
         }
         if (StringUtils.isBlank(registerUser.getNickName())) {
             map.put("nameMsg", "昵称不能为空！");
+            return map;
+        }
+        if(registeredUser.getNickName() == registerUser.getNickName()){
+            map.put("nameMsg", "昵称重复！");
             return map;
         }
         if (StringUtils.isBlank(registerUser.getPassword())) {
@@ -86,11 +101,11 @@ public class UserServiceImpl implements UserService, BlogConstant{
             return map;
         }
         // 注册用户
-        registerUser.setSalt(BlogUtil.generateUUID().substring(0, 5));  //生成5位的盐
-        registerUser.setPassword(BlogUtil.md5(registerUser.getPassword() + registerUser.getSalt()));
+        registerUser.setSalt(ResultUtil.generateUUID().substring(0, 5));  //生成5位的盐
+        registerUser.setPassword(ResultUtil.md5(registerUser.getPassword() + registerUser.getSalt()));
         registerUser.setRole(0);    //0-普通用户;
         registerUser.setStatus(0);  //0-未激活;
-        registerUser.setActivationCode(BlogUtil.generateUUID());   //生成唯一验证码
+        registerUser.setActivationCode(ResultUtil.generateUUID());   //生成唯一验证码
         //获取牛客网随机图片作为用户默认头像
         registerUser.setAvatar(String.format("http://images.nowcoder.com/head/%dt.png", new Random().nextInt(1000)));
         registerUser.setCreateTime(new Date());
@@ -115,6 +130,7 @@ public class UserServiceImpl implements UserService, BlogConstant{
             return ACTIVATION_REPEAT;
         } else if (user.getActivationCode().equals(code)) {
             userMapper.updateStatus(userId, 1);
+            clearCache(userId);
             return ACTIVATION_SUCCESS;
         } else {
             return ACTIVATION_FAILURE;
@@ -151,7 +167,7 @@ public class UserServiceImpl implements UserService, BlogConstant{
             return map;
         }
         // 验证密码
-        password = BlogUtil.md5(password + user.getSalt());
+        password = ResultUtil.md5(password + user.getSalt());
         if (!user.getPassword().equals(password)) {
             map.put("passwordMsg", "密码不正确！");
             return map;
@@ -160,11 +176,15 @@ public class UserServiceImpl implements UserService, BlogConstant{
         // 生成登录凭证，即cookie
         LoginTicket loginTicket = new LoginTicket();
         loginTicket.setUserId(user.getId());
-        loginTicket.setTicket(BlogUtil.generateUUID());
+        loginTicket.setTicket(ResultUtil.generateUUID());
         loginTicket.setStatus(0);  //0-有效
         //ms为单位，需要乘以1000L。需要转换为long型，否则会发生数据丢失
         loginTicket.setExpired(new Date(System.currentTimeMillis() + expiredSeconds * 1000L));
-        loginTicketMapper.insertLoginTicket(loginTicket);
+        //loginTicketMapper.insertLoginTicket(loginTicket);
+
+        //将ticket存入redis中
+        String redisKey = RedisKeyUtil.getTicketKey(loginTicket.getTicket());
+        redisTemplate.opsForValue().set(redisKey, loginTicket);
 
         map.put("ticket", loginTicket.getTicket());
         return map;
@@ -172,18 +192,47 @@ public class UserServiceImpl implements UserService, BlogConstant{
 
     @Override
     public void logout(String ticket) {
-        loginTicketMapper.updateStatus(ticket,1);
+        //从redis里查出用户凭证并修改凭证状态
+        String redisKey = RedisKeyUtil.getTicketKey(ticket);
+        LoginTicket loginTicket = (LoginTicket) redisTemplate.opsForValue().get(redisKey);
+        loginTicket.setStatus(1);
+        redisTemplate.opsForValue().set(redisKey, loginTicket);
     }
 
     @Override
     public int updateAvatar(int userId, String avatar) {
-        return userMapper.updateAvatar(userId, avatar);
+        int rows = userMapper.updateAvatar(userId, avatar);
+        clearCache(userId);
+        return rows;
     }
 
     public LoginTicket findLoginTicket(String ticket) {
-        return loginTicketMapper.selectByTicket(ticket);
+        String redisKey = RedisKeyUtil.getTicketKey(ticket);
+        return (LoginTicket) redisTemplate.opsForValue().get(redisKey);
 
     }
 
+    // 1.优先从缓存中取值
+    @Override
+    public User getCache(int userId) {
+        String redisKey = RedisKeyUtil.getUserKey(userId);
+        return (User) redisTemplate.opsForValue().get(redisKey);
+    }
 
+    // 2.取不到时初始化缓存数据
+    @Override
+    public User initCache(int userId) {
+        User user = userMapper.selectById(userId);
+        String redisKey = RedisKeyUtil.getUserKey(userId);
+        // 将用户信息存入Redis,失效的时间是60min
+        redisTemplate.opsForValue().set(redisKey, user, 3600, TimeUnit.SECONDS);
+        return user;
+    }
+
+    // 3.数据变更时清除缓存数据
+    @Override
+    public void clearCache(int userId) {
+        String redisKey = RedisKeyUtil.getUserKey(userId);
+        redisTemplate.delete(redisKey);
+    }
 }

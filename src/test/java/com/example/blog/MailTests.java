@@ -1,6 +1,7 @@
 package com.example.blog;
 
 import com.example.blog.util.MailClient;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.util.UUID;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Ignore
 @ContextConfiguration(classes = BlogApplication.class)
 public class MailTests {
 

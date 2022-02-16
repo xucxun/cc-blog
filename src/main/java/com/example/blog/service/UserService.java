@@ -13,6 +13,11 @@ public interface UserService {
     User findUserById(int id);
 
     /**
+     * 根据用户昵称查询用户
+     */
+    User findUserByNickName(String nickName);
+
+    /**
      * 用户注册
      */
     Map<String, Object> register(User registerUser,String confirmPassword);
@@ -36,5 +41,24 @@ public interface UserService {
      */
     int updateAvatar(int userId, String avatar);
 
+    /**
+     * 查询用户凭证
+     */
     LoginTicket findLoginTicket(String ticket);
+
+    /**
+     * 根据用户id从缓存中取值
+     */
+    User getCache(int userId);
+
+    /**
+     * 取不到时初始化缓存数据
+     */
+    User initCache(int userId);
+
+    /**
+     *
+     */
+    void clearCache(int userId);
+
 }

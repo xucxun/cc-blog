@@ -1,14 +1,30 @@
 $(function(){
-	$("#sendBtn").click(send_letter);
+	$("#sendBtn").click(send);
 	$(".close").click(delete_msg);
 });
 
-function send_letter() {
+function send() {
 	$("#sendModal").modal("hide");
-	$("#hintModal").modal("show");
-	setTimeout(function(){
-		$("#hintModal").modal("hide");
-	}, 2000);
+
+	var receiverName = $("#recipient-name").val();
+	var content = $("#message-text").val().replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ');
+	$.post(
+		"/messages/send",
+		{"receiverName":receiverName,"content":content},
+		function(data) {
+			data = $.parseJSON(data);
+			if(data.code == 0) {
+				$("#hintBody").text("发送成功!");
+			} else {
+				$("#hintBody").text(data.msg);
+			}
+			$("#hintModal").modal("show");
+			setTimeout(function(){
+				$("#hintModal").modal("hide");
+				location.reload();
+			}, 2000);
+		}
+	);
 }
 
 function delete_msg() {

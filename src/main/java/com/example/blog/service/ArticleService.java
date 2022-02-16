@@ -17,16 +17,12 @@ public interface ArticleService {
     int findArticlesRows(int userId);
 
     /**
-     * 保存文章
-     */
-    int save(Article article);
-    /**
      * 根据id查询文章
      */
     Article getById(int id);
 
     /**
-     * 更新文章评论数
+     * 保存文章
      */
-    int updateCommentCount(int id, int commentCount);
+    String add(String title, String content);
 }

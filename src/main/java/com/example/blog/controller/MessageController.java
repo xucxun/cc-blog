@@ -7,13 +7,14 @@ import com.example.blog.service.MessageService;
 import com.example.blog.service.UserService;
 import com.example.blog.util.BlogConstant;
 import com.example.blog.util.HostHolder;
+import com.example.blog.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,32 +35,22 @@ public class MessageController implements BlogConstant {
 
     @GetMapping("/messages")
     public String listMessage(Model model, Page page){
+//        Integer.valueOf("abc");
         User user = hostHolder.getUser();
         page.setLimit(5);
         page.setPath("/messages");
         page.setRows(messageService.countAllConversation(user.getId()));
 
-        // 会话列表
-        List<Message> conversationList = messageService.listConversations(user.getId(), page.getOffset(), page.getLimit());
-        List<Map<String, Object>> conversations = new ArrayList<>();
-        if (conversationList != null) {
-            for (Message message : conversationList) {
-                Map<String, Object> map = new HashMap<>();
-                map.put("conversation", message);
-                map.put("messageCount", messageService.countMessage(message.getType()));
-                map.put("unreadCount", messageService.countMessageUnread(user.getId(), message.getType()));
-                int targetId = user.getId() == message.getSenderId() ? message.getReceiverId() : message.getSenderId();
-                map.put("target", userService.findUserById(targetId));
-
-                conversations.add(map);
-            }
-        }
+        //会话列表
+        List<Map<String, Object>> conversations = messageService.listConversations(page.getOffset(), page.getLimit());
         model.addAttribute("conversations", conversations);
 
         // 查询未读消息数量
         int messageUnreadCount = messageService.countMessageUnread(user.getId(), null);
         model.addAttribute("messageUnreadCount", messageUnreadCount);
-        return "/front/letter";
+//        return "/front/letter";
+//        return "/front/messages";
+          return "test/test_chat_v4";
     }
 
     //私信详细信息
@@ -69,25 +60,14 @@ public class MessageController implements BlogConstant {
         page.setPath("/messages/" + conversationId);
         page.setRows(messageService.countMessage(conversationId));
 
-        // 私信列表
-        List<Message> letterList = messageService.listMessages(conversationId, page.getOffset(), page.getLimit());
-        List<Map<String, Object>> messages = new ArrayList<>();
-        if (letterList != null) {
-            for (Message message : letterList) {
-                Map<String, Object> map = new HashMap<>();
-                map.put("message", message);
-                map.put("sender", userService.findUserById(message.getSenderId()));
-                messages.add(map);
-            }
-        }
+        List<Map<String, Object>> messages = messageService.listMessages(conversationId, page.getOffset(),
+                page.getLimit());
         model.addAttribute("messages", messages);
-
         // 私信目标
         model.addAttribute("target", getMessageTarget(conversationId));
 
-
-        return "/front/letter-detail";
-
+//       return "/front/letter-detail";
+        return "test/chat_detail";
     }
 
     private User getMessageTarget(String conversationId) {
@@ -102,18 +82,9 @@ public class MessageController implements BlogConstant {
         }
     }
 
-    //得到未读的id集合
-    private List<Integer> getMessageIds(List<Message> letterList) {
-        List<Integer> ids = new ArrayList<>();
-
-        if (letterList != null) {
-            for (Message message : letterList) {
-                if (hostHolder.getUser().getId() == message.getReceiverId() && message.getStatus() == 0) {
-                    ids.add(message.getId());
-                }
-            }
-        }
-
-        return ids;
+    @PostMapping("/messages/send")
+    @ResponseBody
+    public String sendMessage(String receiverName, String content){
+         return(messageService.send(receiverName,content));
     }
 }

@@ -2,8 +2,11 @@ package com.example.blog.controller;
 
 import com.example.blog.annotation.LoginRequired;
 import com.example.blog.entity.User;
+import com.example.blog.service.FollowService;
+import com.example.blog.service.LikeService;
 import com.example.blog.service.UserService;
-import com.example.blog.util.BlogUtil;
+import com.example.blog.util.BlogConstant;
+import com.example.blog.util.ResultUtil;
 import com.example.blog.util.HostHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -12,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -23,15 +23,22 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.*;
 
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserController implements BlogConstant {
 
     private static final Logger logger= LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private LikeService likeService;
+
+    @Autowired
+    private FollowService followService;
 
     @Autowired
     private HostHolder hostHolder;
@@ -64,7 +71,7 @@ public class UserController {
         }
 
         // 生成随机文件名
-        fileName = BlogUtil.generateUUID() + suffix;
+        fileName = ResultUtil.generateUUID() + suffix;
         // 确定文件存放的路径
         File dest = new File(uploadPath + "/" + fileName);
         try {
@@ -82,7 +89,7 @@ public class UserController {
     }
 
     @GetMapping("/avatar/{fileName}")
-    public void getavatar(@PathVariable("fileName") String fileName, HttpServletResponse response) {
+    public void getAvatar(@PathVariable("fileName") String fileName, HttpServletResponse response) {
         // 服务器存放路径
         fileName = uploadPath + "/" + fileName;
         // 文件后缀，得到png
@@ -101,6 +108,47 @@ public class UserController {
         } catch (IOException e) {
             logger.error("读取头像失败: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/get")
+     public String getByNickName(Model model,String nickName){
+        User searchUser = userService.findUserByNickName(nickName);
+        if(Objects.isNull(searchUser)){
+            return ResultUtil.getJsonResult(1,"用户不存在");
+        }
+        String nickName1 = searchUser.getNickName();
+        String avatar = searchUser.getAvatar();
+        model.addAttribute("nickName1",nickName1);
+        model.addAttribute("avatar",avatar);
+        return  "test/test_chat_v4 :: user";
+    }
+
+    /**
+     * 个人主页
+     */
+    @GetMapping( "/{userId}")
+    public String getProfilePage(@PathVariable("userId") int userId, Model model) {
+        User user = userService.findUserById(userId);
+        if (user == null) {
+            throw new RuntimeException("该用户不存在!");
+        }
+        model.addAttribute("user", user);
+        //点赞数量
+        int likeCount = likeService.userLikeCount(userId);
+        model.addAttribute("likeCount", likeCount);
+        // 关注数量
+        long followingCount = followService.countFollowing(userId, ENTITY_TYPE_USER);
+        model.addAttribute("followingCount", followingCount);
+        // 粉丝数量
+        long followerCount = followService.countFollower(ENTITY_TYPE_USER, userId);
+        model.addAttribute("followerCount", followerCount);
+        // 是否已关注
+        boolean isFollowed = false;
+        if (hostHolder.getUser() != null) {
+            isFollowed = followService.isFollowed(hostHolder.getUser().getId(), ENTITY_TYPE_USER, userId);
+        }
+        model.addAttribute("isFollowed", isFollowed);
+        return "/front/profile";
     }
 
 

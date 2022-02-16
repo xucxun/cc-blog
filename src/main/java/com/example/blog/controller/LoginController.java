@@ -4,11 +4,14 @@ import com.example.blog.entity.User;
 import com.example.blog.service.UserService;
 import com.example.blog.util.BlogConstant;
 import com.example.blog.util.KaptchaUtil;
+import com.example.blog.util.RedisKeyUtil;
+import com.example.blog.util.ResultUtil;
 import com.google.code.kaptcha.Producer;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -24,6 +27,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class LoginController implements BlogConstant {
@@ -36,6 +40,9 @@ public class LoginController implements BlogConstant {
     @Autowired
     private Producer kaptchaProducer;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @GetMapping("/register")
     public String registerPage() {
         return "/front/register";
@@ -44,13 +51,10 @@ public class LoginController implements BlogConstant {
 
     @GetMapping("/login")
     public String loginPage() {
-//        return "/front/login";
         return("/front/lyear_pages_login_2");
     }
 
     @PostMapping("/register")
-    //这里跳转的是templates下的内容,这里用return来获取。input的name属性和bean的变量名对应才能成功取到值
-    //springmvc user封装到model里，页面直接可以用。confirmPassword从request里可以取到，用param即可
     public String register(Model model, User registerUser, String confirmPassword) {
         Map<String, Object> map = userService.register(registerUser,confirmPassword);
         if (map == null || map.isEmpty()) {
@@ -69,7 +73,6 @@ public class LoginController implements BlogConstant {
     }
 
     @GetMapping("/activation/{userId}/{code}")
-//    @RequestMapping(path = "/activation/{userId}/{code}", method = RequestMethod.GET)
     public String activation(Model model, @PathVariable("userId") int userId, @PathVariable("code") String code) {
         int result = userService.activation(userId, code);
         if (result == ACTIVATION_SUCCESS) {
@@ -90,7 +93,7 @@ public class LoginController implements BlogConstant {
 
 
     @GetMapping("/kaptcha")
-    public void getKaptcha(HttpServletResponse response, HttpSession session) {
+    public void getKaptcha(HttpServletResponse response) {
 
         int width = 200;
         int height = 69;
@@ -98,24 +101,23 @@ public class LoginController implements BlogConstant {
         //生成对应宽高的初始图片
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         //单独的一个类方法，出于代码复用考虑，进行了封装。功能是生成验证码字符并加上噪点，干扰线，返回值为验证码字符
+        // 生成验证码
         String text = KaptchaUtil.drawRandomText(width, height, image);
-//        // 生成验证码
-//        String text = kaptchaProducer.createText();
-//        BufferedImage image = kaptchaProducer.createImage(text);
+
 
          //将验证码存入session
-         session.setAttribute("kaptcha", text);
+         //session.setAttribute("kaptcha", text);
 
-//        // 验证码的归属
-//        String kaptchaOwner = BlogUtil.generateUUID();
-//        Cookie cookie = new Cookie("kaptchaOwner", kaptchaOwner);
-//        //失效的时间是10min
-//        cookie.setMaxAge(60*10);
-//        cookie.setPath(contextPath);
-//        response.addCookie(cookie);
-//        // 将验证码存入Redis,失效的时间是10min
-//        String redisKey = RedisKeyUtil.getKaptchaKey(kaptchaOwner);
-//        redisTemplate.opsForValue().set(redisKey, text, 60*10, TimeUnit.SECONDS);
+        // 验证码的归属
+        String kaptchaBelonger = ResultUtil.generateUUID();
+        Cookie cookie = new Cookie("kaptchaBelonger", kaptchaBelonger);
+        //失效的时间是10min
+        cookie.setMaxAge(60*10);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        // 将验证码存入Redis,失效的时间是10min
+        String redisKey = RedisKeyUtil.getKaptchaKey(kaptchaBelonger);
+        redisTemplate.opsForValue().set(redisKey, text, 60*10, TimeUnit.SECONDS);
 
         // 将图片输出给浏览器
         response.setContentType("image/png");
@@ -129,9 +131,21 @@ public class LoginController implements BlogConstant {
 
     @PostMapping("/login")
     public String login(String account, String password, String code, boolean rememberme, Model model,
-                        HttpSession session,HttpServletResponse response){
+                        HttpServletResponse response,@CookieValue("kaptchaBelonger")String kaptchaBelonger){
 
-        String kaptcha = (String) session.getAttribute("kaptcha");
+//        String kaptcha = (String) session.getAttribute("kaptcha");
+        String kaptcha = null;
+        //从redis里获取验证码
+        try {
+            if (StringUtils.isNotBlank(kaptchaBelonger)) {
+                String redisKey = RedisKeyUtil.getKaptchaKey(kaptchaBelonger);
+                kaptcha = (String) redisTemplate.opsForValue().get(redisKey);
+            }
+        }catch (Exception e) {
+            model.addAttribute("codeMsg", "验证码失效!");
+            return "/front/lyear_pages_login_2";
+        }
+
         if (StringUtils.isBlank(kaptcha) || StringUtils.isBlank(code) || !kaptcha.equals(code)){
             model.addAttribute("codeMsg", "验证码不正确!");
             return("/front/lyear_pages_login_2");

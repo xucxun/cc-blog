@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<title>出错啦</title>
+	<link rel="icon" href="favicon.ico" type="image/ico">
+	<link rel="stylesheet" th:href="@{/admin/css/bootstrap.min.css}"  />
+	<link rel="stylesheet" th:href="@{/admin/css/materialdesignicons.min.css}"  />
+	<link rel="stylesheet" th:href="@{/admin/css/style.min.css}" />
+	<style>
+		.error-page {
+			height: 100%;
+			position: fixed;
+			width: 100%;
+		}
+		.error-body {
+			padding-top: 5%;
+		}
+		.error-body h1 {
+			font-size: 210px;
+			font-weight: 700;
+			text-shadow: 4px 4px 0 #f5f6fa, 6px 6px 0 #868e96;
+			line-height: 210px;
+			color: #868e96;
+		}
+		.footer {
+			bottom: 0;
+			padding: 19px 24px 20px;
+			position: absolute;
+			right: 0;
+			color: #98a6ad;
+			left: 0px;
+		}
+	</style>
+</head>
+
+<body>
+<section class="error-page">
+	<div class="error-box">
+		<div class="error-body text-center">
+			<h1>error</h1>
+			<h5 class="mb-5 mt-3 text-gray" style="padding-top: 30px;">很抱歉，但是那个页面看起来发生错误了。</h5>
+			<a th:href="@{/index}" class="btn btn-primary">返回首页</a>
+		</div>
+	</div>
+</section>
+<footer class="footer text-center">
+	2022 © CC 博客
+</footer>
+<script th:src="@{/admin/js/jquery.min.js}"></script>
+<script th:src="@{/admin/js/bootstrap.min.js}"></script>
+<script type="text/javascript">;</script>
+</body>
+</html>

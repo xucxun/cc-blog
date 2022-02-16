@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>私信详情 - 博客</title>
+    <link rel="icon" href="favicon.ico" type="image/ico">
+    <link rel="stylesheet" th:href="@{/admin/css/bootstrap.min.css}"  />
+    <link rel="stylesheet" th:href="@{/admin/css/materialdesignicons.min.css}"  />
+    <link rel="stylesheet" th:href="@{/admin/css/style.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/messages.css}" />
+    <link rel="stylesheet" th:href="@{/css/global.css}" />
+</head>
+
+<body>
+<div id="lyear-chat-content">
+    <header id="lyear-chat-header" data-user-id="1">
+        <ul class="lyear-chat-menu clearfix">
+
+            <li class="lyear-chat-user-info float-left clearfix">
+                <img  class="chat-user-avatar img-avatar"  th:src="${target.avatar}"/>
+                <div class="m-10 lyear-chat-user-wrap">
+                    <p class="mb-0" id="friend-name" th:utext="${target.nickName}">大娃</p>
+                    <input type="hidden" name="targetNickName" th:value="${target.nickName}"  id="targetNickName"/>
+                </div>
+            </li>
+            <li class="float-right lyear-chat-tools">
+                <a href="#!" id="clear-all" data-toggle="tooltip" title="清屏"><i class="mdi mdi-delete-empty"></i></a>
+                <a href="#!" id="history-message" data-toggle="tooltip" title="历史消息"><i class="mdi mdi-history"></i></a>
+            </li>
+        </ul>
+    </header>
+
+    <div class="lyear-chat-container">
+
+        <div class="lyear-chat-wrapper lyear-need-scroll">
+            <!--显示默认第一个好友的记录，id中-1为第一个好友的id值-->
+            <div class='lyear-chat-message-list' id="chat-by-1">
+                <div th:each="map:${messages}"
+                     th:class="|lyear-chat-message clearfix ${loginUser.id!=map.sender.id?'lyear-chat-message-recipient':'lyear-chat-message-sender'}|" style="cursor:pointer;">
+                    <input type="hidden" name="loginUserId" th:value="${loginUser.id}"  id="loginUserId"/>
+                    <input type="hidden" name="senderId" th:value="${map.sender.id}"  id="senderId"/>
+                    <input type="hidden" name="receiverId" th:value="${map.receiver.id}"  id="receiverId"/>
+                    <img  class='chat-user-avatar img-avatar' th:src="${map.sender.avatar}"/>
+                    <div class='lyear-chat-message-wrapper'>
+                        <div class='lyear-chat-message-content'>
+                            <p  th:utext="${map.message.content}">嗨，您有没有兴趣资助我们的新项目！</p>
+                        </div>
+                        <div class='lyear-message-details'> <span class='chat-today small' th:text="${#dates.format(map.message.createTime,'yyyy-MM-dd HH:mm:ss')}">2017/5/23 11:02:53</span> </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <footer id="lyear-chat-footer">
+            <form class="form-horizontal lyear-chat-form" onsubmit="return false;">
+<!--                <ul class="lyear-chat-expression list-inline">-->
+<!--                    <li class="list-inline-item upload-box file-group">-->
+<!--                        <a href="#!"> <i class="mdi mdi-image file-browser"></i><input type="file" class="d-none" accept="image/*" multiple> </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+                <div class="form-group m-10 lyear-chat-send-box">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="lyear-chat-comment" placeholder="输入信息..." required>
+                        <span class="input-group-append">
+                      <button type="button" class="btn btn-default btn-sender" id="sendBtn"><i class="mdi mdi-telegram"></i></button>
+                    </span>
+                    </div>
+                </div>
+            </form>
+        </footer>
+
+    </div>
+</div>
+
+<!--历史消息-->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="historyModal" id="historyModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="historyModal">历史消息</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="history-messages-box lyear-need-scroll"></div>
+                <div class="history-messages-pages clearfix"></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/admin/js/jquery.min.js}"></script>
+<script th:src="@{/admin/js/popper.min.js}"></script>
+<script th:src="@{/admin/js/bootstrap.min.js}"></script>
+<script th:src="@{/admin/js/perfect-scrollbar.min.js}"></script>
+<script th:src="@{/admin/js/main.min.js}"></script>
+<script th:src="@{/js/global.js}"></script>
+<script type="text/javascript" th:inline="javascript" >
+    $(document).ready(function(){
+        var $chatWrapper = $('.lyear-chat-wrapper');
+        $chatWrapper.animate({scrollTop: $chatWrapper[0].scrollHeight}, 500);
+        // 滚动条
+        if ($('.lyear-need-scroll')[0]) {
+            $('.lyear-need-scroll').each(function () {
+                new PerfectScrollbar(this, {
+                    swipeEasing: false,
+                    suppressScrollX: true
+                });
+            });
+        }
+
+        // 清屏
+        $('#clear-all').on('click', function() {
+            $('.lyear-chat-wrapper').find('.lyear-chat-message-list:visible').html('');
+        });
+
+        // 发送消息(这里只发送到聊天内容中)
+        $('#sendBtn').click( clickBtnSend);
+
+        function clickBtnSend(){
+            var receiverName = $("#targetNickName").val();
+            var content = $("#lyear-chat-comment").val().replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ');
+
+            $.post(
+                "/messages/send",
+                {"receiverName":receiverName,"content":content},
+                function(data) {
+                    data = $.parseJSON(data);
+                    window.location.reload();
+                }
+            );
+            // 清空输入框
+            $('#lyear-chat-comment').val('');
+
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<link rel="icon" href="https://static.nowcoder.com/images/logo_87_87.png"/>
+	<link rel="stylesheet" th:href="@{/css/global.css}"  />
+	<link rel="stylesheet" th:href="@{/css/messages.css}" />
+	<link rel="stylesheet" th:href="@{/admin/css/bootstrap.min.css}"  />
+	<link rel="stylesheet" th:href="@{/admin/css/materialdesignicons.min.css}"  />
+	<link rel="stylesheet" th:href="@{/admin/css/style.min.css}" />
+	<title>私信-博客</title>
+</head>
+<body>
+<div class="lyear-layout-web">
+	<div class="lyear-layout-container">
+		<!-- 头部 -->
+		<div class="Chat">
+		<!-- 内容 -->
+			<div class="lyear-chat-room">
+				<aside class="lyear-chat-side">
+					<div class="lyear-chat-search">
+						<div class="has-feedback">
+							<input type="text" placeholder="输入关键词，回车搜索" class="form-control" name="keywords" id="keywords" />
+							<span class="mdi mdi-account" aria-hidden="true"></span>
+						</div>
+					</div>
+					<div class="lyear-chat-sidebar-scroll lyear-need-scroll">
+							<!--聊天列表-->
+						<div class="list-group lyear-chat-users">
+							<a href="#!" class="list-group-item active" data-user-id="1" data-autograph="力大无穷的娃娃">
+								<span class="float-left user-status-success">
+									<img th:src="@{/admin/images/users/avatar-1.png}" alt="" class="img-avatar chat-user-avatar m-r-10">
+								</span>
+								<div class="list-chat-user-info clearfix">
+									<h4 class="list-chat-user-name float-left">大娃</h4>
+									<time class="float-right">12:11</time>
+								</div>
+								<p class="list-chat-user-text">您知道的有点多啊</p><!--最后一条聊天数据-->
+								</a>
+						</div>
+					</div>
+					<button class="lyear-chat-toggler"></button>
+				</aside>
+				<section id="lyear-chat-content">
+						<!--data-user-id默认第一个好友的id值，切换时修改-->
+					<header id="lyear-chat-header" data-user-id="1">
+						<ul class="lyear-chat-menu clearfix">
+							<li class="lyear-chat-user-info float-left clearfix">
+								<img th:src="@{/admin/images/users/avatar-1.png}" class="chat-user-avatar img-avatar" />
+								<div class="m-l-10 lyear-chat-user-wrap">
+									<p class="mb-0" id="friend-name">大娃</p>
+									<p class="m-0 small text-muted" id="friend-text">力大无凶...</p>
+								</div>
+							</li>
+							<li class="float-right lyear-chat-tools">
+								<a href="#!" id="clear-all" data-toggle="tooltip" title="清屏"><i class="mdi mdi-delete-empty"></i></a>
+								<a href="#!" id="history-message" data-toggle="tooltip" title="历史消息"><i class="mdi mdi-history"></i></a>
+							</li>
+						</ul>
+					</header>
+					<div class="lyear-chat-container">
+						<div class="lyear-chat-wrapper lyear-need-scroll">
+							<!--显示默认第一个好友的记录，id中-1为第一个好友的id值-->
+							<div class='lyear-chat-message-list' id="chat-by-1">
+								<div class='lyear-chat-message lyear-chat-message-recipient clearfix'>
+									<img  class='chat-user-avatar img-avatar' th:src="@{/admin/images/users/avatar-1.png}" />
+									<div class='lyear-chat-message-wrapper'>
+										<div class='lyear-chat-message-content'>
+											<p>嗨，您有没有兴趣资助我们的新项目！</p>
+										</div>
+										<div class='lyear-message-details'> <span class='chat-today small'>2017/5/23 11:02:53</span> </div>
+									</div>
+								</div>
+								<div class='lyear-chat-message lyear-chat-message-sender clearfix'>
+									<img class='chat-user-avatar img-avatar' th:src="${loginUser.avatar}" />
+									<div class='lyear-chat-message-wrapper'>
+										<div class='lyear-chat-message-content'>
+											<p>这首《西江月》词，大抵说人的婚姻，乃前生注定，非人力可以勉强。</p>
+										</div>
+										<div class='lyear-message-details'> <span class='chat-today small'>11:53:14</span> </div>
+									</div>
+								</div>
+								<div class='lyear-chat-message lyear-chat-message-recipient clearfix'>
+									<img  class='chat-user-avatar img-avatar' th:src="@{/admin/images/users/avatar-1.png}" />
+									<div class='lyear-chat-message-wrapper'>
+										<div class='lyear-chat-message-content'>
+											<p>你咋知道的，是不是有点懂得太多了</p>
+										</div>
+										<div class='lyear-message-details'> <span class='chat-today small'>11:58:53</span> </div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+						<footer id="lyear-chat-footer">
+							<form class="form-horizontal lyear-chat-form" onsubmit="return false;">
+								<ul class="lyear-chat-expression list-inline">
+									<li class="list-inline-item upload-box file-group">
+										<a href="#!"> <i class="mdi mdi-image file-browser"></i><input type="file" class="d-none" accept="image/*" multiple> </a>
+									</li>
+								</ul>
+								<div class="form-group m-10 lyear-chat-send-box">
+									<div class="input-group">
+										<input type="text" class="form-control" id="lyear-chat-comment" placeholder="输入信息...">
+										<span class="input-group-append">
+											<button type="button" class="btn btn-default btn-sender"><i class="mdi mdi-telegram"></i></button>
+										</span>
+									</div>
+								</div>
+							</form>
+						</footer>
+
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+</div>
+	<script th:src="@{/admin/js/jquery.min.js}"></script>
+	<script th:src="@{/admin/js/popper.min.js}"></script>
+	<script th:src="@{/admin/js/bootstrap.min.js}"></script>
+	<script th:src="@{/admin/js/perfect-scrollbar.min.js}"></script>
+	<script th:src="@{/admin/js/main.min.js}"></script>
+<!--	<script th:src="@{/js/global.js}"></script>-->
+<!--	<script th:src="@{/js/messages.js}"></script>-->
+</body>
+</html>

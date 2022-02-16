@@ -4,10 +4,11 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.DigestUtils;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class BlogUtil {
+public class ResultUtil {
 
     //生成随机字符串,32位
     public static String generateUUID(){
@@ -21,7 +22,6 @@ public class BlogUtil {
         }
         return DigestUtils.md5DigestAsHex(key.getBytes());
     }
-
     public static String getJsonResult(int code, String msg, Map<String, Object> map) {
         JSONObject json = new JSONObject();
         json.put("code", code);

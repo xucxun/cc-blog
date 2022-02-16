@@ -65,4 +65,17 @@
         </if>
     </select>
 
+    <insert id="insertMessage" parameterType="Message" keyProperty="id">
+        insert into message(<include refid="insertFields"></include>)
+        values(#{senderId},#{receiverId},#{type},#{content},#{status},#{createTime},#{updateTime})
+    </insert>
+
+    <update id="updateStatus">
+        update message set status = #{status},update_time = #{updateTime}
+        where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
 </mapper>

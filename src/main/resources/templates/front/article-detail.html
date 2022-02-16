@@ -7,6 +7,7 @@
 	<link th:href="@{/admin/css/bootstrap.min.css}" rel="stylesheet">
 	<link th:href="@{/admin/css/materialdesignicons.min.css}" rel="stylesheet">
 	<link th:href="@{/admin/css/style.min.css}" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/css/messages.css}" />
 	<link rel="stylesheet" th:href="@{/css/global.css}" />
 	<link rel="stylesheet" th:href="@{/css/discuss-detail.css}" />
     <title>文章详情</title>
@@ -97,7 +98,7 @@
 				</h6>
 				<!-- 作者 -->
 				<div class="media pb-3 border-bottom">
-					<a href="profile.html">
+					<a th:href="@{|/user/${user.id}|}">
 						<img th:src="${user.avatar}"  class="align-self-start mr-4 rounded-circle user-header" alt="用户头像" >
 					</a>
 					<div class="media-body">
@@ -106,9 +107,16 @@
 							发布于 <b th:text="${#dates.format(article.createTime,'yyyy-MM-dd HH:mm:ss')}">2022-02-04
 							17:00:00</b>
 							<ul class="d-inline float-right">
-								<li class="d-inline ml-2"><a href="#" class="text-primary">赞 11</a></li>
-								<li class="d-inline ml-2">|</li>
-								<li class="d-inline ml-2"><a href="#message-form" class="text-primary">评论 &nbsp<i th:text="${article.commentCount}">7</i></a></li>
+								<li style="border: none;" class="d-inline ml-2">
+									<a href="javascript:;" th:onclick="|like(this,1,${article.id},${article.userId});|">
+										<i class="mdi mdi-thumb-up-outline" th:style="${likeStatus==1?'color:#33cabb;':'color:#868e96;'}"></i>
+										<i th:text="${likeCount}" th:style="${likeStatus==1?'color:#33cabb;':'color:#868e96;'}">1</i>
+<!--										<b th:text="${likeStatus==1?'已赞':'赞'}"></b> <i th:text="${likeCount}">11</i>-->
+									</a>
+								</li>
+								<li style="border: none;"  class="d-inline ml-2">
+									<a href="#message-form" class="text-muted">评论 &nbsp<i th:text="${article.commentCount}">7</i></a>
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -118,34 +126,48 @@
 				</div>
 			</div>
 			<!-- 评论 -->
-			<div class="container mt-3">
+			<div class="container mt-3 pt-3">
 				<!-- 评论数量 -->
 				<div class="row">
 					<div class="col-8">
-						<h6><b class="square"></b> <i th:text="${article.commentCount}">30</i>条评论</h6>
+						<h6 style="margin: 0;line-height: 32px;"><b class="square"></b>共<i th:text="${article.commentCount}">30</i>条评论</h6>
 					</div>
 					<div class="col-4 text-right">
 						<a href="#comment-form" class="btn btn-primary btn-sm btn-reply">&nbsp;&nbsp;评&nbsp;&nbsp;论&nbsp;&nbsp;</a>
+						<input type="hidden" name="loginUserId" th:if="${loginUser!=null}" th:value="${loginUser.id}"
+							   id="loginUserId"/>
 					</div>
 				</div>
 				<!-- 评论列表 -->
-				<ul class="list-unstyled media-list-message">
+				<ul class="list-unstyled media-list-message" style="margin-top: 20px;">
 					<li th:each="commentVOList:${comments}">
 						<div class="media">
-							<a href="#!"><img th:src="${commentVOList.user.avatar}"
-											  class="img-avatar img-avatar-30" alt="大娃"></a>
+							<a th:href="@{|/user/${commentVOList.user.id}|}"><img th:src="${commentVOList.user.avatar}" class="img-avatar img-avatar-30" alt="大娃"></a>
 							<div class="media-body">
 								<p>
 									<a href="#!"><strong th:utext="${commentVOList.user.nickName}">大娃</strong></a>
-									<a href="#!" class="pull-right text-fade m-l-5 reply-btn" th:href="|#comment-${commentVOListStat.count}|" data-toggle="collapse">回复(<i th:text="${commentVOList.replyCount}">2</i>)</a>
-									<a class="pull-right text-fade" datetime="2022-02-04 17:00:00" th:text="${#dates.format(commentVOList.comment.createTime,'yyyy-MM-dd HH:mm:ss')}">2022-02-04 17:00:00</a>
+									<a href="#!" class="pull-right text-fade m-l-10 reply-btn"
+									   th:href="|#comment-${commentVOListStat.count}|" data-toggle="collapse">回复(<i th:text="${commentVOList.replyCount}">2</i>)</a>
+<!--									<a class="pull-right text-fade m-l-10" href="javascript:;"-->
+<!--									   th:onclick="|like(this,2,${commentVOList.comment.id});|">-->
+<!--										<b th:text="${commentVOList.likeStatus==1?'已赞':'赞'}"></b>(<i th:text="${commentVOList.likeCount}">1</i>)-->
+<!--									</a>-->
+									<a href="javascript:;" class="pull-right text-fade m-l-10"
+									   th:onclick="|like(this,2,${commentVOList.comment.id},${commentVOList.comment.userId});|">
+										<i class="mdi mdi-thumb-up-outline"
+										   th:style="${commentVOList.likeStatus==1?'color:#33cabb;':'color:#868e96;'}"></i>
+										<i th:text="${commentVOList.likeCount}" th:style="${commentVOList.likeStatus==1?'color:#33cabb;':'color:#868e96;'}">1</i>
+									</a>
+									<a class="pull-right text-fade" datetime="2022-02-04 17:00:00" th:text="${#dates.format(commentVOList.comment.createTime,'yyyy-MM-dd HH:mm:ss')}">2022-02-04 17:00:00</a>&nbsp;
+
 								</p>
 								<p th:utext="${commentVOList.comment.content}">您个瓜娃子，谁让你这么弱的，要力量没力量啊。</p>
 								<!-- 回复列表 -->
-								<ul th:id="|comment-${commentVOListStat.count}|" th:class="|list-unstyled ${commentVOList.replyCount>0?'collapse show':'collapse'}|" style="background: #fcfcfc;padding: 10px 15px;">
+								<ul th:id="|comment-${commentVOListStat.count}|" class="list-unstyled collapse" style="background: #fcfcfc;padding: 10px 15px;">
 									<li class="reply-li" th:each="replyVOList:${commentVOList.replys}">
 										<div class="media">
-											<a href="#!"><img th:src="${replyVOList.user.avatar}" class="img-avatar img-avatar-30" alt="二娃"></a>
+											<a th:href="@{|/user/${replyVOList.user.id}|}"><img
+													th:src="${replyVOList.user.avatar}" class="img-avatar img-avatar-30" alt="二娃"></a>
 											<div class="media-body">
 												<p>
 													<a href="#!" th:if="${replyVOList.target==null}">
@@ -158,21 +180,35 @@
 																style="color: #33cabb;">大娃
 														</strong>&nbsp;
 													</a>
-													<a href="#!" class="pull-right text-fade m-l-5 reply-reply-btn"
+													<a href="#!" class="pull-right text-fade m-l-10 reply-reply-btn"
 													    th:href="|#reply-${replyVOListStat.count}|" data-toggle="collapse">回复</a>
-													<a class="pull-right text-fade" datetime="2022-02-04 17:00:00" th:text="${#dates.format(replyVOList.reply.createTime,'yyyy-MM-dd HH:mm:ss')}">2022-02-04 17:00:00</a>
+<!--													<a class="pull-right text-fade m-l-10" href="javascript:;"-->
+<!--													   th:onclick="|like(this,2,${replyVOList.reply.id});|">-->
+<!--														<b th:text="${replyVOList.likeStatus==1?'已赞':'赞'}">&nbsp;</b>(<i th:text="${replyVOList.likeCount}">1</i>)-->
+<!--													</a>-->
+
+													<a href="javascript:;" class="pull-right text-fade m-l-10"
+													   th:onclick="|like(this,2,${replyVOList.reply.id},${replyVOList.reply.userId});|">
+														<i class="mdi mdi-thumb-up-outline" th:style="${replyVOList.likeStatus==1?'color:#33cabb;':'color:#868e96;'}"></i>
+														<i th:text="${replyVOList.likeCount}" th:style="${replyVOList.likeStatus==1?'color:#33cabb;':'color:#868e96;'}">1</i>
+													</a>
+													<a class="pull-right text-fade" datetime="2022-02-04 17:00:00" th:text="${#dates.format(replyVOList.reply.createTime,'yyyy-MM-dd HH:mm:ss')}">2022-02-04 17:00:00</a>&nbsp;
+
 												</p>
 												<p th:utext="${replyVOList.reply.content}">谢大哥。</p>
 											</div>
 										</div>
 										<!-- 回复评论的评论 -->
-										<div  class="collapse reply-reply-form" th:id="|reply-${replyVOListStat.count}|">
+										<div  class="collapse reply-reply-form"
+											  th:id="|reply-${replyVOListStat.count}|" th:if="${loginUser!=null}">
 											<form class="message-form" id="reply" method="post" th:action="@{|/comment/save/${article.id}|}">
-												<img th:src="${user.avatar}" alt="笔下光年" class="img-avatar img-avatar-30" />
-												<input class="form-control" type="text" name="content" th:placeholder="|回复${replyVOList.user.nickName}|">
+												<a th:href="@{|/user/${loginUser.id}|}">
+												<img th:if="${loginUser!=null}" th:src="${loginUser.avatar}" alt="笔下光年"
+													 class="img-avatar img-avatar-30" /></a>
+												<input class="form-control" type="text"
+													   th:placeholder="|回复${replyVOList.user.nickName}|" name="content" onkeydown='if(event.keyCode==13) return false;' required>
 												<a class="message-btn-close m-r-10" href="#!"><i class="mdi mdi-close"></i></a>
-												<a class="message-btn-send" href="#!"
-												   onclick="document.getElementById('reply').submit();return false;"><i class="mdi mdi-near-me"></i></a>
+												<button type="submit" class="btn btn-link btn-sender" onclick="#" style="padding-left: 5px;"><i class="mdi mdi-near-me"></i></button>
 												<input type="hidden" name="entityType" value="2">
 												<input type="hidden" name="entityId" th:value="${commentVOList.comment.id}">
 												<input type="hidden" name="targetId" th:value="${replyVOList.user.id}">
@@ -180,12 +216,15 @@
 										</div>
 									</li>
 									<!-- 回复评论 -->
-									<form class="message-form reply-form" id="respond" method="post" th:action="@{|/comment/save/${article.id}|}">
-										<img th:src="${user.avatar}" alt="笔下光年" class="img-avatar img-avatar-30" />
-										<input class="form-control" type="text" th:placeholder="|回复${commentVOList.user.nickName}|" name="content">
+									<form class="message-form reply-form" id="respond" method="post"
+										  th:action="@{|/comment/save/${article.id}|}" th:if="${loginUser!=null}">
+										<a th:href="@{|/user/${loginUser.id}|}">
+										<img  th:src="${loginUser.avatar}" alt="笔下光年"
+											  class="img-avatar img-avatar-30" /></a>
+										<input class="form-control" type="text"
+											   th:placeholder="|回复${commentVOList.user.nickName}|" name="content" onkeydown='if(event.keyCode==13) return false;' required>
 										<a class="message-btn-close m-r-10" href="#!"><i class="mdi mdi-close"></i></a>
-										<a class="message-btn-send" href="#!"
-										   onclick="document.getElementById('respond').submit();return false;"><i class="mdi mdi-near-me"></i></a>
+										<button type="submit" class="btn btn-link btn-sender" onclick="#" style="padding-left: 5px;"><i class="mdi mdi-near-me"></i></button>
 										<input type="hidden" name="entityType" value="2">
 										<input type="hidden" name="entityId" th:value="${commentVOList.comment.id}">
 									</form>
@@ -202,14 +241,13 @@
 
 			</div>
 			<!-- 评论文章 -->
-			<div class="container mt-3 comment-from">
-				<form class="message-form" id="respond-form" method="post"
-					  th:action="@{|/comment/save/${article.id}|}">
-					<img th:src="${user.avatar}" alt="笔下光年" class="img-avatar img-avatar-30" />
-					<input class="form-control" type="text" placeholder="输入您想说的话" name="content">
+			<div class="container mt-3 comment-from" th:if="${loginUser!=null}" style="padding-top: 20px;">
+				<form class="message-form" id="respond-form" method="post" th:action="@{|/comment/save/${article.id}|}">
+					<a th:href="@{|/user/${loginUser.id}|}">
+						<img th:src="${loginUser.avatar}" alt="笔下光年" class="img-avatar img-avatar-30" /></a>
+					<input class="form-control" type="text" placeholder="输入您想说的话" name="content" onkeydown='if(event.keyCode==13) return false;' required>
 					<a class="message-btn-close m-r-10" href="#!"><i class="mdi mdi-close"></i></a>
-					<a class="message-btn-send" href="#!"
-					   onclick="document.getElementById('respond-form').submit();return false;"><i class="mdi mdi-near-me"></i></a>
+					<a class="message-btn-send" onclick="document.getElementById('respond-form').submit();return false;"><i class="mdi mdi-near-me"></i></a>
 					<input type="hidden" name="entityType" value="1">
 					<input type="hidden" name="entityId" th:value="${article.id}">
 				</form>
@@ -225,9 +263,15 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
 	<script th:src="@{/admin/js/bootstrap.min.js}" crossorigin="anonymous"></script>
 	<script th:src="@{/js/global.js}"></script>
+	<script th:src="@{/js/article.js}"></script>
 	<script type="text/javascript">
 		$('.btn-reply').on('click', function () {
-			$('.comment-from').find('.form-control').focus();
+			var loginUserId = $('#loginUserId').val();
+			if (loginUserId != null) {
+			 $('.comment-from').find('.form-control').focus();
+			} else {
+				location.href= "/login";
+			}
 		});
 		//评论区样式折叠
 		$('.reply-form .form-control').focus(function () {
@@ -243,6 +287,9 @@
 		$('.reply-reply-btn').on('click', function () {
 			$('.reply-li').siblings().find('.reply-reply-form').collapse("hide");
 		});
+		function reply(){
+			$(this).parent().submit();
+		}
 
 
 			// //跳转评论

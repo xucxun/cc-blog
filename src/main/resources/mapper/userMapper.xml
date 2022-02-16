@@ -30,6 +30,12 @@
         where email = #{email}
     </select>
 
+    <select id="selectByNickName" resultType="User">
+        select <include refid="selectFields"></include>
+        from user
+        where nick_name = #{nickName}
+    </select>
+
     <insert id="insertUser" parameterType="User" keyProperty="id">
         insert into user (<include refid="insertFields"></include>)
         values(#{account},#{nickName}, #{password}, #{salt}, #{email}, #{role}, #{status}, #{activationCode}, #{avatar},

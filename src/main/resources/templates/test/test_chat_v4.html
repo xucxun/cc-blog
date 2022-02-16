@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>私信 - 博客</title>
+<link rel="icon" href="favicon.ico" type="image/ico">
+  <link rel="stylesheet" th:href="@{/admin/css/bootstrap.min.css}"  />
+  <link rel="stylesheet" th:href="@{/admin/css/materialdesignicons.min.css}"  />
+  <link rel="stylesheet" th:href="@{/admin/css/style.min.css}" />
+  <link rel="stylesheet" th:href="@{/css/messages.css}" />
+</head>
+  
+<body>
+<div class="lyear-layout-web">
+  <div class="lyear-layout-container">
+
+    <!--头部信息-->
+    <header class="lyear-layout-header" th:replace="index::header">
+
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" th:href="@{/index}">
+          <img th:src="@{/admin/images/logo-ico.png}" width="30" height="30" class="d-inline-block align-top" alt="">
+          CC博客
+        </a>
+        <div class="navbar-left collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" th:href="@{/index}">首页 <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#!">链接</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                下拉菜单
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#!">菜单一</a>
+                <a class="dropdown-item" href="#!">菜单二</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#!">菜单三</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <form class="form-inline my-2 my-lg-0" style="margin-right: 125px;">
+          <input class="form-control mr-sm-2" type="search" placeholder="请输入搜索的关键词..." aria-label="Search"
+                 style="width: 375px;border-radius:999px;background: #f6f6f6;">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="border-radius:20px">搜索</button>
+        </form>
+
+        <ul class="navbar-right d-flex align-items-center">
+          <li class="nav-item" style="padding-right: 20px;" th:if="${loginUser!=null}">
+            <span data-toggle="dropdown" class="position-relative animations-box">
+               <a style="color: #4d5259;" href="#" title="通知"><i class="mdi mdi-bell-outline fs-22"></i>
+              <span class="badge badge-danger badge-pill" >10</span>
+               </a>
+            </span>
+          </li>
+
+          <li class="nav-item" style="padding-left:20px;padding-right: 20px;" th:if="${loginUser!=null}">
+            <span class="position-relative animations-box">
+              <a style="color: #4d5259;" th:href="@{/messages}" title="私信"><i class="mdi mdi-message-text-outline fs-22"></i>
+              <span id="realUnreadCount" class="badge badge-danger badge-pill" th:text="${messageUnreadCount!=0?messageUnreadCount:''}">3
+              </span>
+                <input type="hidden" name="messageUnreadCount" th:value="${messageUnreadCount}"  id="messageUnreadCount"/>
+              </a>
+            </span>
+          </li>
+
+          <li class="nav-item" th:if="${loginUser==null}">
+            <a class="nav-link" th:href="@{/register}">注册</a>
+          </li>
+
+          <li class="nav-item" th:if="${loginUser==null}">
+            <a class="nav-link" th:href="@{/login}">登录</a>
+          </li>
+
+          <li class="dropdown dropdown-profile" th:if="${loginUser!=null}">
+            <a href="javascript:void(0)" data-toggle="dropdown" class="dropdown-toggle">
+              <img class="img-avatar img-avatar-48 m-r-10" th:src="${loginUser.avatar}" alt="笔下光年" />
+              <span th:utext="${loginUser.nickName}">笔下光年</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li>
+                <a class="multitabs dropdown-item" data-url="lyear_pages_profile.html" href="javascript:void(0)"><i
+                        class="mdi mdi-account"></i> 个人主页</a>
+              </li>
+              <li>
+                <a class="multitabs dropdown-item" th:href="@{/user/setting}" href="javascript:void(0)"><i
+                        class="mdi mdi-settings"></i> 账号设置 </a>
+              </li>
+              <li class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item" th:href="@{/logout}"><i class="mdi mdi-logout-variant"></i> 退出登录</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+      </nav>
+
+    </header>
+    <!--End 头部信息-->
+
+    <aside class="lyear-layout-sidebar" style="margin-left: 240px;margin-top: 70px;">
+      <div class="lyear-chat-search">
+        <div class="has-feedback">
+          <input type="text" placeholder="输入关键词，回车搜索" class="form-control" name="keywords" id="keywords" />
+          <span class="mdi mdi-account" aria-hidden="true"></span>
+        </div>
+      </div>
+      <div class="lyear-layout-sidebar-info lyear-scroll">
+        <nav class="sidebar-main">
+          <div class="nav-drawer list-group lyear-chat-users">
+            <a class="nav-item  list-group-item" th:each="map:${conversations}" style="cursor: pointer;">
+              <input type="hidden" name="conversationId" th:value="${map.conversation.type}"  id="conversationId"/>
+              <span class="float-left">
+                  <img th:src="${map.target.avatar}" alt="" class="img-avatar chat-user-avatar m-r-10">
+                </span>
+              <div class="list-chat-user-info clearfix">
+                <h4 class="list-chat-user-name float-left" th:utext="${map.target.nickName}">大娃</h4>
+                <span class="badge float-right" th:text="${map.unreadCount}" th:if="${map.unreadCount!=0}">3</span>
+                <input type="hidden" name="unreadCount" th:value="${map.unreadCount}"  id="unreadCount"/>
+                <time class="float-right" th:text="${#dates.format(map.conversation.createTime,'yyyy-MM-dd HH:mm')}">12:11</time>
+              </div>
+                <p class="list-chat-user-text" th:utext="${map.conversation.content}">您知道的有点多啊</p><!--最后一条聊天数据-->
+            </a>
+
+            <a th:fragment="user" id="user" class="nav-item user-item" style="cursor: pointer;">
+              <span class="float-left">
+                  <img th:if="${avatar!=null}" th:src="${avatar}" alt="" class="img-avatar chat-user-avatar m-r-10">
+                </span>
+              <div class="list-chat-user-info clearfix">
+                <h4 class="list-chat-user-name float-left" th:utext="${nickName1}">大娃</h4>
+              </div>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </aside>
+
+    <!--页面主要内容-->
+    <main class="lyear-layout-content">
+      <div class="lyear-chat-room"  id="iframe-content" >
+        <iframe width="100%" height="100%" style="overflow: auto;" frameborder="0" scrolling="auto" class="x-iframe"></iframe>
+      </div>
+      
+    </main>
+    <!--End 页面主要内容-->
+
+    <footer style="position: fixed;bottom: 0;right: 20px;">
+      <div class="foot custom-bg-color">
+        <p class="copyright"><span >Copyright © 2022. </span>
+          <a href="#">CC博客</a>
+        </p>
+      </div>
+    </footer>
+  </div>
+</div>
+<!--历史消息-->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="historyModal" id="historyModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="historyModal">历史消息</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="history-messages-box lyear-need-scroll"></div>
+        <div class="history-messages-pages clearfix"></div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<script th:src="@{/admin/js/jquery.min.js}"></script>
+<script th:src="@{/admin/js/popper.min.js}"></script>
+<script th:src="@{/admin/js/bootstrap.min.js}"></script>
+<script th:src="@{/admin/js/perfect-scrollbar.min.js}"></script>
+<script th:src="@{/admin/js/main.min.js}"></script>
+<!--<script th:src="@{/admin/js/index.min.js}"></script>-->
+<script type="text/javascript" th:inline="javascript" >
+$(document).ready(function(){
+     //点击打开聊天
+     $('.lyear-chat-users').find('.list-group-item').on('click', function() {
+       var $this = $(this);
+
+       $this.addClass('active').siblings().removeClass('active');
+
+       //************************************************/
+       // var messageUnreadCount =$('#messageUnreadCount').val();
+       // var unreadCount =  $('.list-group-item.active').find('#unreadCount').val();
+       //
+       // var realUnreadCount = messageUnreadCount - unreadCount;
+       // if (realUnreadCount > 0) {
+       //   $('#realUnreadCount').text(realUnreadCount);
+       // }else if(realUnreadCount == 0){
+       //   $('#realUnreadCount').text('');
+       // }
+       //************************************************/
+
+       //移除私信通知数量
+       $this.find('.badge').remove();
+
+      var conversationId = $('.list-group-item.active #conversationId').val();
+      var url = "/messages/" + conversationId;
+      // $('#lyear-chat-content').load(url);
+       $.ajax({
+         url: url,
+         type: 'GET',
+         success: function (data) {
+           $('.x-iframe').attr('src',url);
+           // $("#lyear-chat-content").html(data);
+         }
+       })
+    });
+
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(e) {
+  // 滚动条
+  if ($('.lyear-need-scroll')[0]) {
+    $('.lyear-need-scroll').each(function () {
+      new PerfectScrollbar(this, {
+        swipeEasing: false,
+        suppressScrollX: true
+      });
+    });
+  }
+
+  // 搜索(这里只搜索ul中的内容)
+  $('#keywords').keydown(function(event) {
+    if (event.keyCode == 13) {
+      var keyword = $(this).val();
+      $('.lyear-chat-users').find('.list-group-item').hide();
+      // $('.lyear-chat-users').find(".list-chat-user-name").filter(":Contains("+keyword+")").parents('.list-group-item').fadeIn(300);
+      $('.lyear-chat-users').find('#user').show();
+
+      $.get(
+         "/user/get",
+         {"nickName": keyword},
+        function (data) {
+             $("#user").html(data);
+          if(data.error){
+             data = $.parseJSON(data);
+             alert(data.msg);
+           }
+        }
+
+      )
+    }
+  });
+});
+</script>
+</body>
+</html>
