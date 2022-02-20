@@ -108,7 +108,8 @@
 							17:00:00</b>
 							<ul class="d-inline float-right">
 								<li style="border: none;" class="d-inline ml-2">
-									<a href="javascript:;" th:onclick="|like(this,1,${article.id},${article.userId});|">
+									<a href="javascript:;"
+									   th:onclick="|like(this,1,${article.id},${article.userId},${article.id});|">
 										<i class="mdi mdi-thumb-up-outline" th:style="${likeStatus==1?'color:#33cabb;':'color:#868e96;'}"></i>
 										<i th:text="${likeCount}" th:style="${likeStatus==1?'color:#33cabb;':'color:#868e96;'}">1</i>
 <!--										<b th:text="${likeStatus==1?'已赞':'赞'}"></b> <i th:text="${likeCount}">11</i>-->
@@ -153,7 +154,7 @@
 <!--										<b th:text="${commentVOList.likeStatus==1?'已赞':'赞'}"></b>(<i th:text="${commentVOList.likeCount}">1</i>)-->
 <!--									</a>-->
 									<a href="javascript:;" class="pull-right text-fade m-l-10"
-									   th:onclick="|like(this,2,${commentVOList.comment.id},${commentVOList.comment.userId});|">
+									   th:onclick="|like(this,2,${commentVOList.comment.id},${commentVOList.comment.userId},${article.id});|">
 										<i class="mdi mdi-thumb-up-outline"
 										   th:style="${commentVOList.likeStatus==1?'color:#33cabb;':'color:#868e96;'}"></i>
 										<i th:text="${commentVOList.likeCount}" th:style="${commentVOList.likeStatus==1?'color:#33cabb;':'color:#868e96;'}">1</i>
@@ -163,10 +164,11 @@
 								</p>
 								<p th:utext="${commentVOList.comment.content}">您个瓜娃子，谁让你这么弱的，要力量没力量啊。</p>
 								<!-- 回复列表 -->
-								<ul th:id="|comment-${commentVOListStat.count}|" class="list-unstyled collapse" style="background: #fcfcfc;padding: 10px 15px;">
+								<ul th:id="|comment-${commentVOListStat.count}|"
+									class="list-unstyled collapse " style="background: #fcfcfc;padding: 10px 15px;">
 									<li class="reply-li" th:each="replyVOList:${commentVOList.replys}">
 										<div class="media">
-											<a th:href="@{|/user/${replyVOList.user.id}|}"><img
+											<a th:href="@{|/user/${replyVOList.user.id}|}" target="_blank"><img
 													th:src="${replyVOList.user.avatar}" class="img-avatar img-avatar-30" alt="二娃"></a>
 											<div class="media-body">
 												<p>
@@ -188,7 +190,7 @@
 <!--													</a>-->
 
 													<a href="javascript:;" class="pull-right text-fade m-l-10"
-													   th:onclick="|like(this,2,${replyVOList.reply.id},${replyVOList.reply.userId});|">
+													   th:onclick="|like(this,2,${replyVOList.reply.id},${replyVOList.reply.userId},${article.id});|">
 														<i class="mdi mdi-thumb-up-outline" th:style="${replyVOList.likeStatus==1?'color:#33cabb;':'color:#868e96;'}"></i>
 														<i th:text="${replyVOList.likeCount}" th:style="${replyVOList.likeStatus==1?'color:#33cabb;':'color:#868e96;'}">1</i>
 													</a>
@@ -202,7 +204,7 @@
 										<div  class="collapse reply-reply-form"
 											  th:id="|reply-${replyVOListStat.count}|" th:if="${loginUser!=null}">
 											<form class="message-form" id="reply" method="post" th:action="@{|/comment/save/${article.id}|}">
-												<a th:href="@{|/user/${loginUser.id}|}">
+												<a th:href="@{|/user/${loginUser.id}|}" target="_blank">
 												<img th:if="${loginUser!=null}" th:src="${loginUser.avatar}" alt="笔下光年"
 													 class="img-avatar img-avatar-30" /></a>
 												<input class="form-control" type="text"
@@ -218,7 +220,7 @@
 									<!-- 回复评论 -->
 									<form class="message-form reply-form" id="respond" method="post"
 										  th:action="@{|/comment/save/${article.id}|}" th:if="${loginUser!=null}">
-										<a th:href="@{|/user/${loginUser.id}|}">
+										<a th:href="@{|/user/${loginUser.id}|}" target="_blank">
 										<img  th:src="${loginUser.avatar}" alt="笔下光年"
 											  class="img-avatar img-avatar-30" /></a>
 										<input class="form-control" type="text"
@@ -246,8 +248,8 @@
 					<a th:href="@{|/user/${loginUser.id}|}">
 						<img th:src="${loginUser.avatar}" alt="笔下光年" class="img-avatar img-avatar-30" /></a>
 					<input class="form-control" type="text" placeholder="输入您想说的话" name="content" onkeydown='if(event.keyCode==13) return false;' required>
-					<a class="message-btn-close m-r-10" href="#!"><i class="mdi mdi-close"></i></a>
-					<a class="message-btn-send" onclick="document.getElementById('respond-form').submit();return false;"><i class="mdi mdi-near-me"></i></a>
+					<a style="cursor: pointer" class="message-btn-send" onclick="document.getElementById('respond-form').submit();return
+					false;"><i class="mdi mdi-near-me"></i></a>
 					<input type="hidden" name="entityType" value="1">
 					<input type="hidden" name="entityId" th:value="${article.id}">
 				</form>

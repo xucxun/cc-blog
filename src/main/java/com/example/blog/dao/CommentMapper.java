@@ -9,6 +9,8 @@ import java.util.List;
 @Mapper
 public interface CommentMapper {
 
+    Comment selectCommentById(@Param("id")int id);
+
     List<Comment> selectCommentsByEntity(@Param("entityType")int entityType, @Param("entityId")int entityId, @Param("offset")int offset, @Param("limit")int limit);
 
     int selectCountByEntity(@Param("entityType")int entityType, @Param("entityId")int entityId);

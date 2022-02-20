@@ -7,6 +7,9 @@ import java.util.Map;
 
 public interface MessageService {
 
+
+    int addMessage(Message message);
+
     /**
      * 查询用户的会话数量
      */
@@ -46,5 +49,20 @@ public interface MessageService {
      * 私信详情
      */
     List<Map<String, Object>> listMessages(String conversationId,int offset, int limit);
+
+    /**
+     * 通知数量
+     */
+    int countNotice(int userId, String topic);
+
+    /**
+     * 未读通知数量
+     */
+    int countNoticeUnread(int userId, String topic);
+
+    /**
+     * 分页查询通知列表
+     */
+    List<Message> listNotices(int userId, String topic, int offset, int limit);
 
 }

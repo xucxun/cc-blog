@@ -78,4 +78,33 @@
         </foreach>
     </update>
 
+    <select id="noticeCount" resultType="int">
+        select count(id) from message
+        where status != 2
+        and sender_id = 1
+        and receiver_id = #{userId}
+          and type = #{topic}
+    </select>
+
+    <select id="noticeUnreadCount" resultType="int">
+        select count(id) from message
+        where status = 0
+        and sender_id = 1
+        and receiver_id = #{userId}
+        <if test="topic!=null">
+            and type = #{topic}
+        </if>
+    </select>
+
+    <select id="queryNotices" resultType="Message">
+        select <include refid="selectFields"></include>
+        from message
+        where status != 2
+        and sender_id = 1
+        and receiver_id = #{userId}
+        and type = #{topic}
+        order by create_time desc
+        limit #{offset}, #{limit}
+    </select>
+
 </mapper>

@@ -4,7 +4,7 @@ import com.example.blog.dao.ArticleMapper;
 import com.example.blog.entity.Article;
 import com.example.blog.entity.User;
 import com.example.blog.service.ArticleService;
-import com.example.blog.util.HostHolder;
+import com.example.blog.util.LoginUser;
 import com.example.blog.util.ResultUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleMapper articleMapper;
 
     @Autowired
-    private HostHolder hostHolder;
+    private LoginUser loginUser;
 
     /**
      * 根据用户id分页查询文章列表
@@ -52,7 +52,7 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public String add(String title, String content) {
-        User user = hostHolder.getUser();
+        User user = loginUser.getUser();
         if (user == null) {
             return ResultUtil.getJsonResult(403, "您还没有登录哦!");
         }

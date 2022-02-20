@@ -1,20 +1,18 @@
 package com.example.blog.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.blog.entity.Message;
 import com.example.blog.entity.Page;
 import com.example.blog.entity.User;
 import com.example.blog.service.MessageService;
 import com.example.blog.service.UserService;
-import com.example.blog.util.BlogConstant;
-import com.example.blog.util.HostHolder;
-import com.example.blog.util.ResultUtil;
+import com.example.blog.common.Constant;
+import com.example.blog.util.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,21 +20,20 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class MessageController implements BlogConstant {
+public class MessageController implements Constant {
 
     @Autowired
     private MessageService messageService;
 
     @Autowired
-    private HostHolder hostHolder;
+    private LoginUser loginUser;
 
     @Autowired
     private UserService userService;
 
     @GetMapping("/messages")
     public String listMessage(Model model, Page page){
-//        Integer.valueOf("abc");
-        User user = hostHolder.getUser();
+        User user = loginUser.getUser();
         page.setLimit(5);
         page.setPath("/messages");
         page.setRows(messageService.countAllConversation(user.getId()));
@@ -75,7 +72,7 @@ public class MessageController implements BlogConstant {
         int id0 = Integer.parseInt(ids[0]);
         int id1 = Integer.parseInt(ids[1]);
 
-        if (hostHolder.getUser().getId() == id0) {
+        if (loginUser.getUser().getId() == id0) {
             return userService.findUserById(id1);
         } else {
             return userService.findUserById(id0);
@@ -86,5 +83,72 @@ public class MessageController implements BlogConstant {
     @ResponseBody
     public String sendMessage(String receiverName, String content){
          return(messageService.send(receiverName,content));
+    }
+
+    @GetMapping("/notice/{topic}")
+    public String listNotices(@PathVariable("topic") String topic, Page page,Model model) {
+        User user = loginUser.getUser();
+        page.setLimit(5);
+        page.setPath("/notice/" + topic);
+        page.setRows(messageService.countNotice(user.getId(), topic));
+
+        //所有类型通知未读数量
+        int noticeUnreadCount = messageService.countNoticeUnread(user.getId(), null);
+        model.addAttribute("noticeUnreadCount", noticeUnreadCount);
+
+        int followUnreadCount = messageService.countNoticeUnread(user.getId(), TOPIC_FOLLOW);
+        int commentUnreadCount = messageService.countNoticeUnread(user.getId(), TOPIC_COMMENT);
+        int likeUnreadCount = messageService.countNoticeUnread(user.getId(), TOPIC_LIKE);
+
+        model.addAttribute("followUnreadCount",followUnreadCount);
+        model.addAttribute("commentUnreadCount",commentUnreadCount);
+        model.addAttribute("likeUnreadCount",likeUnreadCount);
+
+        //当前类型通知列表
+        List<Message> noticeList = messageService.listNotices(user.getId(), topic, page.getOffset(), page.getLimit());
+        // 设置已读
+        List<Integer> ids = getNoticeIds(noticeList);
+        if (!ids.isEmpty()) {
+            messageService.markRead(ids);
+        }
+        List<Map<String, Object>> noticeVOList = new ArrayList<>();
+        if (noticeList != null) {
+            for (Message notice : noticeList) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("notice", notice);
+                String content = HtmlUtils.htmlUnescape(notice.getContent());
+                Map<String, Object> data = JSONObject.parseObject(content, HashMap.class);
+                map.put("user", userService.findUserById((Integer) data.get("userId")));
+                map.put("entityType", data.get("entityType"));
+                map.put("entityId", data.get("entityId"));
+                map.put("articleId", data.get("articleId"));
+                //获取文章标题
+                map.put("title",data.get("title"));
+                //获取被评论内容
+                map.put("comment",data.get("comment"));
+                //获取回复
+                map.put("reply",data.get("reply"));
+
+                noticeVOList.add(map);
+            }
+            model.addAttribute("notices", noticeVOList);
+        }
+
+        return "/front/notice-detail";
+    }
+
+    //得到未读的id集合
+    private List<Integer> getNoticeIds(List<Message> letterList) {
+        List<Integer> ids = new ArrayList<>();
+
+        if (letterList != null) {
+            for (Message message : letterList) {
+                if (loginUser.getUser().getId() == message.getReceiverId() && message.getStatus() == 0) {
+                    ids.add(message.getId());
+                }
+            }
+        }
+
+        return ids;
     }
 }

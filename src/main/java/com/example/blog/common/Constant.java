@@ -1,6 +1,6 @@
-package com.example.blog.util;
+package com.example.blog.common;
 
-public interface BlogConstant {
+public interface Constant {
 
     /**
      * 激活成功
@@ -41,4 +41,24 @@ public interface BlogConstant {
      * 实体类型: 用户
      */
     int ENTITY_TYPE_USER = 3;
+
+    /**
+     * 主题: 评论
+     */
+    String TOPIC_COMMENT = "comment";
+
+    /**
+     * 主题: 点赞
+     */
+    String TOPIC_LIKE = "like";
+
+    /**
+     * 主题: 关注
+     */
+    String TOPIC_FOLLOW = "follow";
+
+    /**
+     * 系统用户ID   这个是数据库中一定要存在的用户，用于发送系统通知。系统通知账号system，密码system，一般不登录这个账户，使用这个账户发私信会有bug
+     */
+    int SYSTEM_ID = 1;
 }

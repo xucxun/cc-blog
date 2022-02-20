@@ -3,7 +3,7 @@ package com.example.blog.service.impl;
 import com.example.blog.entity.User;
 import com.example.blog.service.FollowService;
 import com.example.blog.service.UserService;
-import com.example.blog.util.BlogConstant;
+import com.example.blog.common.Constant;
 import com.example.blog.util.RedisKeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class FollowServiceImpl implements FollowService, BlogConstant {
+public class FollowServiceImpl implements FollowService, Constant {
 
     @Autowired
     private RedisTemplate redisTemplate;

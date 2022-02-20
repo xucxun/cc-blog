@@ -102,9 +102,10 @@
 
 				<ul class="navbar-right d-flex align-items-center">
 					<li class="nav-item" style="padding-right: 20px;" th:if="${loginUser!=null}">
-						<span data-toggle="dropdown" class="position-relative animations-box">
-						   <a style="color: #4d5259;" href="#" title="通知"><i class="mdi mdi-bell-outline fs-22"></i>
-						  <span class="badge badge-danger badge-pill" >10</span>
+						<span  class="position-relative animations-box">
+						   <a style="color: #4d5259;" th:href="@{/notice/follow}" title="通知"><i class="mdi mdi-bell-outline fs-22"></i>
+						  <span class="badge badge-danger badge-pill"
+								th:text="${noticeUnreadCount!=0?noticeUnreadCount:''}">10</span>
 						   </a>
 						</span>
 					</li>
@@ -214,7 +215,7 @@
 				<!-- 帖子列表 -->
 				<ul class="list-unstyled">
 					<li class="media pb-3 pt-3 mb-3 border-bottom" th:each="map:${articleLists}">
-						<a th:href="@{|/user/${map.user.id}|}" th:if="${loginUser!=null}">
+						<a th:href="@{|/user/${map.user.id}|}">
 							<img th:src="${map.user.avatar}" class="mr-4 rounded-circle" alt="用户头像" style="width:50px;height:50px;">
 						</a>
 						<div class="media-body">
@@ -260,7 +261,7 @@
 		</div>
 
 		<!-- 尾部 -->
-		<footer class="bg-dark">
+		<footer class="bg-dark" th:fragment="footer">
 			<div class="container">
 				<div class="row">
 					<!-- 二维码 -->

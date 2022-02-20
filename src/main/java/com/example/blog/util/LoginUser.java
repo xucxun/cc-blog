@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 //@Component表示放在容器中，由spring进行管理
-public class HostHolder {
+public class LoginUser {
 
     private ThreadLocal<User> users = new ThreadLocal<>();
 

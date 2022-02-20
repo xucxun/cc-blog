@@ -7,8 +7,8 @@ import com.example.blog.service.ArticleService;
 import com.example.blog.service.CommentService;
 import com.example.blog.service.LikeService;
 import com.example.blog.service.UserService;
-import com.example.blog.util.BlogConstant;
-import com.example.blog.util.HostHolder;
+import com.example.blog.common.Constant;
+import com.example.blog.util.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,13 +19,13 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/article")
-public class ArticleController implements BlogConstant {
+public class ArticleController implements Constant {
 
     @Autowired
     private ArticleService articleService;
 
     @Autowired
-    private HostHolder hostHolder;
+    private LoginUser loginUser;
 
     @Autowired
     private UserService userService;
@@ -53,7 +53,7 @@ public class ArticleController implements BlogConstant {
         //文章点赞数量
         Long likeCount = likeService.countLike(ENTITY_TYPE_ARTICLE,id);
         //点赞状态
-        int likeStatus = hostHolder.getUser() == null ? 0 : likeService.likeStatus(hostHolder.getUser().getId(),ENTITY_TYPE_ARTICLE,id);
+        int likeStatus = loginUser.getUser() == null ? 0 : likeService.likeStatus(loginUser.getUser().getId(),ENTITY_TYPE_ARTICLE,id);
         // 评论分页
         page.setLimit(5);
         page.setPath("/article/" + id);

@@ -1,9 +1,14 @@
 package com.example.blog.controller;
 
+import com.example.blog.common.EventProducer;
+import com.example.blog.entity.Comment;
+import com.example.blog.entity.Event;
 import com.example.blog.entity.User;
+import com.example.blog.service.ArticleService;
+import com.example.blog.service.CommentService;
 import com.example.blog.service.LikeService;
-import com.example.blog.util.BlogConstant;
-import com.example.blog.util.HostHolder;
+import com.example.blog.common.Constant;
+import com.example.blog.util.LoginUser;
 import com.example.blog.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -14,21 +19,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-public class LikeController implements BlogConstant {
+public class LikeController implements Constant {
 
     @Autowired
     private LikeService likeService;
 
     @Autowired
-    private HostHolder hostHolder;
+    private ArticleService articleService;
+
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
+    private LoginUser loginUser;
+
+    @Autowired
+    private EventProducer eventProducer;
 
     @Autowired
     private RedisTemplate redisTemplate;
 
     @PostMapping("/like")
     @ResponseBody
-    public String like(int entityType, int entityId,int entityUserId) {
-        User user = hostHolder.getUser();
+    public String like(int entityType, int entityId,int entityUserId,int articleId) {
+        User user = loginUser.getUser();
         // 点赞
         likeService.like(user.getId(), entityType, entityId,entityUserId);
         // 数量
@@ -39,6 +53,25 @@ public class LikeController implements BlogConstant {
         Map<String, Object> map = new HashMap<>();
         map.put("likeCount", likeCount);
         map.put("likeStatus", likeStatus);
+
+        String title = articleService.getById(articleId).getTitle();
+
+        // 触发点赞事件,用户点赞自己不处理
+        if (likeStatus == 1 && loginUser.getUser().getId()!=entityUserId) {
+            Event event = new Event()
+                    .setTopic(TOPIC_LIKE)
+                    .setUserId(loginUser.getUser().getId())
+                    .setEntityType(entityType)
+                    .setEntityId(entityId)
+                    .setEntityUserId(entityUserId)
+                    .setData("articleId",articleId)
+                    .setData("title",title);
+           if(entityType == ENTITY_TYPE_COMMENT){
+               Comment target = commentService.findCommentById(entityId);
+                event.setData("comment",target.getContent());
+            }
+            eventProducer.emitEvent(event);
+        }
 
         return ResultUtil.getJsonResult(0, null, map);
     }

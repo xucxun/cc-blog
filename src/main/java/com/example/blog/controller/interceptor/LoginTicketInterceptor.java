@@ -4,7 +4,7 @@ import com.example.blog.entity.LoginTicket;
 import com.example.blog.entity.User;
 import com.example.blog.service.UserService;
 import com.example.blog.util.CookieUtil;
-import com.example.blog.util.HostHolder;
+import com.example.blog.util.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -21,7 +21,7 @@ public class LoginTicketInterceptor implements HandlerInterceptor {
     private UserService userService;
 
     @Autowired
-    private HostHolder hostHolder;
+    private LoginUser loginUser;
 
     //在controller前执行
     @Override
@@ -37,7 +37,7 @@ public class LoginTicketInterceptor implements HandlerInterceptor {
                 // 根据凭证查询用户
                 User user = userService.findUserById(loginTicket.getUserId());
                 // 在本次请求中持有用户
-                hostHolder.setUser(user);
+                loginUser.setUser(user);
             }
         }
 
@@ -46,7 +46,7 @@ public class LoginTicketInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        User user = hostHolder.getUser();
+        User user = loginUser.getUser();
         if (user != null && modelAndView != null) {
             modelAndView.addObject("loginUser", user);
         }
@@ -54,6 +54,6 @@ public class LoginTicketInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        hostHolder.clear();
+        loginUser.clear();
     }
 }

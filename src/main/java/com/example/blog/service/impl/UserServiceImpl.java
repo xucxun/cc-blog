@@ -4,7 +4,7 @@ import com.example.blog.dao.UserMapper;
 import com.example.blog.entity.LoginTicket;
 import com.example.blog.entity.User;
 import com.example.blog.service.UserService;
-import com.example.blog.util.BlogConstant;
+import com.example.blog.common.Constant;
 import com.example.blog.util.MailClient;
 import com.example.blog.util.RedisKeyUtil;
 import com.example.blog.util.ResultUtil;
@@ -23,7 +23,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class UserServiceImpl implements UserService, BlogConstant{
+public class UserServiceImpl implements UserService, Constant {
 
     @Autowired
     private UserMapper userMapper;

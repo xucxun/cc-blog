@@ -2,7 +2,7 @@ package com.example.blog.controller;
 
 import com.example.blog.entity.User;
 import com.example.blog.service.UserService;
-import com.example.blog.util.BlogConstant;
+import com.example.blog.common.Constant;
 import com.example.blog.util.KaptchaUtil;
 import com.example.blog.util.RedisKeyUtil;
 import com.example.blog.util.ResultUtil;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -30,7 +29,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Controller
-public class LoginController implements BlogConstant {
+public class LoginController implements Constant {
 
     private static final Logger logger= LoggerFactory.getLogger(LoginController.class);
 

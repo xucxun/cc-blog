@@ -1,8 +1,8 @@
 //点赞
-function like(btn, entityType, entityId, entityUserId){
+function like(btn, entityType, entityId, entityUserId,articleId){
     $.post(
         "/like",
-        {"entityType":entityType,"entityId":entityId,"entityUserId":entityUserId},
+        {"entityType":entityType,"entityId":entityId,"entityUserId":entityUserId,"articleId":articleId},
         function(data) {
             data = $.parseJSON(data);
             if(data.code == 0) {

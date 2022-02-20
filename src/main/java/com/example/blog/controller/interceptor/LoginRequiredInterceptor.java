@@ -1,7 +1,7 @@
 package com.example.blog.controller.interceptor;
 
 import com.example.blog.annotation.LoginRequired;
-import com.example.blog.util.HostHolder;
+import com.example.blog.util.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
 public class LoginRequiredInterceptor implements HandlerInterceptor {
 
     @Autowired
-    private HostHolder hostHolder;
+    private LoginUser loginUser;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -23,7 +23,7 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             Method method = handlerMethod.getMethod();
             LoginRequired loginRequired = method.getAnnotation(LoginRequired.class);
-            if (loginRequired != null && hostHolder.getUser() == null) {
+            if (loginRequired != null && loginUser.getUser() == null) {
                 response.sendRedirect(request.getContextPath() + "/login");
                 return false;
             }

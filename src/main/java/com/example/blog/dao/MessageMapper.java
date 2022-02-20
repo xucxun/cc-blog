@@ -23,4 +23,10 @@ public interface MessageMapper {
     int insertMessage(Message message);
 
     int updateStatus(@Param("ids")List<Integer> ids,@Param("status") int status,@Param("updateTime") Date updateTime);
+
+    int noticeCount(@Param("userId")int userId, @Param("topic")String topic);
+
+    int noticeUnreadCount(@Param("userId")int userId,@Param("topic") String topic);
+
+    List<Message> queryNotices(@Param("userId")int userId, @Param("topic")String topic,@Param("offset") int offset, @Param("limit")int limit);
 }

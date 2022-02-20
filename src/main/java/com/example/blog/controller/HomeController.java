@@ -6,9 +6,8 @@ import com.example.blog.entity.User;
 import com.example.blog.service.ArticleService;
 import com.example.blog.service.LikeService;
 import com.example.blog.service.UserService;
-import com.example.blog.util.BlogConstant;
+import com.example.blog.common.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class HomeController implements BlogConstant {
+public class HomeController implements Constant {
 
     @Autowired
     private ArticleService articleService;

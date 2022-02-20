@@ -41,6 +41,10 @@ public class AccessLogAspect {
     public void doBefore(JoinPoint joinPoint) {
         //获取当前请求对象
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+
+        if (attributes == null) {
+            return;
+        }
         HttpServletRequest request = attributes.getRequest();
         String ip = request.getRemoteHost();
         String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());

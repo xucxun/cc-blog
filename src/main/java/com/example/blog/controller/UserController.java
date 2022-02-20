@@ -5,9 +5,9 @@ import com.example.blog.entity.User;
 import com.example.blog.service.FollowService;
 import com.example.blog.service.LikeService;
 import com.example.blog.service.UserService;
-import com.example.blog.util.BlogConstant;
+import com.example.blog.common.Constant;
 import com.example.blog.util.ResultUtil;
-import com.example.blog.util.HostHolder;
+import com.example.blog.util.LoginUser;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping("/user")
-public class UserController implements BlogConstant {
+public class UserController implements Constant {
 
     private static final Logger logger= LoggerFactory.getLogger(UserController.class);
 
@@ -41,7 +41,7 @@ public class UserController implements BlogConstant {
     private FollowService followService;
 
     @Autowired
-    private HostHolder hostHolder;
+    private LoginUser loginUser;
 
     @Value("${blog.path.domain}")
     private String domain;
@@ -82,7 +82,7 @@ public class UserController implements BlogConstant {
             throw new RuntimeException("上传文件失败,服务器发生异常!", e);
         }
         String avatarUrl = domain + "/user/avatar/" + fileName;
-        User user = hostHolder.getUser();
+        User user = loginUser.getUser();
         userService.updateAvatar(user.getId(), avatarUrl);
 
         return "redirect:/index";
@@ -144,8 +144,8 @@ public class UserController implements BlogConstant {
         model.addAttribute("followerCount", followerCount);
         // 是否已关注
         boolean isFollowed = false;
-        if (hostHolder.getUser() != null) {
-            isFollowed = followService.isFollowed(hostHolder.getUser().getId(), ENTITY_TYPE_USER, userId);
+        if (loginUser.getUser() != null) {
+            isFollowed = followService.isFollowed(loginUser.getUser().getId(), ENTITY_TYPE_USER, userId);
         }
         model.addAttribute("isFollowed", isFollowed);
         return "/front/profile";

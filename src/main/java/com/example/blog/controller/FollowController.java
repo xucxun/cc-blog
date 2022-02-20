@@ -1,11 +1,13 @@
 package com.example.blog.controller;
 
+import com.example.blog.common.EventProducer;
+import com.example.blog.entity.Event;
 import com.example.blog.entity.Page;
 import com.example.blog.entity.User;
 import com.example.blog.service.FollowService;
 import com.example.blog.service.UserService;
-import com.example.blog.util.BlogConstant;
-import com.example.blog.util.HostHolder;
+import com.example.blog.common.Constant;
+import com.example.blog.util.LoginUser;
 import com.example.blog.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,30 +18,40 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class FollowController implements BlogConstant {
+public class FollowController implements Constant {
 
     @Autowired
     private FollowService followService;
 
     @Autowired
-    private HostHolder hostHolder;
+    private LoginUser loginUser;
 
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private EventProducer eventProducer;
+
     @PostMapping ( "/follow")
     @ResponseBody
     public String follow(int entityType, int entityId) {
-        User user = hostHolder.getUser();
+        User user = loginUser.getUser();
         followService.follow(user.getId(), entityType, entityId);
-
+        // 触发关注事件
+        Event event = new Event()
+                .setTopic(TOPIC_FOLLOW)
+                .setUserId(loginUser.getUser().getId())
+                .setEntityType(entityType)
+                .setEntityId(entityId)
+                .setEntityUserId(entityId);
+        eventProducer.emitEvent(event);
         return ResultUtil.getJsonResult(0, "关注用户成功!");
     }
 
     @PostMapping("/unfollow")
     @ResponseBody
     public String unfollow(int entityType, int entityId) {
-        User user = hostHolder.getUser();
+        User user = loginUser.getUser();
         followService.unfollow(user.getId(), entityType, entityId);
 
         return ResultUtil.getJsonResult(0, "取消关注用户成功!");
@@ -96,10 +108,10 @@ public class FollowController implements BlogConstant {
     }
 
     private boolean isFollowed(int userId) {
-        if (hostHolder.getUser() == null) {
+        if (loginUser.getUser() == null) {
             return false;
         }
-        return followService.isFollowed(hostHolder.getUser().getId(), ENTITY_TYPE_USER, userId);
+        return followService.isFollowed(loginUser.getUser().getId(), ENTITY_TYPE_USER, userId);
     }
 
 

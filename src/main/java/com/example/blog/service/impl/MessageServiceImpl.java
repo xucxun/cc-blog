@@ -5,7 +5,7 @@ import com.example.blog.dao.UserMapper;
 import com.example.blog.entity.Message;
 import com.example.blog.entity.User;
 import com.example.blog.service.MessageService;
-import com.example.blog.util.HostHolder;
+import com.example.blog.util.LoginUser;
 import com.example.blog.util.ResultUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,13 @@ public class MessageServiceImpl implements MessageService {
     private UserMapper userMapper;
 
     @Autowired
-    private HostHolder hostHolder;
+    private LoginUser loginUser;
 
+
+    @Override
+    public int addMessage(Message message) {
+        return messageMapper.insertMessage(message);
+    }
 
     @Override
     public int countAllConversation(int userId) {
@@ -63,7 +68,7 @@ public class MessageServiceImpl implements MessageService {
             throw new IllegalArgumentException("内容不能为空!");
         }
         Message message = new Message();
-        message.setSenderId(hostHolder.getUser().getId());
+        message.setSenderId(loginUser.getUser().getId());
         message.setReceiverId(receiver.getId());
         if(message.getSenderId() != message.getReceiverId()) {
             if (message.getSenderId() < message.getReceiverId()) {
@@ -85,7 +90,7 @@ public class MessageServiceImpl implements MessageService {
      */
     @Override
     public List<Map<String, Object>> listConversations(int offset, int limit) {
-        User user = hostHolder.getUser();
+        User user = loginUser.getUser();
         List<Message> chatList = messageMapper.queryConversations(user.getId(),offset,limit);
         List<Map<String, Object>> conversations = new ArrayList<>();
         if (chatList != null) {
@@ -137,12 +142,27 @@ public class MessageServiceImpl implements MessageService {
         return messages;
     }
 
+    @Override
+    public int countNotice(int userId, String topic) {
+        return messageMapper.noticeCount(userId, topic);
+    }
+
+    @Override
+    public int countNoticeUnread(int userId, String topic) {
+        return messageMapper.noticeUnreadCount(userId,topic);
+    }
+
+    @Override
+    public List<Message> listNotices(int userId, String topic, int offset, int limit) {
+        return messageMapper.queryNotices(userId,topic,offset,limit);
+    }
+
     private List<Integer> getMessageIds(List<Message> letterList) {
         List<Integer> ids = new ArrayList<>();
 
         if (letterList != null) {
             for (Message message : letterList) {
-                if (hostHolder.getUser().getId() == message.getReceiverId() && message.getStatus() == 0) {
+                if (loginUser.getUser().getId() == message.getReceiverId() && message.getStatus() == 0) {
                     ids.add(message.getId());
                 }
             }

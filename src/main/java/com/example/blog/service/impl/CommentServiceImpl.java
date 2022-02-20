@@ -4,12 +4,12 @@ import com.example.blog.dao.ArticleMapper;
 import com.example.blog.dao.CommentMapper;
 import com.example.blog.dao.UserMapper;
 import com.example.blog.entity.Comment;
+import com.example.blog.entity.Event;
 import com.example.blog.entity.User;
-import com.example.blog.service.ArticleService;
 import com.example.blog.service.CommentService;
 import com.example.blog.service.LikeService;
-import com.example.blog.util.BlogConstant;
-import com.example.blog.util.HostHolder;
+import com.example.blog.common.Constant;
+import com.example.blog.util.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -20,7 +20,7 @@ import org.springframework.web.util.HtmlUtils;
 import java.util.*;
 
 @Service
-public class CommentServiceImpl implements CommentService , BlogConstant {
+public class CommentServiceImpl implements CommentService , Constant {
 
     @Autowired
     private CommentMapper commentMapper;
@@ -32,11 +32,16 @@ public class CommentServiceImpl implements CommentService , BlogConstant {
     private ArticleMapper articleMapper;
 
     @Autowired
-    private HostHolder hostHolder;
+    private LoginUser loginUser;
 
     @Autowired
     private LikeService likeService;
 
+
+    @Override
+    public Comment findCommentById(int id) {
+        return commentMapper.selectCommentById(id);
+    }
 
     /**
      * 分页查询评论
@@ -56,6 +61,7 @@ public class CommentServiceImpl implements CommentService , BlogConstant {
 
     @Override
     public List<Map<String, Object>> listComments(int articleId, int offset, int limit) {
+        //获取文章所有评论
         List<Comment> commentList = commentMapper.selectCommentsByEntity(ENTITY_TYPE_ARTICLE,articleId,offset,limit);
         //评论列表
         List<Map<String, Object>> commentVOList = new ArrayList<>();
@@ -66,8 +72,9 @@ public class CommentServiceImpl implements CommentService , BlogConstant {
                 commentVO.put("user", userMapper.selectById((comment.getUserId())));
                 Long likeCount = likeService.countLike(ENTITY_TYPE_COMMENT, comment.getId());
                 commentVO.put("likeCount", likeCount);
-                int likeStatus = hostHolder.getUser() == null ? 0 : likeService.likeStatus(hostHolder.getUser().getId(), ENTITY_TYPE_COMMENT, comment.getId());
+                int likeStatus = loginUser.getUser() == null ? 0 : likeService.likeStatus(loginUser.getUser().getId(), ENTITY_TYPE_COMMENT, comment.getId());
                 commentVO.put("likeStatus", likeStatus);
+                //获取单当前文章所有评论的回复
                 List<Comment> replyList = commentMapper.selectCommentsByEntity(ENTITY_TYPE_COMMENT, comment.getId(), 0, Integer.MAX_VALUE);
                 // 回复列表
                 List<Map<String, Object>> replyVOList = new ArrayList<>();
@@ -83,7 +90,7 @@ public class CommentServiceImpl implements CommentService , BlogConstant {
                         likeCount = likeService.countLike(ENTITY_TYPE_COMMENT, reply.getId());
                         replyVO.put("likeCount", likeCount);
                         // 点赞状态
-                        likeStatus = hostHolder.getUser() == null ? 0 : likeService.likeStatus(hostHolder.getUser().getId(), ENTITY_TYPE_COMMENT, reply.getId());
+                        likeStatus = loginUser.getUser() == null ? 0 : likeService.likeStatus(loginUser.getUser().getId(), ENTITY_TYPE_COMMENT, reply.getId());
                         replyVO.put("likeStatus", likeStatus);
                         replyVOList.add(replyVO);
                     }
@@ -108,7 +115,7 @@ public class CommentServiceImpl implements CommentService , BlogConstant {
         if (comment == null) {
             throw new IllegalArgumentException("参数不能为空!");
         }
-        comment.setUserId(hostHolder.getUser().getId());
+        comment.setUserId(loginUser.getUser().getId());
         comment.setContent(HtmlUtils.htmlEscape(comment.getContent()));
         comment.setStatus(0);
         comment.setCreateTime(new Date());

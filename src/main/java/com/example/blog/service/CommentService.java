@@ -7,6 +7,8 @@ import java.util.Map;
 
 public interface CommentService {
 
+    Comment findCommentById(int id);
+
     /**
      * 分页查询评论
      */
