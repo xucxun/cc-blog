@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class HomeController implements Constant {
+public class HomeController{
 
     @Autowired
     private ArticleService articleService;
@@ -45,7 +45,7 @@ public class HomeController implements Constant {
                 User user = userService.findUserById(article.getUserId());
                 map.put("user", user);
 
-                long likeCount = likeService.countLike(ENTITY_TYPE_ARTICLE, article.getId());
+                long likeCount = likeService.countLike(Constant.ENTITY_TYPE_ARTICLE, article.getId());
                 map.put("likeCount", likeCount);
                 articleLists.add(map);
             }

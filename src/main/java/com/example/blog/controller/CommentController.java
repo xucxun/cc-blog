@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/comment")
-public class CommentController implements Constant {
+public class CommentController{
 
     @Autowired
     private ArticleService articleService;
@@ -34,11 +34,23 @@ public class CommentController implements Constant {
     public String save(@PathVariable("articleId") int articleId, Comment comment){
         commentService.save(comment);
 
+        //评论后触发发布博客事件，更新搜索结果的评论数量
+        if (comment.getEntityType() == Constant.ENTITY_TYPE_ARTICLE){
+            // 触发发博客事件
+           Event event = new Event()
+                    .setTopic(Constant.TOPIC_PUBLISH)
+                    .setUserId(comment.getUserId())
+                    .setEntityType(Constant.ENTITY_TYPE_ARTICLE)
+                    .setEntityId(articleId);
+            eventProducer.emitEvent(event);
+        }
+
+
         String title = articleService.getById(articleId).getTitle();
 
-        //触发评论事件
+        //评论后触发评论事件,供消费者消费
         Event event = new Event()
-                .setTopic(TOPIC_COMMENT)
+                .setTopic(Constant.TOPIC_COMMENT)
                 .setUserId(loginUser.getUser().getId())
                 .setEntityType(comment.getEntityType())
                 .setEntityId(comment.getEntityId())
@@ -46,7 +58,7 @@ public class CommentController implements Constant {
                 .setData("title",title);
 
         //判断评论的是文章还是评论,
-        if (comment.getEntityType() == ENTITY_TYPE_ARTICLE) {
+        if (comment.getEntityType() == Constant.ENTITY_TYPE_ARTICLE) {
             Article target = articleService.getById(comment.getEntityId());
             //用户评论自己的文章不发布通知
             if(target.getUserId() == loginUser.getUser().getId()){
@@ -54,7 +66,7 @@ public class CommentController implements Constant {
             }
             event.setEntityUserId(target.getUserId());
             event.setData("reply",comment.getContent());
-        } else if (comment.getEntityType() == ENTITY_TYPE_COMMENT) {
+        } else if (comment.getEntityType() == Constant.ENTITY_TYPE_COMMENT) {
             Comment target = commentService.findCommentById(comment.getEntityId());
             event.setEntityUserId(target.getUserId());
             if(target.getUserId() == loginUser.getUser().getId()){

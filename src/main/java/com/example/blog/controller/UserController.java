@@ -27,7 +27,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping("/user")
-public class UserController implements Constant {
+public class UserController{
 
     private static final Logger logger= LoggerFactory.getLogger(UserController.class);
 
@@ -137,15 +137,15 @@ public class UserController implements Constant {
         int likeCount = likeService.userLikeCount(userId);
         model.addAttribute("likeCount", likeCount);
         // 关注数量
-        long followingCount = followService.countFollowing(userId, ENTITY_TYPE_USER);
+        long followingCount = followService.countFollowing(userId, Constant.ENTITY_TYPE_USER);
         model.addAttribute("followingCount", followingCount);
         // 粉丝数量
-        long followerCount = followService.countFollower(ENTITY_TYPE_USER, userId);
+        long followerCount = followService.countFollower(Constant.ENTITY_TYPE_USER, userId);
         model.addAttribute("followerCount", followerCount);
         // 是否已关注
         boolean isFollowed = false;
         if (loginUser.getUser() != null) {
-            isFollowed = followService.isFollowed(loginUser.getUser().getId(), ENTITY_TYPE_USER, userId);
+            isFollowed = followService.isFollowed(loginUser.getUser().getId(), Constant.ENTITY_TYPE_USER, userId);
         }
         model.addAttribute("isFollowed", isFollowed);
         return "/front/profile";

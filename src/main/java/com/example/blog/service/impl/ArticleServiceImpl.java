@@ -1,7 +1,10 @@
 package com.example.blog.service.impl;
 
+import com.example.blog.common.Constant;
+import com.example.blog.common.EventProducer;
 import com.example.blog.dao.ArticleMapper;
 import com.example.blog.entity.Article;
+import com.example.blog.entity.Event;
 import com.example.blog.entity.User;
 import com.example.blog.service.ArticleService;
 import com.example.blog.util.LoginUser;
@@ -22,6 +25,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private LoginUser loginUser;
+
+    @Autowired
+    private EventProducer eventProducer;
 
     /**
      * 根据用户id分页查询文章列表
@@ -66,6 +72,14 @@ public class ArticleServiceImpl implements ArticleService {
         article.setContent(HtmlUtils.htmlEscape(content));
         article.setCreateTime(new Date());
         articleMapper.insertArticle(article);
+
+        // 触发发博客事件
+        Event event = new Event()
+                .setTopic(Constant.TOPIC_PUBLISH)
+                .setUserId(user.getId())
+                .setEntityType(Constant.ENTITY_TYPE_ARTICLE)
+                .setEntityId(article.getId());
+        eventProducer.emitEvent(event);
 
         return ResultUtil.getJsonResult(0, "文章发布成功!");
     }

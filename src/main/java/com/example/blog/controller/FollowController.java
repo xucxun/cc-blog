@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class FollowController implements Constant {
+public class FollowController {
 
     @Autowired
     private FollowService followService;
@@ -39,7 +39,7 @@ public class FollowController implements Constant {
         followService.follow(user.getId(), entityType, entityId);
         // 触发关注事件
         Event event = new Event()
-                .setTopic(TOPIC_FOLLOW)
+                .setTopic(Constant.TOPIC_FOLLOW)
                 .setUserId(loginUser.getUser().getId())
                 .setEntityType(entityType)
                 .setEntityId(entityId)
@@ -67,7 +67,7 @@ public class FollowController implements Constant {
 
         page.setLimit(5);
         page.setPath("/user/" + userId +"/following/");
-        page.setRows((int) followService.countFollowing(userId, ENTITY_TYPE_USER));
+        page.setRows((int) followService.countFollowing(userId, Constant.ENTITY_TYPE_USER));
 
         List<Map<String, Object>> userList = followService.listFollowings(userId, page.getOffset(), page.getLimit());
         if (userList != null) {
@@ -92,7 +92,7 @@ public class FollowController implements Constant {
 
         page.setLimit(5);
         page.setPath("/user/"+ userId +"/followers/");
-        page.setRows((int) followService.countFollower(ENTITY_TYPE_USER,userId));
+        page.setRows((int) followService.countFollower(Constant.ENTITY_TYPE_USER,userId));
 
         List<Map<String, Object>> userList = followService.listFollowers(userId, page.getOffset(), page.getLimit());
         if (userList != null) {
@@ -111,7 +111,7 @@ public class FollowController implements Constant {
         if (loginUser.getUser() == null) {
             return false;
         }
-        return followService.isFollowed(loginUser.getUser().getId(), ENTITY_TYPE_USER, userId);
+        return followService.isFollowed(loginUser.getUser().getId(), Constant.ENTITY_TYPE_USER, userId);
     }
 
 

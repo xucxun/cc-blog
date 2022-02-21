@@ -14,56 +14,6 @@
 </head>
 <body>	
 	<div class="nk-container">
-		<!-- 头部 -->
-<!--		<header class="bg-dark sticky-top" th:fragment="header">-->
-<!--			<div class="container">-->
-<!--				&lt;!&ndash; 导航 &ndash;&gt;-->
-<!--				<nav class="navbar navbar-expand-lg navbar-dark">-->
-<!--					&lt;!&ndash; logo &ndash;&gt;-->
-<!--					<a class="navbar-brand" href="#"></a>-->
-<!--					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--						<span class="navbar-toggler-icon"></span>-->
-<!--					</button>-->
-<!--					&lt;!&ndash; 功能 &ndash;&gt;-->
-<!--					<div class="collapse navbar-collapse" id="navbarSupportedContent">-->
-<!--						<ul class="navbar-nav mr-auto">-->
-<!--							<li class="nav-item ml-3 btn-group-vertical">-->
-<!--								<a class="nav-link" th:href="@{/index}">首页</a>-->
-<!--							</li>-->
-<!--							<li class="nav-item ml-3 btn-group-vertical" th:if="${loginUser!=null}">-->
-<!--								<a class="nav-link position-relative" th:href="@{/messages}">消息-->
-<!--									<span class="badge badge-danger" th:text="${messageUnreadCount!=0?messageUnreadCount:''}">12</span></a>-->
-<!--							</li>-->
-<!--							<li class="nav-item ml-3 btn-group-vertical" th:if="${loginUser==null}">-->
-<!--								<a class="nav-link" th:href="@{/register}">注册</a>-->
-<!--							</li>-->
-<!--							<li class="nav-item ml-3 btn-group-vertical" th:if="${loginUser==null}">-->
-<!--								<a class="nav-link" th:href="@{/login}">登录</a>-->
-<!--							</li>-->
-<!--							<li class="nav-item ml-3 btn-group-vertical dropdown" th:if="${loginUser!=null}">-->
-<!--								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--									<img th:src="${loginUser.avatar}" class="rounded-circle" style="width:30px;"/>-->
-<!--								</a>-->
-<!--								<div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-<!--									<a class="dropdown-item text-center" href="site/front">个人主页</a>-->
-<!--									<a class="dropdown-item text-center" th:href="@{/user/setting}">账号设置</a>-->
-<!--									<a class="dropdown-item text-center" th:href="@{/logout}">退出登录</a>-->
-<!--									<div class="dropdown-divider"></div>-->
-<!--									<span class="dropdown-item text-center text-secondary"-->
-<!--										  th:utext="${loginUser.nickName}">user</span>-->
-<!--								</div>-->
-<!--							</li>-->
-<!--						</ul>-->
-<!--						&lt;!&ndash; 搜索 &ndash;&gt;-->
-<!--						<form class="form-inline my-2 my-lg-0" action="site/front">-->
-<!--							<input class="form-control mr-sm-2" type="search" aria-label="Search" />-->
-<!--							<button class="btn btn-outline-light my-2 my-sm-0" type="submit">搜索</button>-->
-<!--						</form>-->
-<!--					</div>-->
-<!--				</nav>-->
-<!--			</div>-->
-<!--		</header>-->
-
 		<!--头部信息-->
 		<header class="lyear-layout-header" th:fragment="header">
 
@@ -94,13 +44,15 @@
 					</ul>
 				</div>
 
-				<form class="form-inline my-2 my-lg-0" style="margin-right: 125px;">
+				<!--搜索-->
+				<form class="form-inline my-2 my-lg-0" style="margin-right: 125px;" method="get" th:action="@{/search}">
 					<input class="form-control mr-sm-2" type="search" placeholder="请输入搜索的关键词..." aria-label="Search"
-						   style="width: 375px;border-radius:999px;background: #f6f6f6;">
+						   style="width: 375px;border-radius:999px;background: #f6f6f6;" name="key" th:value="${key}">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="border-radius:20px">搜索</button>
 				</form>
 
 				<ul class="navbar-right d-flex align-items-center">
+					<!--通知-->
 					<li class="nav-item" style="padding-right: 20px;" th:if="${loginUser!=null}">
 						<span  class="position-relative animations-box">
 						   <a style="color: #4d5259;" th:href="@{/notice/follow}" title="通知"><i class="mdi mdi-bell-outline fs-22"></i>
@@ -109,6 +61,7 @@
 						   </a>
 						</span>
 					</li>
+					<!--私信-->
 					<li class="nav-item" style="padding-left:20px;padding-right: 20px;" th:if="${loginUser!=null}">
 						<span class="position-relative animations-box">
 						  <a style="color: #4d5259;" th:href="@{/messages}" title="私信"><i class="mdi mdi-message-text-outline fs-22"></i>
@@ -126,7 +79,7 @@
 					<li class="nav-item" th:if="${loginUser==null}" style="padding-left: 14px;padding-right: 15px;font-size: 18px;">
 						<a class="nav-link" th:href="@{/login}">登录</a>
 					</li>
-
+					<!--个人信息-->
 					<li class="dropdown dropdown-profile" th:if="${loginUser!=null}">
 						<a href="javascript:void(0)" data-toggle="dropdown" class="dropdown-toggle">
 							<img class="img-avatar img-avatar-48 m-r-10" th:src="${loginUser.avatar}" alt="笔下光年" />

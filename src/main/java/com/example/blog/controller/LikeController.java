@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-public class LikeController implements Constant {
+public class LikeController{
 
     @Autowired
     private LikeService likeService;
@@ -59,14 +59,14 @@ public class LikeController implements Constant {
         // 触发点赞事件,用户点赞自己不处理
         if (likeStatus == 1 && loginUser.getUser().getId()!=entityUserId) {
             Event event = new Event()
-                    .setTopic(TOPIC_LIKE)
+                    .setTopic(Constant.TOPIC_LIKE)
                     .setUserId(loginUser.getUser().getId())
                     .setEntityType(entityType)
                     .setEntityId(entityId)
                     .setEntityUserId(entityUserId)
                     .setData("articleId",articleId)
                     .setData("title",title);
-           if(entityType == ENTITY_TYPE_COMMENT){
+           if(entityType == Constant.ENTITY_TYPE_COMMENT){
                Comment target = commentService.findCommentById(entityId);
                 event.setData("comment",target.getContent());
             }

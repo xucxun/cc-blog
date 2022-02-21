@@ -1,8 +1,11 @@
 package com.example.blog.common;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.blog.entity.Article;
 import com.example.blog.entity.Event;
 import com.example.blog.entity.Message;
+import com.example.blog.service.ArticleService;
+import com.example.blog.service.ElasticsearchService;
 import com.example.blog.service.MessageService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
@@ -23,7 +26,13 @@ public class EventConsumer implements Constant{
     @Autowired
     private MessageService messageService;
 
-    //消费评论、点赞、关注事件
+    @Autowired
+    private ArticleService articleService;
+
+    @Autowired
+    private ElasticsearchService elasticsearchService;
+
+    //消费评论、点赞、关注等系统通知事件
     @KafkaListener(topics = {TOPIC_COMMENT, TOPIC_LIKE, TOPIC_FOLLOW})
     public void handleNoticeMessage(ConsumerRecord record) {
         if (record == null || record.value() == null) {
@@ -59,5 +68,24 @@ public class EventConsumer implements Constant{
 
         message.setContent(JSONObject.toJSONString(content));
         messageService.addMessage(message);
+    }
+
+    // 消费发博客事件
+    @KafkaListener(topics = {TOPIC_PUBLISH})
+    public void handlePublishMessage(ConsumerRecord record) {
+        if (record == null || record.value() == null) {
+            logger.error("消息的内容为空!");
+            return;
+        }
+
+        Event event = JSONObject.parseObject(record.value().toString(), Event.class);
+        if (event == null) {
+            logger.error("消息格式错误!");
+            return;
+        }
+
+        Article article = articleService.getById(event.getEntityId());
+        //查询文章并存到es服务器
+        elasticsearchService.saveArticle(article);
     }
 }

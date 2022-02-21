@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class MessageController implements Constant {
+public class MessageController{
 
     @Autowired
     private MessageService messageService;
@@ -96,11 +96,9 @@ public class MessageController implements Constant {
         int noticeUnreadCount = messageService.countNoticeUnread(user.getId(), null);
         model.addAttribute("noticeUnreadCount", noticeUnreadCount);
 
-        int followUnreadCount = messageService.countNoticeUnread(user.getId(), TOPIC_FOLLOW);
-        int commentUnreadCount = messageService.countNoticeUnread(user.getId(), TOPIC_COMMENT);
-        int likeUnreadCount = messageService.countNoticeUnread(user.getId(), TOPIC_LIKE);
+        int commentUnreadCount = messageService.countNoticeUnread(user.getId(), Constant.TOPIC_COMMENT);
+        int likeUnreadCount = messageService.countNoticeUnread(user.getId(), Constant.TOPIC_LIKE);
 
-        model.addAttribute("followUnreadCount",followUnreadCount);
         model.addAttribute("commentUnreadCount",commentUnreadCount);
         model.addAttribute("likeUnreadCount",likeUnreadCount);
 

@@ -19,7 +19,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/article")
-public class ArticleController implements Constant {
+public class ArticleController{
 
     @Autowired
     private ArticleService articleService;
@@ -51,9 +51,9 @@ public class ArticleController implements Constant {
         //评论列表
         List<Map<String, Object>> commentVOList = commentService.listComments(id, page.getOffset() ,page.getLimit());
         //文章点赞数量
-        Long likeCount = likeService.countLike(ENTITY_TYPE_ARTICLE,id);
+        Long likeCount = likeService.countLike(Constant.ENTITY_TYPE_ARTICLE,id);
         //点赞状态
-        int likeStatus = loginUser.getUser() == null ? 0 : likeService.likeStatus(loginUser.getUser().getId(),ENTITY_TYPE_ARTICLE,id);
+        int likeStatus = loginUser.getUser() == null ? 0 : likeService.likeStatus(loginUser.getUser().getId(), Constant.ENTITY_TYPE_ARTICLE,id);
         // 评论分页
         page.setLimit(5);
         page.setPath("/article/" + id);

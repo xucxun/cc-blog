@@ -28,7 +28,7 @@ public interface Constant {
     int REMEMBER_EXPIRED_SECONDS = 3600 * 24 * 7;
 
     /**
-     * 实体类型: 博客
+     * 实体类型: 文章
      */
     int ENTITY_TYPE_ARTICLE = 1;
 
@@ -58,7 +58,13 @@ public interface Constant {
     String TOPIC_FOLLOW = "follow";
 
     /**
+     * 发布文章
+     */
+    String TOPIC_PUBLISH = "publish";
+
+    /**
      * 系统用户ID   这个是数据库中一定要存在的用户，用于发送系统通知。系统通知账号system，密码system，一般不登录这个账户，使用这个账户发私信会有bug
      */
     int SYSTEM_ID = 1;
+
 }

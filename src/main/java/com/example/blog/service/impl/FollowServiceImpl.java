@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class FollowServiceImpl implements FollowService, Constant {
+public class FollowServiceImpl implements FollowService{
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -97,7 +97,7 @@ public class FollowServiceImpl implements FollowService, Constant {
      */
     @Override
     public List<Map<String, Object>> listFollowings(int userId, int offset, int limit) {
-        String followingKey = RedisKeyUtil.getFollowingKey(userId, ENTITY_TYPE_USER);
+        String followingKey = RedisKeyUtil.getFollowingKey(userId, Constant.ENTITY_TYPE_USER);
         //获取关注的用户id集合
         Set<Integer> followingUserIds = redisTemplate.opsForZSet().reverseRange(followingKey, offset, offset + limit - 1);
         if (followingUserIds == null) {
@@ -123,7 +123,7 @@ public class FollowServiceImpl implements FollowService, Constant {
      */
     @Override
     public List<Map<String, Object>> listFollowers(int userId, int offset, int limit) {
-        String followerKey = RedisKeyUtil.getFollowerKey(ENTITY_TYPE_USER,userId);
+        String followerKey = RedisKeyUtil.getFollowerKey(Constant.ENTITY_TYPE_USER,userId);
         //redisTemplate返回的set集合是有序的
         //获取关注我的用户id集合
         Set<Integer> followerUserIds = redisTemplate.opsForZSet().reverseRange(followerKey, offset, offset + limit - 1);

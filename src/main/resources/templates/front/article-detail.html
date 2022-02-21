@@ -248,8 +248,7 @@
 					<a th:href="@{|/user/${loginUser.id}|}">
 						<img th:src="${loginUser.avatar}" alt="笔下光年" class="img-avatar img-avatar-30" /></a>
 					<input class="form-control" type="text" placeholder="输入您想说的话" name="content" onkeydown='if(event.keyCode==13) return false;' required>
-					<a style="cursor: pointer" class="message-btn-send" onclick="document.getElementById('respond-form').submit();return
-					false;"><i class="mdi mdi-near-me"></i></a>
+					<a style="cursor: pointer" title="点击评论" class="message-btn-send" onclick="document.getElementById('respond-form').submit();returnfalse;"><i class="mdi mdi-near-me"></i></a>
 					<input type="hidden" name="entityType" value="1">
 					<input type="hidden" name="entityId" th:value="${article.id}">
 				</form>

@@ -23,7 +23,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class UserServiceImpl implements UserService, Constant {
+public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserMapper userMapper;
@@ -127,13 +127,13 @@ public class UserServiceImpl implements UserService, Constant {
     public int activation(int userId, String code) {
         User user = userMapper.selectById(userId);
         if (user.getStatus() == 1) {
-            return ACTIVATION_REPEAT;
+            return Constant.ACTIVATION_REPEAT;
         } else if (user.getActivationCode().equals(code)) {
             userMapper.updateStatus(userId, 1);
             clearCache(userId);
-            return ACTIVATION_SUCCESS;
+            return Constant.ACTIVATION_SUCCESS;
         } else {
-            return ACTIVATION_FAILURE;
+            return Constant.ACTIVATION_FAILURE;
         }
     }
 
