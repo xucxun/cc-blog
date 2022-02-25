@@ -2,7 +2,9 @@ package com.example.blog.service;
 
 import com.example.blog.entity.LoginTicket;
 import com.example.blog.entity.User;
+import org.springframework.security.core.GrantedAuthority;
 
+import java.util.Collection;
 import java.util.Map;
 
 public interface UserService {
@@ -57,8 +59,14 @@ public interface UserService {
     User initCache(int userId);
 
     /**
-     *
+     * 清除用户缓存数据
      */
     void clearCache(int userId);
+
+    /**
+     * 查询用户权限
+     */
+    Collection<? extends GrantedAuthority> getAuthorities(int userId);
+
 
 }

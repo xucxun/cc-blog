@@ -12,6 +12,7 @@ import com.example.blog.util.ResultUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.HtmlUtils;
 
 import java.util.Date;
@@ -25,9 +26,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private LoginUser loginUser;
-
-    @Autowired
-    private EventProducer eventProducer;
 
     /**
      * 根据用户id分页查询文章列表
@@ -53,34 +51,50 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.selectById(id);
     }
 
-    /**
-     * 保存文章
-     */
+
     @Override
-    public String add(String title, String content) {
+    @Transactional(rollbackFor = Exception.class)
+    public int add(Article article) {
         User user = loginUser.getUser();
-        if (user == null) {
-            return ResultUtil.getJsonResult(403, "您还没有登录哦!");
-        }
-        if(StringUtils.isBlank(title) || StringUtils.isBlank(content)){
-            return ResultUtil.getJsonResult(1, "标题或内容不能为空!");
+        if (article == null) {
+            throw new IllegalArgumentException("参数不能为空!");
         }
 
-        Article article = new Article();
         article.setUserId(user.getId());
-        article.setTitle(HtmlUtils.htmlEscape(title));
-        article.setContent(HtmlUtils.htmlEscape(content));
         article.setCreateTime(new Date());
-        articleMapper.insertArticle(article);
+        article.setStatus(0);
+        article.setMarrow(0);
+        article.setTop(0);
+        // 转义HTML标记,不会将标签识别出来。过滤标签
+        article.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
+        article.setContent(HtmlUtils.htmlEscape(article.getContent()));
 
-        // 触发发博客事件
-        Event event = new Event()
-                .setTopic(Constant.TOPIC_PUBLISH)
-                .setUserId(user.getId())
-                .setEntityType(Constant.ENTITY_TYPE_ARTICLE)
-                .setEntityId(article.getId());
-        eventProducer.emitEvent(event);
+        return articleMapper.insertArticle(article);
+    }
 
-        return ResultUtil.getJsonResult(0, "文章发布成功!");
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int update(Article article) {
+        article.setUpdateTime(new Date());
+        article.setStatus(0);
+        return articleMapper.updateArticle(article);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int deleteById(int id) {
+        return articleMapper.delete(id,1,new Date());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int setTop(int id,Integer top) {
+       return articleMapper.updateTop(id,top,new Date());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int setMarrow(int id, Integer marrow) {
+        return articleMapper.updateMarrow(id,marrow,new Date());
     }
 }

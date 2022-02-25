@@ -43,13 +43,6 @@ public class CommentServiceImpl implements CommentService{
         return commentMapper.selectCommentById(id);
     }
 
-    /**
-     * 分页查询评论
-     */
-    @Override
-    public List<Comment> listByEntity(int entityType, int entityId, int offset, int limit) {
-        return commentMapper.selectCommentsByEntity(entityType,entityId,offset,limit);
-    }
 
     /**
      * 统计评论总数
@@ -108,6 +101,18 @@ public class CommentServiceImpl implements CommentService{
             }
         }
         return commentVOList;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateCommentByArticleId(int entityId, int status) {
+        return commentMapper.updateCommentByArticleId(entityId,status,new Date());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateReplyByArticleId(int entityId, int status) {
+        return commentMapper.updateReplyByArticleId(entityId,status,new Date());
     }
 
     /**

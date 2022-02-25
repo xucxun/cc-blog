@@ -5,35 +5,51 @@
 <mapper namespace="com.example.blog.dao.ArticleMapper">
 
     <sql id="selectFields">
-        id, user_id, title, content, type, status, create_time, comment_count, score
+        id, user_id, title, content, type, status, create_time,update_time,comment_count,score,top,marrow
     </sql>
 
     <sql id="insertFields">
-        user_id, title, content, type, status, create_time, comment_count, score
+        user_id, title, content, type, status, create_time,update_time,comment_count, score,top,marrow
     </sql>
+
     <insert id="insertArticle" parameterType="Article" keyProperty="id">
         insert into article(<include refid="insertFields"></include>)
-        values(#{userId},#{title},#{content},#{type},#{status},#{createTime},#{commentCount},#{score})
+        values(#{userId},#{title},#{content},#{type},#{status},#{createTime},#{updateTime},#{commentCount},#{score},#{top},#{marrow})
     </insert>
+
     <update id="updateCommentCount">
         update article set comment_count = #{commentCount} where id = #{id}
+    </update>
+    <update id="updateTop">
+        update article set top = #{top} ,update_time = #{updateTime} where id = #{id}
+    </update>
+    <update id="updateMarrow">
+        update article set marrow = #{marrow},update_time = #{updateTime} where id = #{id}
+    </update>
+
+    <update id="delete">
+        update article set status = #{status},update_time = #{updateTime} where id = #{id}
+    </update>
+    <update id="updateArticle" parameterType="Article">
+        update article set title = #{title}, content = #{content},type = #{type}, status = #{status},update_time =
+            #{updateTime} where id = #{id}
     </update>
 
     <select id="selectArticlesById" resultType="Article">
         select <include refid="selectFields"></include>
         from article
-        where status != 2
+        where status != 1
         <if test="userId!=0">
             and user_id = #{userId}
         </if>
-        order by type desc, create_time desc
+        order by top desc , create_time desc
         limit #{offset}, #{limit}
     </select>
 
     <select id="selectArticleRows" resultType="int">
         select count(id)
         from article
-        where status != 2
+        where status != 1
         <if test="userId!=0">
             and user_id = #{userId}
         </if>
@@ -41,7 +57,7 @@
     <select id="selectById" resultType="Article">
         select <include refid="selectFields"></include>
         from article
-        where id = #{id} and status != 2
+        where id = #{id} and status != 1
     </select>
 
 </mapper>

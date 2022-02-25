@@ -5,14 +5,13 @@
 <mapper namespace="com.example.blog.dao.CommentMapper">
 
     <sql id="selectFields">
-        id, user_id, entity_type, entity_id, target_id, content, status, create_time
+        id, user_id, entity_type, entity_id, target_id, content, status, create_time,update_time
     </sql>
 
     <sql id="insertFields">
-        user_id, entity_type, entity_id, target_id, content, status, create_time
+        user_id, entity_type, entity_id, target_id, content, status, create_time,update_time
     </sql>
 
-    <!--升序排列，老评论在前面，新评论在后面-->
     <select id="selectCommentsByEntity" resultType="Comment">
         select <include refid="selectFields"></include>
         from comment
@@ -33,7 +32,7 @@
 
     <insert id="insertComment" parameterType="Comment" keyProperty="id">
         insert into comment(<include refid="insertFields"></include>)
-        values(#{userId},#{entityType},#{entityId},#{targetId},#{content},#{status},#{createTime})
+        values(#{userId},#{entityType},#{entityId},#{targetId},#{content},#{status},#{createTime},#{updateTime})
     </insert>
 
     <select id="selectCommentById" resultType="Comment">
@@ -64,22 +63,22 @@
         limit #{offset}, #{limit}
     </select>
 
-    <update id="updateCommentByPostId">
-        update comment set status = #{status} where entity_id = #{entityId} and entity_type=1
+    <update id="updateCommentByArticleId">
+        update comment set status = #{status},update_time = #{updateTime} where entity_id = #{entityId} and entity_type=1
     </update>
 
-    <update id="updateReplyByPostId">
-        update comment set status = #{status} where entity_id in
+    <update id="updateReplyByArticleId">
+        update comment set status = #{status},update_time = #{updateTime} where entity_id in
                                                     (select a.id from (select id from comment where entity_id = #{entityId} and entity_type=1) as a)
                                                 and entity_type=2
     </update>
 
     <update id="updateComment">
-        update comment set status = #{status} where id=#{id}
+        update comment set status = #{status},update_time = #{updateTime} where id=#{id}
     </update>
 
     <update id="updateReplyByCommentId">
-        update comment set status = #{status} where entity_id=#{id} and entity_type=2
+        update comment set status = #{status},update_time = #{updateTime}  where entity_id=#{id} and entity_type=2
     </update>
 
 </mapper>

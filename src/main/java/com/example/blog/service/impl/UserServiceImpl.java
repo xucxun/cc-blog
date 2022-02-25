@@ -12,14 +12,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -210,6 +208,23 @@ public class UserServiceImpl implements UserService{
         String redisKey = RedisKeyUtil.getTicketKey(ticket);
         return (LoginTicket) redisTemplate.opsForValue().get(redisKey);
 
+    }
+
+    public Collection<? extends GrantedAuthority> getAuthorities(int userId){
+        User user = this.findUserById(userId);
+
+        List<GrantedAuthority> list = new ArrayList<>();
+        list.add((GrantedAuthority) () -> {
+            switch (user.getRole()) {
+                case 0:
+                    return Constant.AUTHORITY_USER;
+                case 1:
+                    return Constant.AUTHORITY_ADMIN;
+                default:
+                    return Constant.AUTHORITY_SUPER_ADMIN;
+            }
+        });
+        return list;
     }
 
     // 1.优先从缓存中取值

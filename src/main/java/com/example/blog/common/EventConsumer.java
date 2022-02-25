@@ -34,7 +34,7 @@ public class EventConsumer implements Constant{
 
     //消费评论、点赞、关注等系统通知事件
     @KafkaListener(topics = {TOPIC_COMMENT, TOPIC_LIKE, TOPIC_FOLLOW})
-    public void handleNoticeMessage(ConsumerRecord record) {
+    public void handleNoticeEvent(ConsumerRecord record) {
         if (record == null || record.value() == null) {
             logger.error("消息的内容为空!");
             return;
@@ -72,7 +72,7 @@ public class EventConsumer implements Constant{
 
     // 消费发博客事件
     @KafkaListener(topics = {TOPIC_PUBLISH})
-    public void handlePublishMessage(ConsumerRecord record) {
+    public void handlePublishEvent(ConsumerRecord record) {
         if (record == null || record.value() == null) {
             logger.error("消息的内容为空!");
             return;
@@ -87,5 +87,22 @@ public class EventConsumer implements Constant{
         Article article = articleService.getById(event.getEntityId());
         //查询文章并存到es服务器
         elasticsearchService.saveArticle(article);
+    }
+
+    // 消费删除博客事件
+    @KafkaListener(topics = {TOPIC_DELETE})
+    public void handleDeleteEvent(ConsumerRecord record) {
+        if (record == null || record.value() == null) {
+            logger.error("消息的内容为空!");
+            return;
+        }
+
+        Event event = JSONObject.parseObject(record.value().toString(), Event.class);
+        if (event == null) {
+            logger.error("消息格式错误!");
+            return;
+        }
+        elasticsearchService.deleteArticle(event.getEntityId());
+
     }
 }

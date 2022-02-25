@@ -31,16 +31,25 @@ public class Article implements Serializable {
     private int type;
 
     @Field(type = FieldType.Integer)
-    private int status;
+    private Integer status;
 
     @Field(type = FieldType.Date)
     private Date createTime;
+
+    @Field(type = FieldType.Date)
+    private Date updateTime;
 
     @Field(type = FieldType.Integer)
     private int commentCount;
 
     @Field(type = FieldType.Double)
     private double score;
+
+    @Field(type = FieldType.Integer)
+    private Integer top;
+
+    @Field(type = FieldType.Integer)
+    private Integer marrow;
 
     public int getId() {
         return id;
@@ -82,11 +91,11 @@ public class Article implements Serializable {
         this.type = type;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -96,6 +105,14 @@ public class Article implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public int getCommentCount() {
@@ -114,6 +131,22 @@ public class Article implements Serializable {
         this.score = score;
     }
 
+    public Integer getTop() {
+        return top;
+    }
+
+    public void setTop(Integer top) {
+        this.top = top;
+    }
+
+    public Integer getMarrow() {
+        return marrow;
+    }
+
+    public void setMarrow(Integer marrow) {
+        this.marrow = marrow;
+    }
+
     @Override
     public String toString() {
         return "Article{" +
@@ -124,8 +157,11 @@ public class Article implements Serializable {
                 ", type=" + type +
                 ", status=" + status +
                 ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 ", commentCount=" + commentCount +
                 ", score=" + score +
+                ", top=" + top +
+                ", marrow=" + marrow +
                 '}';
     }
 }

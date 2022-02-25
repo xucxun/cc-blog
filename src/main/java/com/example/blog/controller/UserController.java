@@ -151,5 +151,4 @@ public class UserController{
         return "/front/profile";
     }
 
-
 }

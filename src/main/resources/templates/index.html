@@ -11,6 +11,11 @@
 	<link rel="stylesheet" th:href="@{/css/global.css}"  />
 	<link rel="stylesheet" th:href="@{/css/messages.css}" />
 	<title>首页</title>
+	<style>
+		.container-fluid{
+			padding-top: 60px;
+		}
+	</style>
 </head>
 <body>	
 	<div class="nk-container">
@@ -45,7 +50,7 @@
 				</div>
 
 				<!--搜索-->
-				<form class="form-inline my-2 my-lg-0" style="margin-right: 125px;" method="get" th:action="@{/search}">
+				<form class="form-inline my-2 my-lg-0" style="position: absolute;left: 44%;" method="get" th:action="@{/search}">
 					<input class="form-control mr-sm-2" type="search" placeholder="请输入搜索的关键词..." aria-label="Search"
 						   style="width: 375px;border-radius:999px;background: #f6f6f6;" name="key" th:value="${key}">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="border-radius:20px">搜索</button>
@@ -72,11 +77,13 @@
 						</span>
 					</li>
 
-					<li class="nav-item" th:if="${loginUser==null}" style="padding-left: 125px;padding-right: -6px;font-size: 18px;">
+					<li class="nav-item" th:if="${loginUser==null}"
+						style="padding-left: 125px;padding-right: -6px;font-size: 17px;">
 						<a class="nav-link" th:href="@{/register}">注册</a>
 					</li>
 
-					<li class="nav-item" th:if="${loginUser==null}" style="padding-left: 14px;padding-right: 15px;font-size: 18px;">
+					<li class="nav-item" th:if="${loginUser==null}"
+						style="padding-left: 14px;padding-right: 15px;font-size: 17px;">
 						<a class="nav-link" th:href="@{/login}">登录</a>
 					</li>
 					<!--个人信息-->
@@ -109,21 +116,23 @@
 
 		<!-- 内容 -->
 		<div class="main">
-			<div class="container">
-				<div class="position-relative">
-					<!-- 筛选条件 -->
-					<ul class="nav nav-tabs mb-3">
-						<li class="nav-item">
-							<a class="nav-link active" href="#">最新</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">最热</a>
-						</li>
-					</ul>
-					<button type="button" class="btn btn-primary btn-sm position-absolute rt-0" data-toggle="modal" data-target="#publishModal" th:if="${loginUser!=null}">我要发布</button>
-				</div>
-				<!-- 弹出框 -->
-				<div class="modal fade" id="publishModal" tabindex="-1" role="dialog" aria-labelledby="publishModalLabel" aria-hidden="true">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-0 col-md-2 col-lg-2 col-xl-2 "></div>
+					<div class="col-sm-12 col-md-6 col-lg-6 col-xl-6" style="background-color: #ffffff;">
+					<div class="position-relative">
+						<!-- 筛选条件 -->
+						<ul class="nav nav-tabs mb-3">
+							<li class="nav-item">
+								<a class="nav-link active" href="#">最新</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">最热</a>
+							</li>
+						</ul>
+					</div>
+					<!-- 弹出框 -->
+					<div class="modal fade" id="publishModal" tabindex="-1" role="dialog" aria-labelledby="publishModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -133,30 +142,32 @@
 								</button>
 							</div>
 							<div class="modal-body">
-								<form>
-									<div class="form-group">
+								<form  th:action="@{/article/save}" method="post">
+									<div class="form-group required field">
 										<label for="recipient-name" class="col-form-label">标题：</label>
-										<input type="text" class="form-control" id="recipient-name">
+										<input type="text" class="form-control" id="recipient-name" >
 									</div>
-									<div class="form-group">
+									<div class="form-group required field">
 										<label for="message-text" class="col-form-label">正文：</label>
-										<textarea class="form-control" id="message-text" rows="15"></textarea>
+										<textarea class="form-control" id="message-text" rows="15"
+												  ></textarea>
 									</div>
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+									<button type="button" class="btn btn-primary" id="publishBtn">发布</button>
 								</form>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-								<button type="button" class="btn btn-primary" id="publishBtn">发布</button>
+
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- 提示框 -->
-				<div class="modal fade" id="hintModal" tabindex="-1" role="dialog" aria-labelledby="hintModalLabel" aria-hidden="true">
+					<!-- 提示框 -->
+					<div class="modal fade" id="hintModal" tabindex="-1" role="dialog" aria-labelledby="hintModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="hintModalLabel">提示</h5>
+								<h6 class="modal-title" id="hintModalLabel">提示</h6>
 							</div>
 							<div class="modal-body" id="hintBody">
 								发布完毕!
@@ -165,34 +176,34 @@
 					</div>
 				</div>
 				
-				<!-- 帖子列表 -->
-				<ul class="list-unstyled">
-					<li class="media pb-3 pt-3 mb-3 border-bottom" th:each="map:${articleLists}">
-						<a th:href="@{|/user/${map.user.id}|}">
-							<img th:src="${map.user.avatar}" class="mr-4 rounded-circle" alt="用户头像" style="width:50px;height:50px;">
-						</a>
-						<div class="media-body">
-							<h6 class="mt-0 mb-3">
-								<a th:href="@{|/article/${map.article.id}|}" th:utext="${map.article.title}">文章测试
-								</a>
-								<span class="badge badge-secondary bg-primary" th:if="${map.article.type==1}">置顶</span>
-								<span class="badge badge-secondary bg-danger" th:if="${map.article.status==1}">精华</span>
-							</h6>
-							<div class="text-muted font-size-12">
-								<u class="mr-3" th:utext="${map.user.nickName}">cc</u> 发布于 <b
-									th:text="${#dates.format(map.article.createTime,'yyyy-MM-dd HH:mm:ss')}">2022-01-23 16:40:49</b>
-								<ul class="d-inline float-right">
-									<li class="d-inline ml-2"><i class="mdi mdi-thumb-up-outline"></i>&nbsp;<span
-											th:text="${map.likeCount}">1</span></li>
-									<li class="d-inline ml-2">评论&nbsp;<span th:text="${map.article.commentCount}">7
-									</span></li>
-								</ul>
+					<!-- 文章列表 -->
+					<ul class="list-unstyled">
+						<li class="media pb-3 pt-3 mb-3 border-bottom" th:each="map:${articleLists}">
+							<a th:href="@{|/user/${map.user.id}|}">
+								<img th:src="${map.user.avatar}" class="mr-4 rounded-circle" alt="用户头像" style="width:50px;height:50px;">
+							</a>
+							<div class="media-body">
+								<h6 class="mt-0 mb-3">
+									<a th:href="@{|/article/${map.article.id}|}" th:utext="${map.article.title}">文章测试
+									</a>
+									<span class="badge badge-secondary bg-primary" th:if="${map.article.top==1}">置顶</span>
+									<span class="badge badge-secondary bg-danger" th:if="${map.article.marrow==1}">精华</span>
+								</h6>
+								<div class="text-muted font-size-12">
+									<u class="mr-3" th:utext="${map.user.nickName}">cc</u>发布于 <b
+										th:text="${#dates.format(map.article.createTime,'yyyy-MM-dd HH:mm:ss')}">2022-01-23 16:40:49</b>
+									<ul class="d-inline float-right">
+										<li class="d-inline ml-2"><i class="mdi mdi-thumb-up-outline"></i>&nbsp;<span
+												th:text="${map.likeCount}">1</span></li>
+										<li class="d-inline ml-2">评论&nbsp;<span th:text="${map.article.commentCount}">7
+										</span></li>
+									</ul>
+								</div>
 							</div>
-						</div>
-					</li>
-				</ul>
-				<!-- 分页 -->
-				<nav class="mt-5" th:if="${page.rows>0}" th:fragment="pagination">
+						</li>
+					</ul>
+					<!-- 分页 -->
+				     <nav class="mt-5" th:if="${page.rows>0}" th:fragment="pagination">
 					<ul class="pagination justify-content-center">
 						<li class="page-item">
 							<a class="page-link" th:href="@{${page.path}(current=1)}">首页</a>
@@ -210,6 +221,18 @@
 						</li>
 					</ul>
 				</nav>
+					</div>
+					<div class="col-sm-12 col-md-2 col-lg-2 col-xl-2" style="max-width: 20%;">
+						<input type="hidden" name="loginUserId" th:if="${loginUser!=null}" th:value="${loginUser.id}" id="loginUserId"/>
+						<div class="card" style="height: 80px;">
+							<div class="card-body" style="display: flex;justify-content: space-around;">
+								<a th:href="@{/article/input}" class="btn btn-primary" style="line-height: 22px;"
+								   id="toPublish">写文章</a>
+								<a class="btn btn-outline-primary" style="line-height: 22px;">提问题</a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -283,5 +306,15 @@
 	<script th:src="@{/admin/js/main.min.js}"></script>
 	<script th:src="@{/js/global.js}"></script>
 	<script  th:src="@{/js/index.js}"></script>
+	<script type="text/javascript">
+		$('#toPublish').on('click', function () {
+			var loginUserId = $('#loginUserId').val();
+			if (loginUserId != null) {
+				location.href= "/article/input";
+			} else {
+				location.href= "/login";
+			}
+		});
+	</script>
 </body>
 </html>

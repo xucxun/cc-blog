@@ -64,4 +64,5 @@ public class RedisKeyUtil {
     public static String getUserKey(int userId) {
         return USER + SPLIT + userId;
     }
+    
 }

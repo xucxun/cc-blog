@@ -63,8 +63,28 @@ public interface Constant {
     String TOPIC_PUBLISH = "publish";
 
     /**
-     * 系统用户ID   这个是数据库中一定要存在的用户，用于发送系统通知。系统通知账号system，密码system，一般不登录这个账户，使用这个账户发私信会有bug
+     * 主题: 删博客
+     */
+    String TOPIC_DELETE = "delete";
+
+    /**
+     * 系统用户ID  用于发送系统通知。
      */
     int SYSTEM_ID = 1;
+
+    /**
+     * 权限: 普通用户,数据库对应role  0
+     */
+    String AUTHORITY_USER = "user";
+
+    /**
+     * 权限: 管理员,数据库对应role  1
+     */
+    String AUTHORITY_ADMIN = "admin";
+
+    /**
+     * 权限: 管理员,数据库对应role  2
+     */
+    String AUTHORITY_SUPER_ADMIN = "super_admin";
 
 }

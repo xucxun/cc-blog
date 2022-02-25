@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -50,7 +51,7 @@ public class LoginController{
 
     @GetMapping("/login")
     public String loginPage() {
-        return("/front/lyear_pages_login_2");
+        return("/front/login");
     }
 
     @PostMapping("/register")
@@ -103,7 +104,6 @@ public class LoginController{
         // 生成验证码
         String text = KaptchaUtil.drawRandomText(width, height, image);
 
-
          //将验证码存入session
          //session.setAttribute("kaptcha", text);
 
@@ -142,12 +142,12 @@ public class LoginController{
             }
         }catch (Exception e) {
             model.addAttribute("codeMsg", "验证码失效!");
-            return "/front/lyear_pages_login_2";
+            return "/front/login";
         }
 
         if (StringUtils.isBlank(kaptcha) || StringUtils.isBlank(code) || !kaptcha.equals(code)){
             model.addAttribute("codeMsg", "验证码不正确!");
-            return("/front/lyear_pages_login_2");
+            return("/front/login");
         }
 
         // 检查账号,密码
@@ -164,7 +164,7 @@ public class LoginController{
         } else {
             model.addAttribute("accountMsg", map.get("accountMsg"));
             model.addAttribute("passwordMsg", map.get("passwordMsg"));
-            return("/front/lyear_pages_login_2");
+            return("/front/login");
         }
 
 
@@ -173,6 +173,7 @@ public class LoginController{
     @GetMapping("/logout")
     public String logout(@CookieValue("ticket") String ticket) {
         userService.logout(ticket);
+        SecurityContextHolder.clearContext();
         return "redirect:/login";
     }
 

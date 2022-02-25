@@ -12,6 +12,7 @@ public class Comment {
     private String content;
     private int status;
     private Date createTime;
+    private Date updateTime;
 
     public int getId() {
         return id;
@@ -77,6 +78,14 @@ public class Comment {
         this.createTime = createTime;
     }
 
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
     @Override
     public String toString() {
         return "Comment{" +
@@ -88,6 +97,7 @@ public class Comment {
                 ", content='" + content + '\'' +
                 ", status=" + status +
                 ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }
