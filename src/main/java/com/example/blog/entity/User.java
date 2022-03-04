@@ -11,8 +11,8 @@ public class User implements Serializable {
     private String password;
     private String salt;
     private String email;
-    private int role;
-    private int status;
+    private Integer role;
+    private Integer status;
     private String activationCode;
     private String avatar;
     private Date createTime;
@@ -65,19 +65,19 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public int getRole() {
+    public Integer getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(Integer role) {
         this.role = role;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

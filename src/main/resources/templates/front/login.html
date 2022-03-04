@@ -4,7 +4,7 @@
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>登录</title>
-  <link rel="icon" href="favicon.ico" type="image/ico">
+  <link rel="icon" th:href="@{/admin/image/logo-ico.png}" type="image/ico">
   <link th:href="@{/admin/css/bootstrap.min.css}" rel="stylesheet">
   <link th:href="@{/admin/css/materialdesignicons.min.css}" rel="stylesheet">
   <link th:href="@{/admin/css/style.min.css}" rel="stylesheet">
@@ -38,7 +38,7 @@
 <body class="center-vh" th:style="'background: url(admin/images/login-bg-2.jpg); background-size: cover;'" >
 <div class="card card-shadowed p-5 w-420 mb-0 mr-2 ml-2">
   <div class="text-center mb-3">
-    <a href="index.html"> <img alt="light year admin" th:src="@{/admin/images/logo-sidebar.png}"> </a>
+    <a href="index.html"> <img alt="light year admin" th:src="@{/img/logo-sidebar.png}"> </a>
   </div>
 
   <form th:action="@{login}" method="post" class="login-form">
@@ -83,7 +83,8 @@
     </div>
   </form>
   
-  <p class="text-center text-muted mb-0">Copyright © 2020 <a href="http://lyear.itshubao.com">IT书包</a>. All right reserved</p>
+  <p class="text-center text-muted mb-0">Copyright © 2022 <a th:href="@{/index}">CC博客</a>. All right
+    reserved</p>
 </div>
   
 <script type="text/javascript" th:src="@{/admin/js/jquery.min.js}"></script>

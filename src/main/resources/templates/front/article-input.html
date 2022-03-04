@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>新增文档</title>
-    <link rel="icon" href="https://static.nowcoder.com/images/logo_87_87.png"/>
+    <title>文章发布</title>
+    <link rel="icon" th:href="@{/admin/images/logo-ico.png}"/>
     <link rel="stylesheet" th:href="@{/admin/css/bootstrap.min.css}"  />
     <link rel="stylesheet" th:href="@{/admin/css/materialdesignicons.min.css}"  />
     <!--标签插件-->
@@ -30,7 +30,7 @@
                         </div>
                         <div class="form-group col-md-12 field">
                             <label for="content">文章内容</label>
-                            <textarea class="form-control" id="content" name="content" rows="5" th:utext="*{content}"
+                            <textarea class="form-control" id="content" name="content" rows="4" th:utext="*{content}"
                                       placeholder="内容" required></textarea>
                         </div>
 

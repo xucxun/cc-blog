@@ -1,45 +1,45 @@
 package com.example.blog.util;
 
-import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.DigestUtils;
-
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import com.example.blog.common.ResultEnum;
 
 public class ResultUtil {
-
-    //生成随机字符串,32位
-    public static String generateUUID(){
-        return UUID.randomUUID().toString().replaceAll("-","");
+    public static boolean isOk(Result<?> result){
+        return null != result && result.getCode() == ResultEnum.OK.getCode();
     }
 
-    //MD5加密，加盐，生成密文
-    public static String md5(String key){
-        if(StringUtils.isBlank(key)){
-            return null;
-        }
-        return DigestUtils.md5DigestAsHex(key.getBytes());
-    }
-    public static String getJsonResult(int code, String msg, Map<String, Object> map) {
-        JSONObject json = new JSONObject();
-        json.put("code", code);
-        json.put("msg", msg);
-        if (map != null) {
-            for (String key : map.keySet()) {
-                json.put(key, map.get(key));
-            }
-        }
-        return json.toJSONString();
+    public static <T> Result<T> ok(){
+        return new Result<T>(ResultEnum.OK);
     }
 
-    public static String getJsonResult(int code, String msg) {
-        return getJsonResult(code, msg, null);
+    public static <T> Result<T> ok(T data){
+        return new Result<T>(ResultEnum.OK.getCode(), ResultEnum.OK.getMsg(), data);
     }
 
-    public static String getJsonResult(int code) {
-        return getJsonResult(code, null, null);
+    public static <T> Result<T> fail(){
+        return new Result<T>(ResultEnum.BAD_REQUEST).fail();
     }
 
+    public static <T> Result<T> status(ResultEnum status){
+        return new Result<T>(status.getCode(), status.getMsg()).fail();
+    }
+
+    public static <T> Result<T> fail(ResultEnum status){
+        return new Result<T>(status.getCode(), status.getMsg()).fail();
+    }
+
+    public static <T> Result<T> fail(String message){
+        return fail(ResultEnum.BAD_REQUEST.getCode(), message, (T)null).fail();
+    }
+
+    public static <T> Result<T> fail(int code, String message){
+        return new Result<T>(code, message).fail();
+    }
+
+    public static <T> Result<T> fail(int code ,String message, T data){
+        return new Result<T>(code, message, data).fail();
+    }
+
+    public static <T> Result<T> notfound(){
+        return new Result<T>(ResultEnum.NOT_FOUND).fail();
+    }
 }

@@ -8,7 +8,7 @@ import com.example.blog.service.FollowService;
 import com.example.blog.service.UserService;
 import com.example.blog.common.Constant;
 import com.example.blog.util.LoginUser;
-import com.example.blog.util.ResultUtil;
+import com.example.blog.util.BlogUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,7 +45,7 @@ public class FollowController {
                 .setEntityId(entityId)
                 .setEntityUserId(entityId);
         eventProducer.emitEvent(event);
-        return ResultUtil.getJsonResult(0, "关注用户成功!");
+        return BlogUtil.getJsonResult(0, "关注用户成功!");
     }
 
     @PostMapping("/unfollow")
@@ -54,7 +54,7 @@ public class FollowController {
         User user = loginUser.getUser();
         followService.unfollow(user.getId(), entityType, entityId);
 
-        return ResultUtil.getJsonResult(0, "取消关注用户成功!");
+        return BlogUtil.getJsonResult(0, "取消关注用户成功!");
     }
 
     @GetMapping("/user/{userId}/following/")

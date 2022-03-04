@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * version: 1.16.0
+ * version: 1.17.1
  * https://github.com/wenzhixin/bootstrap-table/
  */
 .bootstrap-table .fixed-table-toolbar::after {
@@ -47,9 +47,16 @@
 .bootstrap-table .fixed-table-toolbar .columns label {
   display: block;
   padding: 3px 20px;
+  margin: 0px;
   clear: both;
   font-weight: normal;
   line-height: 1.428571429;
+  cursor: pointer;
+}
+
+.bootstrap-table .fixed-table-toolbar .columns label label.custom-control-label {
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 .bootstrap-table .fixed-table-toolbar .columns-left {
@@ -96,7 +103,7 @@
 }
 
 .bootstrap-table .fixed-table-container .table thead th .th-inner {
-  padding: 0.75rem;
+  padding: 10px;
   vertical-align: bottom;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -208,7 +215,6 @@
 }
 
 .bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .loading-text {
-  font-size: 2rem;
   margin-right: 6px;
 }
 
@@ -292,8 +298,8 @@
 }
 
 .bootstrap-table .fixed-table-pagination > .pagination ul.pagination a {
-  /*padding: 6px 12px;
-  line-height: 1.428571429;*/
+  padding: 6px 12px;
+  line-height: 1.428571429;
 }
 
 .bootstrap-table .fixed-table-pagination > .pagination ul.pagination li.page-intermediate a {
@@ -322,15 +328,6 @@
   background: #fff;
   height: calc(100vh);
   overflow-y: scroll;
-}
-
-.dropdown-item.dropdown-item-marker {
-  padding: .25rem 1.5rem;
-}
-.dropdown-item.dropdown-item-marker:focus,
-.dropdown-item.dropdown-item:active {
-  background-color: #fff;
-  color: #4d5259;
 }
 
 /* calculate scrollbar width */

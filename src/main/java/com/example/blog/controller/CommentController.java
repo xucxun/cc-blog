@@ -8,7 +8,9 @@ import com.example.blog.entity.Event;
 import com.example.blog.service.ArticleService;
 import com.example.blog.service.CommentService;
 import com.example.blog.util.LoginUser;
+import com.example.blog.util.RedisKeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +32,9 @@ public class CommentController{
     @Autowired
     private LoginUser loginUser;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @PostMapping("/save/{articleId}")
     public String save(@PathVariable("articleId") int articleId, Comment comment){
         commentService.save(comment);
@@ -43,8 +48,11 @@ public class CommentController{
                     .setEntityType(Constant.ENTITY_TYPE_ARTICLE)
                     .setEntityId(articleId);
             eventProducer.emitEvent(event);
-        }
 
+            // 评论后更新博客分数
+            String redisKey = RedisKeyUtil.getArticleScoreKey();
+            redisTemplate.opsForSet().add(redisKey, articleId);
+        }
 
         String title = articleService.getById(articleId).getTitle();
 

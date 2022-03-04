@@ -1,7 +1,7 @@
 package com.example.blog.config;
 
 import com.example.blog.common.Constant;
-import com.example.blog.util.ResultUtil;
+import com.example.blog.util.BlogUtil;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -61,7 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         Constant.AUTHORITY_SUPER_ADMIN
                         )
                 .antMatchers(
-                        "/admin/**"
+                        "/admin/**",
+                        "/actuator/**"
                 )
                 .hasAnyAuthority(
                         Constant.AUTHORITY_SUPER_ADMIN
@@ -83,7 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             httpServletResponse.setContentType("application/plain;charset=utf-8");
                             // 拿到输出流,输出返回内容给前端页面
                             PrintWriter writer = httpServletResponse.getWriter();
-                            writer.write(ResultUtil.getJsonResult(403, "你还没有登录哦!"));
+                            writer.write(BlogUtil.getJsonResult(403, "你还没有登录哦!"));
                         }else {
                             //请求重定向到登录页面
                            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
@@ -97,7 +98,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         if ("XMLHttpRequest".equals(xRequestedWith)) {
                             httpServletResponse.setContentType("application/plain;charset=utf-8");
                             PrintWriter writer = httpServletResponse.getWriter();
-                            writer.write(ResultUtil.getJsonResult(403, "你没有访问此功能的权限!"));
+                            writer.write(BlogUtil.getJsonResult(403, "你没有访问此功能的权限!"));
                         }else {
                             httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/denied");
                         }

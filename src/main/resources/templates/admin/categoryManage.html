@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <title>文章类别管理 </title>
+  <link rel="shortcut icon" type="image/x-icon" th:href="@{/admin/images/logo-ico.png}">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="stylesheet" type="text/css" th:href="@{/admin/css/animate.min.css}">
+  <link rel="stylesheet" th:href="@{/admin/css/bootstrap.min.css}"  />
+  <link rel="stylesheet" th:href="@{/admin/css/materialdesignicons.min.css}"  />
+  <link rel="stylesheet" th:href="@{/admin/css/style.min.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/admin/js/bootstrap-select/bootstrap-select.css}">
+</head>
+<body>
+<!--左侧导航-->
+<aside class="lyear-layout-sidebar">
+  <!-- logo -->
+  <div id="logo" class="sidebar-header">
+    <a th:href="@{/admin/index}"><img th:src="@{/img/logo-sidebar.png}" style="padding-left: 12px;"></a>
+  </div>
+  <div class="lyear-layout-sidebar-info lyear-scroll">
+
+    <nav class="sidebar-main">
+      <ul class="nav-drawer">
+        <li class="nav-item "> <a th:href="@{/admin/index}"><i class="mdi mdi-home"></i> <span>后台首页</span></a> </li>
+        <li class="nav-item "><a th:href="@{/admin/userManage}"><i class="mdi mdi-account"></i>
+          <span>用户管理</span></a></li>
+        <li class="nav-item "><a th:href="@{/admin/articleManage}"><i class="mdi mdi-file-document-outline"></i><span>
+          文章管理</span></a></li>
+        <li class="nav-item active"><a th:href="@{/admin/categoryManage}"><i class="mdi mdi-bookmark"></i><span>文章类别管理
+        </span></a></li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <p class="copyright">Copyright &copy; 2022. <a target="_blank" th:href="@{/index}">CC博客</a> All rights reserved.</p>
+    </div>
+  </div>
+
+</aside>
+<!--End 左侧导航-->
+
+<!--头部信息-->
+<header class="lyear-layout-header" th:replace="admin/index::header">
+</header>
+
+<!--页面主要内容-->
+<main class="lyear-layout-content">
+  <div class="container-fluid p-t-15">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <p class="mt-3 pl-4 mb-0" style="font-weight: 700;"><a th:href="@{/admin/categoryManage}">文章类别管理</a></p>
+          <div class="card-toolbar d-flex flex-column flex-md-row">
+            <form  id="searchForm" class="form-inline" method="get" th:action="@{/admin/categoryManage/search}">
+              <div class="form-group m-b-5 mr-3 field">
+                <input class="form-control" type="text" id="name" name="name" placeholder="类别名称" th:value="${name}">
+              </div>
+              <div class="form-group m-b-5 mr-3 field">
+                <input type="hidden" id="selectDisplay" th:value="${display}!=null?${display}:'2'">
+                 <select name="display" id="status" class="form-control selectpicker display">
+                  <option value="2" selected>全部</option>
+                  <option value="0">前台显示</option>
+                  <option value="1">禁止前台显示</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-info m-b-5 mr-3" id="searchBtn"><i class="mdi mdi-magnify"></i> 搜索
+              </button>
+            </form>
+
+            <!-- 新增类别-->
+            <button type="button" class="btn btn-primary m-b-5 mr-3" data-toggle="modal" data-target="#addModal">
+              <i class="mdi mdi-plus"></i>新增
+            </button>
+            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h6 class="modal-title" id="addModalTitle">新增类别</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">类别名称:</label>
+                        <input type="text" class="form-control" id="recipient-name" placeholder="请输入类别名称" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="message-text" class="col-form-label">描述:</label>
+                        <textarea class="form-control" rows="4" id="message-text" placeholder="请输入描述" required></textarea>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="addBtn">新增</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="mb-1">共 <span style="color:red;" th:text="${categoryCount}"></span> 个类别</p>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th></th>
+                  <th>类别名称</th>
+                  <th>描述</th>
+                  <th>状态</th>
+                  <th>前台显示</th>
+                  <th>引用统计</th>
+                  <th>创建时间</th>
+                  <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${categories!=null}" th:each="map:${categories}">
+                  <td th:text="${page.offset + mapStat.count}"></td>
+                  <td th:text="${map.category.name}">学习笔记</td>
+                  <td th:text="${map.category.description}"></td>
+                  <td th:if="${map.category.status==0}"><font class="text-success" th:utext="正常"></font></td>
+                  <td th:if="${map.category.display==0}"><font class="text-success" th:utext="前台显示"></font></td>
+                  <td th:if="${map.category.display==1}"><font class="text-danger" th:utext="禁止前台显示"></font></td>
+                  <td th:utext="${map.category.refCount}!=null?${map.category.refCount}:'0'">1</td>
+                  <td th:text="${#dates.format(map.category.createTime,'yyyy-MM-dd HH:mm:ss')}">2022-01-23 17:16:08</td>
+                  <td>
+                    <a href="javascript:;"
+                       th:class="|btn ${map.category.display==0?'btn-danger':'btn-primary'} btn-sm mr-2|"
+                       th:text="${map.category.display==0?'禁止前台显示':'前台显示'}"
+                       th:onclick="|setDisplay(this,${map.category.id});|"></a>
+                    <button type="button" class="btn btn-primary btn-sm btn-w-xs mr-2" data-toggle="modal"
+                            data-target="#editModal" th:onclick="|toEdit(this,${map.category.id});|">编辑
+                    </button>
+                    <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+                         aria-labelledby="deleteModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h6 class="modal-title" id="editModalLabel">编辑类别</h6>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form>
+                              <input type="text" id="edit_id" hidden="hidden">
+                              <div class="form-group">
+                                <label for="edit-name" class="col-form-label">类别名称:</label>
+                                <input type="text" class="form-control" id="edit-name" placeholder="请输入类别名称" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="description-text" class="col-form-label">描述:</label>
+                                <textarea class="form-control" rows="4" id="description-text" placeholder="请输入描述" required
+                                ></textarea>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-footer">
+                            <button id="editBtn" type="button" class="btn btn-primary">保存</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="button" class="btn btn-danger btn-sm btn-w-xs" data-toggle="modal"
+                            data-target="#deleteModal" th:data-whatever="${map.category.id}">删除
+                    </button>
+                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h6 class="modal-title" id="deleteModalLabel">删除提醒</h6>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <input type="hidden" id="categoryId">
+                            <p class="font-size-20" th:text="${'确定删除当前类别吗?'}"></p>
+                          </div>
+                          <div class="modal-footer">
+                            <button id="deleteBtn" type="button" class="btn btn-primary">删除</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- 分页 -->
+            <nav class="mt-5" th:replace="index::pagination"></nav>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+<script th:src="@{/admin/js/jquery.min.js}"></script>
+<script th:src="@{/admin/js/popper.min.js}"></script>
+<script th:src="@{/admin/js/bootstrap.min.js}"></script>
+<script th:src="@{/admin/js/perfect-scrollbar.min.js}"></script>
+<script th:src="@{/admin/js/main.min.js}"></script>
+<script th:src="@{/admin/js/bootstrap-notify.min.js}"></script>
+<script type="text/javascript" th:src="@{/admin/js/bootstrap-select/bootstrap-select.min.js}"></script>
+<script type="text/javascript" th:src="@{/admin/js/bootstrap-select/i18n/defaults-zh_CN.min.js}"></script>
+<script th:src="@{/js/category.js}"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#deleteModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      var recipient = button.data('whatever');
+      var modal = $(this);
+      modal.find('.modal-body input').val(recipient);
+    })
+
+    var display = $('#selectDisplay').val();
+
+    $('.selectpicker.display').selectpicker('val' ,display);
+     $('.selectpicker').selectpicker();
+
+  });
+</script>
+</body>
+
+</html>

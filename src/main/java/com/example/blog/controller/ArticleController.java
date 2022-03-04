@@ -1,26 +1,19 @@
 package com.example.blog.controller;
 
 import com.example.blog.common.EventProducer;
-import com.example.blog.entity.Article;
-import com.example.blog.entity.Event;
-import com.example.blog.entity.Page;
-import com.example.blog.entity.User;
-import com.example.blog.service.ArticleService;
-import com.example.blog.service.CommentService;
-import com.example.blog.service.LikeService;
-import com.example.blog.service.UserService;
+import com.example.blog.entity.*;
+import com.example.blog.service.*;
 import com.example.blog.common.Constant;
 import com.example.blog.util.LoginUser;
-import com.example.blog.util.ResultUtil;
+import com.example.blog.util.RedisKeyUtil;
+import com.example.blog.util.BlogUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.HtmlUtils;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -38,48 +31,33 @@ public class ArticleController{
     private UserService userService;
 
     @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
     private CommentService commentService;
 
     @Autowired
     private LikeService likeService;
 
     @Autowired
+    private FollowService followService;
+
+    @Autowired
     private EventProducer eventProducer;
 
-//    @PostMapping("/save")
-//    @ResponseBody
-//    public String save(String title, String content){
-//        User user = loginUser.getUser();
-//        if (user == null) {
-//            return ResultUtil.getJsonResult(403, "您还没有登录哦!");
-//        }
-//        if(StringUtils.isBlank(title) || StringUtils.isBlank(content)){
-//            return ResultUtil.getJsonResult(1, "标题或内容不能为空!");
-//        }
-//
-//        Article article = new Article();
-//        article.setUserId(user.getId());
-//        article.setTitle(title);
-//        article.setContent(content);
-//        article.setCreateTime(new Date());
-//        articleService.add(article);
-//
-//        // 触发发博客事件，将文章保存到es服务器里
-//        Event event = new Event()
-//                .setTopic(Constant.TOPIC_PUBLISH)
-//                .setUserId(user.getId())
-//                .setEntityType(Constant.ENTITY_TYPE_ARTICLE)
-//                .setEntityId(article.getId());
-//        eventProducer.emitEvent(event);
-//       return ResultUtil.getJsonResult(0,"文章发布成功！");
-//    }
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     /**
      * 新增文章页面
      */
     @GetMapping("/input")
     public String toAddBlog(Model model){
-        //返回一个blog对象给前端th:object
+        User user = loginUser.getUser();
+        if(user == null){
+           return "redirect:/login";
+        }
+        //返回一个article对象给前端th:object
         model.addAttribute("article", new Article());
         return "/front/article-input";
     }
@@ -103,14 +81,17 @@ public class ArticleController{
     public String save(Article article){
         User user = loginUser.getUser();
         if (user == null) {
-            return ResultUtil.getJsonResult(403, "您还没有登录哦!");
+            return BlogUtil.getJsonResult(403, "您还没有登录哦!");
         }
         if(StringUtils.isBlank(article.getTitle()) || StringUtils.isBlank(article.getContent())){
-            return ResultUtil.getJsonResult(1, "标题或内容不能为空!");
+            return BlogUtil.getJsonResult(1, "标题或内容不能为空!");
         }
 
         if(article.getId()==0){
             articleService.add(article);
+            // 新增博客计算博客初始分数
+            String redisKey = RedisKeyUtil.getArticleScoreKey();
+            redisTemplate.opsForSet().add(redisKey, article.getId());
         }else {
             articleService.update(article);
         }
@@ -122,30 +103,52 @@ public class ArticleController{
                 .setEntityType(Constant.ENTITY_TYPE_ARTICLE)
                 .setEntityId(article.getId());
         eventProducer.emitEvent(event);
+
         return "redirect:/index";
     }
 
+    /**
+     * 文章详情页
+     */
     @GetMapping("/{id}")
     public String articleDetail(@PathVariable("id") int id, Model model, Page page) {
         //文章详情
         Article article = articleService.getById(id);
+        model.addAttribute("article",article);
+
+        //文章类别
+        Category category = categoryService.getCategory(article.getCategoryId());
+        model.addAttribute("category",category);
+
         User user = userService.findUserById(article.getUserId());
+        model.addAttribute("user",user);
         //评论列表
         List<Map<String, Object>> commentVOList = commentService.listComments(id, page.getOffset() ,page.getLimit());
+        model.addAttribute("comments", commentVOList);
         //文章点赞数量
         Long likeCount = likeService.countLike(Constant.ENTITY_TYPE_ARTICLE,id);
+        model.addAttribute("likeCount",likeCount);
         //点赞状态
         int likeStatus = loginUser.getUser() == null ? 0 : likeService.likeStatus(loginUser.getUser().getId(), Constant.ENTITY_TYPE_ARTICLE,id);
+        model.addAttribute("likeStatus",likeStatus);
         // 评论分页
         page.setLimit(5);
         page.setPath("/article/" + id);
         page.setRows(article.getCommentCount());
 
-        model.addAttribute("article",article);
-        model.addAttribute("user",user);
-        model.addAttribute("comments", commentVOList);
-        model.addAttribute("likeCount",likeCount);
-        model.addAttribute("likeStatus",likeStatus);
+        // 是否已关注
+        boolean isFollowed = false;
+        if (loginUser.getUser() != null) {
+            isFollowed = followService.isFollowed(loginUser.getUser().getId(), Constant.ENTITY_TYPE_USER, user.getId());
+        }
+        model.addAttribute("isFollowed", isFollowed);
+
+        // 关注数量
+        long followingCount = followService.countFollowing(user.getId(), Constant.ENTITY_TYPE_USER);
+        model.addAttribute("followingCount", followingCount);
+        // 粉丝数量
+        long followerCount = followService.countFollower(Constant.ENTITY_TYPE_USER, user.getId());
+        model.addAttribute("followerCount", followerCount);
 
         return "front/article-detail";
     }
@@ -160,7 +163,12 @@ public class ArticleController{
                 .setEntityType(Constant.ENTITY_TYPE_ARTICLE)
                 .setEntityId(id);
         eventProducer.emitEvent(event);
-        return ResultUtil.getJsonResult(0);
+
+        // 计算博客分数
+        String redisKey = RedisKeyUtil.getArticleScoreKey();
+        redisTemplate.opsForSet().add(redisKey, id);
+
+        return BlogUtil.getJsonResult(0);
     }
 
     @PostMapping("/untop")
@@ -173,7 +181,7 @@ public class ArticleController{
                 .setEntityType(Constant.ENTITY_TYPE_ARTICLE)
                 .setEntityId(id);
         eventProducer.emitEvent(event);
-        return ResultUtil.getJsonResult(0);
+        return BlogUtil.getJsonResult(0);
     }
 
     @PostMapping("/marrow")
@@ -186,7 +194,7 @@ public class ArticleController{
                 .setEntityType(Constant.ENTITY_TYPE_ARTICLE)
                 .setEntityId(id);
         eventProducer.emitEvent(event);
-        return ResultUtil.getJsonResult(0);
+        return BlogUtil.getJsonResult(0);
     }
 
     @PostMapping("/unmarrow")
@@ -199,7 +207,7 @@ public class ArticleController{
                 .setEntityType(Constant.ENTITY_TYPE_ARTICLE)
                 .setEntityId(id);
         eventProducer.emitEvent(event);
-        return ResultUtil.getJsonResult(0);
+        return BlogUtil.getJsonResult(0);
     }
 
     @PostMapping("/delete")
@@ -216,7 +224,7 @@ public class ArticleController{
 //                .setEntityType(Constant.ENTITY_TYPE_ARTICLE)
 //                .setEntityId(id);
 //        eventProducer.emitEvent(event);
-        return ResultUtil.getJsonResult(0);
+        return BlogUtil.getJsonResult(0,"删除成功!");
     }
 
 

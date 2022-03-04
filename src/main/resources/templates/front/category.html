@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="icon" th:href="@{/admin/images/logo-ico.png}"/>
+	<link th:href="@{/admin/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/admin/css/materialdesignicons.min.css}" rel="stylesheet">
+	<link th:href="@{/admin/css/style.min.css}" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/css/messages.css}" />
+	<link rel="stylesheet" th:href="@{/css/global.css}" />
+	<title>分类</title>
+	<style>
+		.container-fluid{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin: 0 auto;
+			/*min-height: 80vh;*/
+			height: 100%;
+			width: 100%;
+		}
+		.article-tag{
+			margin-top: 50px;
+			background-color: #fff;
+			font-size: 14px;
+			width: 100%;
+			border-bottom: 1px solid #f2f6fc;
+			box-shadow: 0 2px 10px 0 rgb(0 0 0 / 5%);
+			padding: 0;
+		}
+		.article-tag-category{
+			display: flex;
+			align-items: center;
+			margin: 0 auto;
+			max-width: 1200px;
+			height: 48px;
+		}
+		.article-tag-category > span > a{
+			cursor: pointer;
+			color: #606a78;
+			font-size: 15px;
+			margin: 14px 6px;
+			padding: 3px 14px;
+			word-break: keep-all;
+		}
+		.article-tag-category > span > a.active{
+			background-color: #52d3c7;
+			color: #fff;
+			font-weight: 700;
+			border-radius: 3px;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="nk-container">
+		<!-- 头部 -->
+		<header class="bg-dark sticky-top" th:replace="index::header">
+		</header>
+
+		<!-- 内容 -->
+		<div class="main">
+			<div class="article-tag mb-3" style="line-height: 35px;">
+				<!-- 选项 -->
+				<div class= "article-tag-category">
+					<span class="mr-3" th:each="category : ${categories}">
+						<a th:class="| ${category.id==activeCategoryId?'active':''}|"
+						   th:href="@{/category/{id}(id=${category.id})}" th:text="${category.name}">
+						</a>
+					</span>
+				</div>
+			</div>
+			<div class="container-fluid">
+				<div style="background: #fff;width:1200px;height: 100%;border-radius: 3px;margin-bottom: 70px;">
+					<!-- 文章列表 -->
+					 <div class="article-list border-bottom" th:each="map:${articleLists}" style="padding:
+							 15px 20px;">
+							<p class="article-item-message">
+								<span>
+									<a th:href="@{|/user/${map.user.id}|}">
+									<img th:src="${map.user.avatar}" class="rounded-circle" alt="用户头像"
+									 style="width:25px;height:25px;">
+								</a>
+								</span>
+								<span class="ml-2" th:utext="${map.user.nickName}">cc</span>
+								<span class="d-inline ml-2">|</span>
+								<span class="d-inline ml-2" th:text="${#dates.format(map.article.createTime,'yyyy-MM-dd HH:mm:ss')}">2022-01-23 16:40:49</span>
+								<span class="d-inline ml-2">|</span>
+								<span class="ml-2 d-inline"><a class="type_tag" th:href="@{|/category/${map.category.id}|}"
+																	   th:text="${map.category.name}">测试</a>
+								</span>
+							</p>
+							<div class="title-line">
+										<h2>
+											<a th:href="@{|/article/${map.article.id}|}" th:utext="${map.article.title}">文章标题
+											</a>
+											<span class="badge badge-secondary bg-primary" th:if="${map.article.top==1}">置顶</span>
+											<span class="badge badge-secondary bg-danger" th:if="${map.article.marrow==1}">加精</span>
+										</h2>
+									</div>
+							<div class="article-content-box">
+										<a th:href="@{|/article/${map.article.id}|}"><p th:utext="${map.article.content}">文章内容
+										</p></a>
+									</div>
+							<div class="text-muted font-size-14">
+											<span class="d-inline ml-2"><i class="mdi mdi-thumb-up-outline"></i>&nbsp;<i
+													th:text="${map.likeCount}">1</i></span>
+										<span class="d-inline ml-2">|</span>
+										<span class="d-inline ml-2"><i class="mdi mdi-comment-processing-outline"></i>&nbsp;
+												<i th:text="${map.article.commentCount}">7
+												</i></span>
+									</div>
+					</div>
+					<nav class="mt-5"  th:replace="index::pagination">
+					</nav>
+					<!-- 分页 -->
+					<div class="mt-4" th:if="${page.rows==0}" style="padding: 120px 0;text-align: center;">
+						<a style="color: #d3d3d3;"><i class="mdi mdi-48px mdi-square-edit-outline fs-22"></i></a></br>
+						<p style="color: #d3d3d3; font-size: 18px;">空空如也 ~ ~</p>
+					</div>
+		      </div>
+			</div>
+		</div>
+
+
+		<div id="toTop"  style="display: none;">
+			<i class="mid mdi mdi-apple-keyboard-shift"></i>
+		</div>
+
+		<!-- 尾部 -->
+		<footer class="bg-dark" th:replace="index::footer">
+
+		</footer>
+	</div>
+	<script th:src="@{/admin/js/jquery.min.js}" crossorigin="anonymous"></script>
+	<script th:src="@{/admin/js/popper.min.js}" crossorigin="anonymous"></script>
+	<script th:src="@{/admin/js/bootstrap.min.js}" crossorigin="anonymous"></script>
+	<script th:src="@{/js/global.js}"></script>
+</body>
+</html>

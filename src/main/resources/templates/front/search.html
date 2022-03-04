@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="icon" href="https://static.nowcoder.com/images/logo_87_87.png"/>
+	<link rel="icon" th:href="@{/admin/images/logo-ico.png}"/>
 	<link rel="stylesheet" th:href="@{/admin/css/bootstrap.min.css}"  />
 	<link rel="stylesheet" th:href="@{/admin/css/materialdesignicons.min.css}"  />
 	<link rel="stylesheet" th:href="@{/admin/css/style.min.css}" />
@@ -19,7 +19,7 @@
 
 		<!-- 内容 -->
 		<div class="main">
-			<div class="container">
+			<div class="container" style="background: #fff; padding: 20px;margin-top: 60px;">
 				<h6><b class="square"></b> 相关文章，共有<i style="color:red;" th:text="${searchCount}"></i>篇</h6>
 				<!-- 帖子列表 -->
 				<ul class="list-unstyled mt-4">
@@ -55,6 +55,11 @@
 				<nav class="mt-5" th:replace="index::pagination">
 				</nav>
 			</div>
+		</div>
+
+
+		<div id="toTop"  style="display: none;">
+			<i class="mid mdi mdi-apple-keyboard-shift"></i>
 		</div>
 
 		<!-- 尾部 -->

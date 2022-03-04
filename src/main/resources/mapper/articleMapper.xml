@@ -5,59 +5,187 @@
 <mapper namespace="com.example.blog.dao.ArticleMapper">
 
     <sql id="selectFields">
-        id, user_id, title, content, type, status, create_time,update_time,comment_count,score,top,marrow
+        id, user_id, title, content, status, create_time,update_time,comment_count,score,top,marrow,category_id
     </sql>
 
     <sql id="insertFields">
-        user_id, title, content, type, status, create_time,update_time,comment_count, score,top,marrow
+        user_id, title, content, status, create_time,update_time,comment_count, score,top,marrow,category_id
     </sql>
 
     <insert id="insertArticle" parameterType="Article" keyProperty="id">
         insert into article(<include refid="insertFields"></include>)
-        values(#{userId},#{title},#{content},#{type},#{status},#{createTime},#{updateTime},#{commentCount},#{score},#{top},#{marrow})
+        values(#{userId},#{title},#{content},#{status},#{createTime},#{updateTime},#{commentCount},#{score},#{top},#{marrow},#{categoryId})
     </insert>
 
     <update id="updateCommentCount">
         update article set comment_count = #{commentCount} where id = #{id}
     </update>
+
     <update id="updateTop">
         update article set top = #{top} ,update_time = #{updateTime} where id = #{id}
     </update>
+
     <update id="updateMarrow">
         update article set marrow = #{marrow},update_time = #{updateTime} where id = #{id}
     </update>
 
-    <update id="delete">
+    <update id="deleteById">
         update article set status = #{status},update_time = #{updateTime} where id = #{id}
     </update>
+
+    <update id="delete">
+        update article set status = #{status},update_time = #{updateTime}
+        where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
     <update id="updateArticle" parameterType="Article">
-        update article set title = #{title}, content = #{content},type = #{type}, status = #{status},update_time =
+        update article set title = #{title}, content = #{content}, status = #{status},update_time =
             #{updateTime} where id = #{id}
     </update>
+
+    <select id="selectIndexArticles" resultType="Article">
+        select a.id, a.user_id, a.title, a.content, a.status,
+        a.create_time,a.update_time,a.comment_count,a.score,a.top,a.marrow,a.category_id
+        from article a, category c
+        where a.status = 0
+         and c.display = 0
+        and a.category_id = c.id
+        <if test="userId!=0">
+            and a.user_id = #{userId}
+        </if>
+        <if test="sort==0">
+            order by a.create_time desc
+        </if>
+        <if test="sort==1">
+            order by a.top desc , a.score desc, a.create_time desc
+        </if>
+        <if test="sort==2">
+            and a.marrow= 1
+            order by a.top desc, a.create_time desc
+        </if>
+        <if test="sort==3">
+            order by a.create_time desc
+        </if>
+        limit #{offset}, #{limit}
+    </select>
 
     <select id="selectArticlesById" resultType="Article">
         select <include refid="selectFields"></include>
         from article
-        where status != 1
+        where status = 0
         <if test="userId!=0">
             and user_id = #{userId}
         </if>
-        order by top desc , create_time desc
+        <if test="sort==0">
+            order by create_time desc
+        </if>
+        <if test="sort==1">
+            order by top desc , score desc, create_time desc
+        </if>
+        <if test="sort==2">
+            and marrow= 1
+            order by top desc, create_time desc
+        </if>
+        <if test="sort==3">
+            order by create_time desc
+        </if>
         limit #{offset}, #{limit}
     </select>
 
     <select id="selectArticleRows" resultType="int">
-        select count(id)
+        select count(*)
         from article
         where status != 1
         <if test="userId!=0">
             and user_id = #{userId}
         </if>
     </select>
+
+    <select id="selectArticleDisplayRows" resultType="int">
+        select count(*)
+        from article a,category c
+        where a.status = 0 and c.display = 0
+        and a.category_id = c.id
+        <if test="userId!=0">
+            and a.user_id = #{userId}
+        </if>
+    </select>
+
     <select id="selectById" resultType="Article">
         select <include refid="selectFields"></include>
         from article
         where id = #{id} and status != 1
+    </select>
+
+
+    <update id="updateScore">
+        update article set score = #{score} where id = #{id}
+    </update>
+
+    <select id="searchArticleCount" resultType="int">
+        select count(*)
+        from article
+        <where>
+            status != 1
+            <if test="userId != null and userId !=0">
+                and user_id = #{userId}
+            </if>
+            <if test="title != null">
+                and title LIKE CONCAT('%',#{title},'%')
+            </if>
+            <if test="top != 2">
+                and top = #{top}
+            </if>
+            <if test="marrow != 2">
+                and marrow = #{marrow}
+            </if>
+        </where>
+    </select>
+
+    <select id="searchArticleList" resultType="Article">
+        select <include refid="selectFields"></include>
+        from article
+        <where>
+            status != 1
+            <if test="userId != null and userId != 0">
+                and user_id = #{userId}
+            </if>
+            <if test="title != null">
+                and title LIKE CONCAT('%',#{title},'%')
+            </if>
+            <if test="top != 2">
+                and top = #{top}
+            </if>
+            <if test="marrow != 2">
+                and marrow = #{marrow}
+            </if>
+        </where>
+        order by create_time desc
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="selectArticlesByCategoryId" resultType="Article">
+        select a.id, a.user_id, a.title, a.content, a.status,
+               a.create_time,a.update_time,a.comment_count,a.score,a.top,a.marrow,a.category_id
+        from article a,category c
+        where  a.category_id = c.id and a.category_id = #{categoryId} and a.status = 0
+    </select>
+
+    <select id="selectArticleListByCategoryId" resultType="Article">
+        select a.id, a.user_id, a.title, a.content, a.status,
+               a.create_time,a.update_time,a.comment_count,a.score,a.top,a.marrow,a.category_id
+        from article a,category c
+        where  a.category_id = c.id and a.category_id = #{categoryId} and a.status = 0 and c.display = 0
+            limit #{offset}, #{limit}
+    </select>
+
+    <select id="countIndexArticlesByCategory" resultType="int">
+       select count(a.id)
+       from article a,category c
+       where  a.category_id = c.id and a.category_id = #{categoryId} and a.status = 0 and c.display = 0
     </select>
 
 </mapper>

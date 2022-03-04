@@ -43,6 +43,16 @@ public class CommentServiceImpl implements CommentService{
         return commentMapper.selectCommentById(id);
     }
 
+    @Override
+    public int findCommentCountById(int userId) {
+        return commentMapper.selectCommentCountByUserId(userId);
+    }
+
+    @Override
+    public List<Comment> findCommentsByUserId(int id, int offset, int limit) {
+        return commentMapper.selectCommentsByUserId(id,offset,limit);
+    }
+
 
     /**
      * 统计评论总数

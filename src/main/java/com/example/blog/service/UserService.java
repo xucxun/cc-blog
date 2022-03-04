@@ -5,9 +5,31 @@ import com.example.blog.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 public interface UserService {
+
+    /**
+     * 查询用户数
+     */
+     int countUser();
+
+    /**
+     * 分页查询用户列表
+     */
+     List<User> findUserList(int offset, int limit);
+
+
+    /**
+     * 后台根据用户昵称、邮箱、角色、状态搜索用户列表
+     */
+    List<User> searchUserList(String nickName,String email,Integer role,Integer status, int offset, int limit);
+
+    /**
+     * 搜索用户数
+     */
+    int countSearchUser(String nickName,String email,Integer role,Integer status);
 
     /**
      * 根据用户id查询用户
@@ -67,6 +89,20 @@ public interface UserService {
      * 查询用户权限
      */
     Collection<? extends GrantedAuthority> getAuthorities(int userId);
+
+    /**
+     * 更新用户状态
+     * @param id
+     * @param status
+     */
+    void updateStatus(int id, Integer status);
+
+    /**
+     * 更新用户角色
+     * @param id
+     * @param role
+     */
+    void updateRole(int id, Integer role);
 
 
 }

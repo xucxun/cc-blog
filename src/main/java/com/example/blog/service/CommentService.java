@@ -15,6 +15,22 @@ public interface CommentService {
     Comment findCommentById(int id);
 
     /**
+     * 根据用户ID查询评论数
+     * @param userId 用户ID
+     * @return
+     */
+    int findCommentCountById(int userId);
+
+    /**
+     * 根据用户id查询评论
+     * @param id
+     * @param offset
+     * @param limit
+     * @return
+     */
+    List<Comment> findCommentsByUserId(int id,int offset,int limit);
+
+    /**
      * 统计评论总数
      * @param entityType 评论对象
      * @param entityId 评论对象id

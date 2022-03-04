@@ -10,7 +10,11 @@ import java.util.List;
 @Mapper
 public interface CommentMapper {
 
+    int selectCommentCountByUserId(@Param("userId")int userId);
+
     Comment selectCommentById(@Param("id")int id);
+
+    List<Comment> selectCommentsByUserId(@Param("id")int id,@Param("offset")int offset,@Param("limit")int limit);
 
     List<Comment> selectCommentsByEntity(@Param("entityType")int entityType, @Param("entityId")int entityId, @Param("offset")int offset, @Param("limit")int limit);
 

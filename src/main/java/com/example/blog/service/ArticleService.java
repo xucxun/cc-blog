@@ -1,17 +1,35 @@
 package com.example.blog.service;
 
 import com.example.blog.entity.Article;
+import com.example.blog.entity.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface ArticleService {
 
     /**
-     * 根据用户ID分页查询文章列表
+     * 初始化热门文章列表缓存
+     */
+//    void init();
+
+    /**
+     * 前台展示分页查询文章列表
      * @param userId 用户ID
      * @return 文章列表
      */
-    List<Article> findArticles(int userId, int offset, int limit);
+    List<Article> findIndexArticles(int userId, int offset, int limit,int sort);
+
+
+    /**
+     * 查询用户文章列表
+     * @param userId
+     * @param offset
+     * @param limit
+     * @param sort
+     * @return
+     */
+    List<Article> findArticles(int userId, int offset, int limit,int sort);
 
     /**
      * 查询用户文章数
@@ -19,6 +37,15 @@ public interface ArticleService {
      * @return
      */
     int findArticlesRows(int userId);
+
+
+    /**
+     * 查询用户文章数
+     * @param userId 用户ID
+     * @return
+     */
+    int findArticlesDisPlayRows(int userId);
+
 
     /**
      * 根据ID查询文章
@@ -61,4 +88,39 @@ public interface ArticleService {
      * @param marrow 是否加精
      */
     int setMarrow(int id,Integer marrow);
+
+    /**
+     * 更新文章分数
+     * @param id
+     * @param score
+     * @return
+     */
+    int updateScore(int id, double score);
+
+    /**
+     * 搜索文章
+     */
+    int countSearchArticle(int userId,String title,Integer top,Integer marrow);
+
+    /**
+     * 后台搜索文章列表
+     */
+    List<Article> searchArticleList(int userId, String title, Integer top, Integer marrow, int offset, int limit);
+
+    /**
+     * 根据分类查询文章列表
+     * @param categoryId
+     * @return
+     */
+    List<Article> findArticlesByCategoryId(Integer categoryId);
+
+    int countIndexArticlesByCategory(Integer categoryId);
+
+    List<Article> findArticlesByCategoryId(Integer categoryId,int offset,int limit);
+
+    /**
+     * 批量删除文章
+     * @param ids
+     */
+    void delete(List<Integer> ids);
 }

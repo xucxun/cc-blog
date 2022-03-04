@@ -5,7 +5,7 @@ import com.example.blog.service.UserService;
 import com.example.blog.common.Constant;
 import com.example.blog.util.KaptchaUtil;
 import com.example.blog.util.RedisKeyUtil;
-import com.example.blog.util.ResultUtil;
+import com.example.blog.util.BlogUtil;
 import com.google.code.kaptcha.Producer;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -108,7 +108,7 @@ public class LoginController{
          //session.setAttribute("kaptcha", text);
 
         // 验证码的归属
-        String kaptchaBelonger = ResultUtil.generateUUID();
+        String kaptchaBelonger = BlogUtil.generateUUID();
         Cookie cookie = new Cookie("kaptchaBelonger", kaptchaBelonger);
         //失效的时间是10min
         cookie.setMaxAge(60*10);

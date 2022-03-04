@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="icon" href="https://static.nowcoder.com/images/logo_87_87.png"/>
+	<link rel="icon" th:href="@{/admin/images/logo-ico.png}"/>
 	<link th:href="@{/admin/css/bootstrap.min.css}" rel="stylesheet">
 	<link th:href="@{/admin/css/materialdesignicons.min.css}" rel="stylesheet">
 	<link th:href="@{/admin/css/style.min.css}" rel="stylesheet">
@@ -19,7 +19,7 @@
 
 		<!-- 内容 -->
 		<div class="main">
-			<div class="container">
+			<div class="container" style="background: #fff; padding: 20px;">
 				<div class="position-relative">
 					<!-- 选项 -->
 					<ul class="nav nav-tabs mb-3">
@@ -64,6 +64,10 @@
 				<nav class="mt-5" th:replace="index::pagination">
 				</nav>
 			</div>
+		</div>
+
+		<div id="toTop"  style="display: none;">
+			<i class="mid mdi mdi-apple-keyboard-shift"></i>
 		</div>
 
 		<!-- 尾部 -->

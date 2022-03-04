@@ -1,12 +1,10 @@
 package com.example.blog.controller;
 
 import com.example.blog.annotation.LoginRequired;
-import com.example.blog.entity.User;
-import com.example.blog.service.FollowService;
-import com.example.blog.service.LikeService;
-import com.example.blog.service.UserService;
+import com.example.blog.entity.*;
+import com.example.blog.service.*;
 import com.example.blog.common.Constant;
-import com.example.blog.util.ResultUtil;
+import com.example.blog.util.BlogUtil;
 import com.example.blog.util.LoginUser;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -38,7 +36,16 @@ public class UserController{
     private LikeService likeService;
 
     @Autowired
+    private ArticleService articleService;
+
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
     private FollowService followService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @Autowired
     private LoginUser loginUser;
@@ -71,7 +78,7 @@ public class UserController{
         }
 
         // 生成随机文件名
-        fileName = ResultUtil.generateUUID() + suffix;
+        fileName = BlogUtil.generateUUID() + suffix;
         // 确定文件存放的路径
         File dest = new File(uploadPath + "/" + fileName);
         try {
@@ -114,7 +121,7 @@ public class UserController{
      public String getByNickName(Model model,String nickName){
         User searchUser = userService.findUserByNickName(nickName);
         if(Objects.isNull(searchUser)){
-            return ResultUtil.getJsonResult(1,"用户不存在");
+            return BlogUtil.getJsonResult(1,"用户不存在");
         }
         String nickName1 = searchUser.getNickName();
         String avatar = searchUser.getAvatar();
@@ -127,7 +134,8 @@ public class UserController{
      * 个人主页
      */
     @GetMapping( "/{userId}")
-    public String getProfilePage(@PathVariable("userId") int userId, Model model) {
+    public String getProfilePage(@PathVariable("userId") int userId, Model model, @RequestParam(name = "tab",
+                                 defaultValue = "0") int tab, Page page) {
         User user = userService.findUserById(userId);
         if (user == null) {
             throw new RuntimeException("该用户不存在!");
@@ -148,6 +156,60 @@ public class UserController{
             isFollowed = followService.isFollowed(loginUser.getUser().getId(), Constant.ENTITY_TYPE_USER, userId);
         }
         model.addAttribute("isFollowed", isFollowed);
+        model.addAttribute("tab", tab);
+
+        if(tab == 0) {
+            List<Article> list = articleService.findArticles(userId, page.getOffset(), page.getLimit(), 0);
+            List<Map<String, Object>> articleLists = new ArrayList<>();
+            if (list != null) {
+                for (Article article : list) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("article", article);
+                    long articleLikeCount = likeService.countLike(Constant.ENTITY_TYPE_ARTICLE, article.getId());
+                    map.put("articleLikeCount", articleLikeCount);
+                    //文章类别
+                    Category category = categoryService.getCategory(article.getCategoryId());
+                    map.put("category",category);
+                    articleLists.add(map);
+                }
+            }
+            model.addAttribute("articleLists", articleLists);
+
+            // 设置分页信息
+            page.setLimit(10);
+            page.setRows(articleService.findArticlesRows(user.getId()));
+            page.setPath("/user/" + userId + "?tab=" + tab);
+        }else{
+            // 设置分页信息
+            page.setLimit(10);
+            page.setRows(commentService.findCommentCountById(user.getId()));
+            page.setPath("/user/" + userId + "?tab=" + tab);
+
+            // 获取用户所有评论不包括回复
+            List<Comment> comments = commentService.findCommentsByUserId(user.getId(),page.getOffset(), page.getLimit());
+            List<Map<String, Object>> list = new ArrayList<>();
+            if (comments != null) {
+                for (Comment comment : comments) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("comment", comment);
+
+                    // 根据实体 id 查询对应的博客标题
+                    Article article = articleService.getById(comment.getEntityId());
+                    map.put("article", article);
+
+                    list.add(map);
+                }
+                model.addAttribute("comments", list);
+            }
+            model.addAttribute("tab", tab);
+
+        }
+        // 文章数量
+        int articleCount = articleService.findArticlesRows(user.getId());
+        model.addAttribute("articleCount", articleCount);
+        // 评论的数量
+        int commentCount = commentService.findCommentCountById(user.getId());
+        model.addAttribute("commentCount", commentCount);
         return "/front/profile";
     }
 

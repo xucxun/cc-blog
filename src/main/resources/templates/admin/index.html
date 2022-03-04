@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+<title>首页 - 后台管理</title>
+<link rel="shortcut icon" type="image/x-icon" th:href="@{/admin/images/logo-ico.png}">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="stylesheet" type="text/css" th:href="@{/admin/css/animate.min.css}">
+<link rel="stylesheet" th:href="@{/admin/css/bootstrap.min.css}"  />
+<link rel="stylesheet" th:href="@{/admin/css/materialdesignicons.min.css}"  />
+<link rel="stylesheet" th:href="@{/admin/css/style.min.css}" />
+</head>
+
+<body>
+<div class="lyear-layout-web">
+  <div class="lyear-layout-container">
+    <!--左侧导航-->
+    <aside class="lyear-layout-sidebar">
+      <!-- logo -->
+      <div id="logo" class="sidebar-header">
+        <a th:href="@{/admin/index}"><img th:src="@{/img/logo-sidebar.png}" style="padding-left: 12px;"></a>
+      </div>
+      <div class="lyear-layout-sidebar-info lyear-scroll"> 
+        
+        <nav class="sidebar-main">
+          <ul class="nav-drawer">
+            <li class="nav-item active"> <a th:href="@{/admin/index}"><i class="mdi mdi-home"></i> <span>后台首页</span></a> </li>
+            <li class="nav-item"><a th:href="@{/admin/userManage}"><i class="mdi mdi-account"></i>
+              <span>用户管理</span></a></li>
+            <li class="nav-item"><a th:href="@{/admin/articleManage}"><i class="mdi mdi-file-document-outline"></i><span>文章管理</span></a></li>
+            <li class="nav-item"><a th:href="@{/admin/categoryManage}"><i class="mdi mdi-bookmark"></i><span>文章类别管理</span></a></li>
+            </li>
+          </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+          <p class="copyright">Copyright &copy; 2022. <a target="_blank" th:href="@{/index}">CC博客</a> All rights reserved.</p>
+        </div>
+      </div>
+      
+    </aside>
+    <!--End 左侧导航-->
+    
+    <!--头部信息-->
+    <header class="lyear-layout-header" th:fragment="header">
+      <nav class="navbar">
+        <div class="navbar-left">
+          <div class="lyear-aside-toggler">
+            <span class="lyear-toggler-bar"></span>
+            <span class="lyear-toggler-bar"></span>
+            <span class="lyear-toggler-bar"></span>
+          </div>
+        </div>
+        <!--个人信息-->
+        <ul class="navbar-right d-flex align-items-center">
+          <li class="dropdown dropdown-profile">
+            <a href="javascript:void(0)" data-toggle="dropdown" class="dropdown-toggle">
+              <img class="img-avatar img-avatar-48 m-r-10" th:src="${loginUser.avatar}" alt="笔下光年" />
+              <span th:utext="${loginUser.nickName}">笔下光年</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li>
+                <a class="dropdown-item" th:href="@{/user/setting}"><i class="mdi mdi-account"></i> 个人信息</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="lyear_pages_edit_pwd.html"><i class="mdi mdi-lock-outline"></i> 修改密码</a>
+              </li>
+              <li class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item" th:href="@{/logout}"><i class="mdi mdi-logout-variant"></i> 退出登录</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <!--End 头部信息-->
+    
+    <!--页面主要内容-->
+    <main class="lyear-layout-content">
+      <div class="container-fluid p-t-15">
+  
+        <div class="row">
+          <div class="col-md-6 col-xl-3">
+            <div class="card bg-primary text-white">
+              <div class="card-body clearfix">
+                <div class="flex-box">
+                  <span class="img-avatar img-avatar-48 bg-translucent"><i class="mdi mdi-file-document-box-outline fs-22"></i></span>
+                  <span class="fs-22 lh-22" th:text="${articleCount}">102,125.00</span>
+                </div>
+                <div class="text-right">文章总数</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 col-xl-3">
+            <div class="card bg-danger text-white">
+              <div class="card-body clearfix">
+                <div class="flex-box">
+                  <span class="img-avatar img-avatar-48 bg-translucent"><i class="mdi mdi-account fs-22"></i></span>
+                  <span class="fs-22 lh-22" th:text="${userCount}">920,000</span>
+                </div>
+                <div class="text-right">用户总数</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 col-xl-3">
+            <div class="card bg-success text-white">
+              <div class="card-body clearfix">
+                <div class="flex-box">
+                  <span class="img-avatar img-avatar-48 bg-translucent"><i class="mdi mdi-bookmark fs-22"></i></span>
+                  <span class="fs-22 lh-22" th:text="${categoryCount}">34,005,000</span>
+                </div>
+                <div class="text-right">类别总数</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 col-xl-3">
+            <div class="card bg-purple text-white">
+              <div class="card-body clearfix">
+                <div class="flex-box">
+                  <span class="img-avatar img-avatar-48 bg-translucent"><i class="mdi mdi-comment-outline fs-22"></i></span>
+                  <span class="fs-22 lh-22">153 条</span>
+                </div>
+                <div class="text-right">新增评论</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </main>
+    <!--End 页面主要内容-->
+  </div>
+</div>
+
+<script th:src="@{/admin/js/jquery.min.js}"></script>
+<script th:src="@{/admin/js/popper.min.js}"></script>
+<script th:src="@{/admin/js/bootstrap.min.js}"></script>
+<script th:src="@{/admin/js/perfect-scrollbar.min.js}"></script>
+<script th:src="@{/admin/js/main.min.js}"></script>
+</body>
+</html>

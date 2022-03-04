@@ -30,3 +30,19 @@ window.alert = function(message) {
 	$(".alert-box .modal-body p").text(message);
 	$(".alert-box").modal("show");
 }
+
+$(function () {
+	window.addEventListener('scroll', function() {
+		var t = $('body, html').scrollTop();
+		if (t > 310) {
+			$('#toTop').addClass('toTop-active');
+		} else {
+			$('#toTop').removeClass('toTop-active');
+		}
+	});
+
+
+	$("#toTop").click(function(){
+		$('html,body').animate({scrollTop: 0}, 800);
+	});
+});

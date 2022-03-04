@@ -5,11 +5,11 @@
 <mapper namespace="com.example.blog.dao.UserMapper">
 
     <sql id="insertFields">
-        account,nick_name, password, salt, email, role, status, activation_code, avatar, create_time
+        account,nick_name, password, salt, email, role, status, activation_code, avatar, create_time,update_time
     </sql>
 
     <sql id="selectFields">
-        id,account,nick_name, password, salt, email, role, status, activation_code, avatar, create_time
+        id,account,nick_name, password, salt, email, role, status, activation_code, avatar, create_time,update_time
     </sql>
 
     <select id="selectById" resultType="User">
@@ -35,6 +35,58 @@
         from user
         where nick_name = #{nickName}
     </select>
+    <select id="selectUserCount" resultType="java.lang.Integer">
+        select count(id)
+        from user
+        where id != 1
+    </select>
+    <select id="findUsers" resultType="User">
+        select <include refid="selectFields"></include>
+        from user
+        where id!=1
+        order by create_time desc
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="searchUserList" resultType="User">
+        select <include refid="selectFields"></include>
+        from user
+        <where>
+            <if test="role != 3">
+                and role = #{role}
+            </if>
+            <if test="status != 3">
+                and status = #{status}
+            </if>
+            <if test="nickName != null">
+                and nick_name LIKE CONCAT('%',#{nickName},'%')
+            </if>
+            <if test="email != null">
+                and email LIKE CONCAT('%',#{email},'%')
+            </if>
+        </where>
+        order by create_time desc
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="searchUserCount" resultType="int">
+        select count(*)
+        from user
+        <where>
+            <if test="role != 3">
+                and role = #{role}
+            </if>
+            <if test="status != 3">
+                and status = #{status}
+            </if>
+            <if test="nickName != null">
+                and nick_name LIKE CONCAT('%',#{nickName},'%')
+            </if>
+            <if test="email != null">
+                and email LIKE CONCAT('%',#{email},'%')
+            </if>
+        </where>
+    </select>
 
     <insert id="insertUser" parameterType="User" keyProperty="id">
         insert into user (<include refid="insertFields"></include>)
@@ -43,7 +95,7 @@
     </insert>
 
     <update id="updateStatus">
-        update user set status = #{status} where id = #{id}
+        update user set status = #{status},update_time = #{updateTime} where id = #{id}
     </update>
 
     <update id="updateAvatar">
@@ -52,6 +104,10 @@
 
     <update id="updatePassword">
         update user set password = #{password} where id = #{id}
+    </update>
+
+    <update id="updateRole">
+        update user set role = #{role},update_time = #{updateTime} where id = #{id}
     </update>
 
 </mapper>

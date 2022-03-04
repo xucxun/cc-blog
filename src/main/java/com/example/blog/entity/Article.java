@@ -18,7 +18,7 @@ public class Article implements Serializable {
     private int id;
 
     @Field(type = FieldType.Integer)
-    private int userId;
+    private Integer userId;
 
     //存储的时候用analyzer分词器，搜索的时候用searchAnalyzer分词器
     @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
@@ -26,9 +26,6 @@ public class Article implements Serializable {
 
     @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
     private String content;
-
-    @Field(type = FieldType.Integer)
-    private int type;
 
     @Field(type = FieldType.Integer)
     private Integer status;
@@ -51,6 +48,9 @@ public class Article implements Serializable {
     @Field(type = FieldType.Integer)
     private Integer marrow;
 
+    @Field(type = FieldType.Integer)
+    private Integer categoryId;
+
     public int getId() {
         return id;
     }
@@ -59,11 +59,11 @@ public class Article implements Serializable {
         this.id = id;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -81,14 +81,6 @@ public class Article implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
     }
 
     public Integer getStatus() {
@@ -147,6 +139,14 @@ public class Article implements Serializable {
         this.marrow = marrow;
     }
 
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
     @Override
     public String toString() {
         return "Article{" +
@@ -154,7 +154,6 @@ public class Article implements Serializable {
                 ", userId=" + userId +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", type=" + type +
                 ", status=" + status +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
@@ -162,6 +161,7 @@ public class Article implements Serializable {
                 ", score=" + score +
                 ", top=" + top +
                 ", marrow=" + marrow +
+                ", categoryId=" + categoryId +
                 '}';
     }
 }

@@ -6,7 +6,7 @@ import com.example.blog.entity.Message;
 import com.example.blog.entity.User;
 import com.example.blog.service.MessageService;
 import com.example.blog.util.LoginUser;
-import com.example.blog.util.ResultUtil;
+import com.example.blog.util.BlogUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,7 +62,7 @@ public class MessageServiceImpl implements MessageService {
     public String send(String receiverName, String content) {
         User receiver = userMapper.selectByNickName(receiverName);
         if (Objects.isNull(receiver)) {
-            return ResultUtil.getJsonResult(1, "目标用户不存在!");
+            return BlogUtil.getJsonResult(1, "目标用户不存在!");
         }
         if(StringUtils.isBlank(content)){
             throw new IllegalArgumentException("内容不能为空!");
@@ -77,12 +77,12 @@ public class MessageServiceImpl implements MessageService {
                 message.setType(message.getReceiverId() + "_" + message.getSenderId());
             }
         }else{
-            return ResultUtil.getJsonResult(1, "无效操作!");
+            return BlogUtil.getJsonResult(1, "无效操作!");
         }
         message.setContent(content);
         message.setCreateTime(new Date());
         messageMapper.insertMessage(message);
-        return ResultUtil.getJsonResult('0');
+        return BlogUtil.getJsonResult('0');
     }
 
     /**

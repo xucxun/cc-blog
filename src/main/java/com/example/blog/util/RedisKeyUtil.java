@@ -10,6 +10,7 @@ public class RedisKeyUtil {
     private static final String KAPTCHA = "kaptcha";
     private static final String TICKET = "ticket";
     private static final String USER = "user";
+    private static final String ARTICLE = "article";
 
     /**
      * 对文章或评论的赞
@@ -63,6 +64,11 @@ public class RedisKeyUtil {
     // 用户
     public static String getUserKey(int userId) {
         return USER + SPLIT + userId;
+    }
+
+    // 博客分数
+    public static String getArticleScoreKey() {
+        return ARTICLE + SPLIT + "score";
     }
     
 }

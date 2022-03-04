@@ -50,7 +50,7 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
     public Page<Article> searchArticle(String key, int current, int limit) {
         SearchQuery searchQuery = new NativeSearchQueryBuilder()
                 .withQuery(QueryBuilders.multiMatchQuery(key, "title", "content"))
-                .withSort(SortBuilders.fieldSort("type").order(SortOrder.DESC))
+                .withSort(SortBuilders.fieldSort("top").order(SortOrder.DESC))
                 .withSort(SortBuilders.fieldSort("score").order(SortOrder.DESC))
                 .withSort(SortBuilders.fieldSort("createTime").order(SortOrder.DESC))
                 .withPageable(PageRequest.of(current, limit))

@@ -5,7 +5,6 @@
         var $this = $(this);
     
         var defaults = {
-            eleObj            : null,
             opacity           : 0.1,                // 遮罩层的透明度，==0时没有遮罩层
             backgroundColor   : '#000000',          // 遮罩层的颜色
             imgUrl            : '',                 // 加载动画使用图片
@@ -18,16 +17,6 @@
     
 	    // 融合配置项
         var opts = $.extend({}, defaults, options);
-        
-        // 如果没有当前对象，这适用参数中的，两者都没有，提示报错并退出
-        if ($this.length == 0 && opts.eleObj != null) {
-            $this = opts.eleObj;
-        }
-        
-        if ($this.length == 0) {
-            console.error('未获取到对象');
-            return false;
-        }
       
         // 默认样式
         var maskStyle  = {

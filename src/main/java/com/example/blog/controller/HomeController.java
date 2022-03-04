@@ -1,9 +1,11 @@
 package com.example.blog.controller;
 
 import com.example.blog.entity.Article;
+import com.example.blog.entity.Category;
 import com.example.blog.entity.Page;
 import com.example.blog.entity.User;
 import com.example.blog.service.ArticleService;
+import com.example.blog.service.CategoryService;
 import com.example.blog.service.LikeService;
 import com.example.blog.service.UserService;
 import com.example.blog.common.Constant;
@@ -13,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,26 +34,35 @@ public class HomeController{
     @Autowired
     private LikeService likeService;
 
-    @RequestMapping(value ={"/index","/"} , method = RequestMethod.GET)
-    public String index(Model model, Page page) {
-        page.setRows(articleService.findArticlesRows(0));
-        page.setPath("/index");
+    @Autowired
+    private CategoryService categoryService;
 
-        List<Article> list = articleService.findArticles(0, page.getOffset(), page.getLimit());
+    @RequestMapping(value ={"/index","/"} , method = RequestMethod.GET)
+    public String index(Model model, Page page,@RequestParam(name = "sort", defaultValue = "0") int sort) {
+        page.setRows(articleService.findArticlesDisPlayRows(0));
+        page.setPath("/index?sort="+sort);
+
+        List<Article> list = articleService.findIndexArticles(0, page.getOffset(), page.getLimit(),sort);
         List<Map<String, Object>> articleLists = new ArrayList<>();
         if (list != null) {
             for (Article article : list) {
                 Map<String, Object> map = new HashMap<>();
                 map.put("article", article);
+
+                //用户
                 User user = userService.findUserById(article.getUserId());
                 map.put("user", user);
-
+                //文章点赞数
                 long likeCount = likeService.countLike(Constant.ENTITY_TYPE_ARTICLE, article.getId());
                 map.put("likeCount", likeCount);
+                //文章类别
+                Category category = categoryService.getCategory(article.getCategoryId());
+                map.put("category",category);
                 articleLists.add(map);
             }
         }
         model.addAttribute("articleLists", articleLists);
+        model.addAttribute("sort",sort);
         return "/index";
     }
 

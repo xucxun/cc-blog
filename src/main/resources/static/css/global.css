@@ -3,7 +3,7 @@ html {
 }
 
 body {
-	background: #eee;
+	background: #f7f8fa;
 	font-size: 14px;
 	height: 100%;
 }
@@ -15,10 +15,27 @@ body {
 }
 
 .container {
-	width: 960px;
+	width: 1200px;
 	padding: 0;
+	margin-top: 60px;
 }
+.article-content{
+	width: 880px;
+	height: 100%;
+	border-radius: 3px;
+	padding-bottom: 20px;
 
+}
+.g-sidebar-container{
+	padding-left: 20px;
+	padding-right: 20px;
+	width: 305px;
+	min-width: 305px;
+	border-radius: 3px;
+	box-sizing: border-box;
+	overflow: hidden;
+	margin-bottom: 15px;
+}
 
 footer {
 	padding: 20px 0;
@@ -46,11 +63,11 @@ footer .company-info li {
 	padding-bottom: 200px;
 }
 
-.main .container {
-	background: #fff;
-	padding: 20px;
-	padding-top: 60px;
-}
+/*.main .container {*/
+/*	background: #fff;*/
+/*	padding: 20px;*/
+/*	padding-top: 60px;*/
+/*}*/
 
 i {
 	font-style: normal;
@@ -93,6 +110,9 @@ a:hover {
 .font-size-24 {
 	font-size: 20px;
 }
+.font-size-32 {
+	font-size: 32px;
+}
 
 .hidden {
 	display: none;
@@ -125,6 +145,73 @@ a:hover {
 em {
 	font-style: normal;
 	color: red;
+}
+.article-list:hover{
+	background-color: rgba(5,105,204,.03);
+}
+.article-item-message{
+	color: #939aa3;
+}
+.title-line h2{
+	font-size: 20px;
+	font-weight: 700;
+	margin-bottom: 6px;
+}
+.article-content-box p{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	color: #606a78;
+	font-size: 16px;
+	line-height: 28px;
+	word-break: break-all;
+	margin-bottom: 10px;
+}
+.article-tag ul li a.nav-link.active{
+	color:#52d3c7;
+
+}
+.type_tag{
+	color: #939aa3;
+	border-radius: 3px;
+	margin-right: 7.5px;
+	padding: 3px 12px;
+	font-size: 12px;
+	background-color: rgba(5,105,204,.05);
+}
+.type_tag:hover{
+	color: #33cabb;
+}
+/* 置顶图标   */
+#toTop{
+	position: fixed;
+	right: 4em;
+	bottom: 8em;
+	background-color: whitesmoke;
+	z-index: 10000;
+	/* border-radius: 100px; */
+	margin: 0em;
+	width: 40px;
+	height: 40px;
+	overflow: hidden;
+	color: #fff;
+	text-align: center;
+	background-color: rgba(0,0,0,.45);
+	border-radius: 20px;
+	transition: all .3s cubic-bezier(.645,.045,.355,1);
+}
+
+.toTop-active{
+	display: inline-block !important;
+}
+
+#toTop i{
+	margin: 0em;
+	padding-top: 0.1em;
+	color: #FFFFFF;
+	font-size: 1.5em;
 }
 /* 图标动画 */
 .animations-box .badge {
@@ -231,4 +318,94 @@ em {
 	41% { -webkit-transform: rotateZ(1deg); }
 	43% { -webkit-transform: rotateZ(0); }
 	100% { -webkit-transform: rotateZ(0); }
+}
+.custom-by-both {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.articleBox,.commentBox,#comment-from,.article-author-box,.tabBox{
+	padding: 20px;
+	background: #ffff;
+}
+.artilce-author-name{
+	background: #fff;
+	padding: 0 15px;
+	font-size: 18px;
+	color: #282f38;
+	font-weight: 700;
+	height: 54px;
+	line-height: 54px;
+	border-bottom: 1px solid #ebeef5;
+	margin-bottom: 0;
+}
+/*.container-fluid{
+	padding-top: 60px;
+}*/
+/* 背景动画 */
+.wave {
+	background-color: #f9fafb;
+	overflow: hidden;
+	position: relative;
+}
+.wave > div {
+	z-index: 1;
+}
+.wave:before {
+	content: ' ';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ffffff;
+	z-index: -1;
+}
+.wave:after {
+	content: ' ';
+	width: 1000px;
+	height: 1025px;
+	position: absolute;
+	bottom: 65%;
+	/*left: -250px;*/
+	border-radius: 35%;
+	background: white;
+	z-index: 0;
+}
+.wave:after {
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+.wave-animate:after {
+	-webkit-animation: animate-wave 15s infinite linear;
+	animation: animate-wave 15s infinite linear;
+}
+.wave-animate-slower:after {
+	-webkit-animation: animate-wave 30s infinite linear;
+	animation: animate-wave 30s infinite linear;
+}
+.wave-animate-slow:after {
+	-webkit-animation: animate-wave 25s infinite linear;
+	animation: animate-wave 25s infinite linear;
+}
+.wave.wave-primary {
+	background-color: rgba(51, 202, 187, 0.1) !important;
+}
+@-webkit-keyframes animate-wave {
+	from {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg); }
+	to {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+@keyframes animate-wave {
+	from {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	to {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
 }

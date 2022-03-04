@@ -9,7 +9,8 @@ import com.example.blog.service.CommentService;
 import com.example.blog.service.LikeService;
 import com.example.blog.common.Constant;
 import com.example.blog.util.LoginUser;
-import com.example.blog.util.ResultUtil;
+import com.example.blog.util.RedisKeyUtil;
+import com.example.blog.util.BlogUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
@@ -73,7 +74,13 @@ public class LikeController{
             eventProducer.emitEvent(event);
         }
 
-        return ResultUtil.getJsonResult(0, null, map);
+        if(entityType == Constant.ENTITY_TYPE_ARTICLE) {
+            // 计算博客分数
+            String redisKey = RedisKeyUtil.getArticleScoreKey();
+            redisTemplate.opsForSet().add(redisKey, articleId);
+        }
+
+        return BlogUtil.getJsonResult(0, null, map);
     }
 
 

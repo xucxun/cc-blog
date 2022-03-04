@@ -1,6 +1,6 @@
 package com.example.blog.exception;
 
-import com.example.blog.util.ResultUtil;
+import com.example.blog.util.BlogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -37,7 +37,7 @@ public class GlobalExceptionHandler {
         if ("XMLHttpRequest".equals(xRequestedWith)) {
             response.setContentType("application/plain;charset=utf-8");
             PrintWriter writer = response.getWriter();
-            writer.write(ResultUtil.getJsonResult(1, "服务器异常!"));
+            writer.write(BlogUtil.getJsonResult(1, "服务器异常!"));
         } else {
             response.sendRedirect(request.getContextPath() + "/error");
         }
