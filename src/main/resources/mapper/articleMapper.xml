@@ -43,7 +43,7 @@
 
     <update id="updateArticle" parameterType="Article">
         update article set title = #{title}, content = #{content}, status = #{status},update_time =
-            #{updateTime} where id = #{id}
+            #{updateTime},category_id = #{categoryId} where id = #{id}
     </update>
 
     <select id="selectIndexArticles" resultType="Article">
@@ -129,7 +129,7 @@
         select count(*)
         from article
         <where>
-            status != 1
+            status = 0
             <if test="userId != null and userId !=0">
                 and user_id = #{userId}
             </if>
@@ -142,25 +142,32 @@
             <if test="marrow != 2">
                 and marrow = #{marrow}
             </if>
+            <if test="categoryId != 0">
+                and category_id = #{categoryId}
+            </if>
         </where>
     </select>
 
     <select id="searchArticleList" resultType="Article">
-        select <include refid="selectFields"></include>
-        from article
+        select a.id, a.user_id, a.title, a.content, a.status,
+        a.create_time,a.update_time,a.comment_count,a.score,a.top,a.marrow,a.category_id
+        from article a,category c
         <where>
-            status != 1
+            a.status != 1 and a.category_id = c.id and c.display = 0
             <if test="userId != null and userId != 0">
-                and user_id = #{userId}
+                and a.user_id = #{userId}
             </if>
             <if test="title != null">
-                and title LIKE CONCAT('%',#{title},'%')
+                and a.title LIKE CONCAT('%',#{title},'%')
             </if>
             <if test="top != 2">
-                and top = #{top}
+                and a.top = #{top}
             </if>
             <if test="marrow != 2">
-                and marrow = #{marrow}
+                and a.marrow = #{marrow}
+            </if>
+            <if test="categoryId != 0">
+                and a.category_id = #{categoryId}
             </if>
         </where>
         order by create_time desc
@@ -179,7 +186,8 @@
                a.create_time,a.update_time,a.comment_count,a.score,a.top,a.marrow,a.category_id
         from article a,category c
         where  a.category_id = c.id and a.category_id = #{categoryId} and a.status = 0 and c.display = 0
-            limit #{offset}, #{limit}
+        order by a.create_time desc
+        limit #{offset}, #{limit}
     </select>
 
     <select id="countIndexArticlesByCategory" resultType="int">

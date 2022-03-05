@@ -92,6 +92,9 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
                     String commentCount = hit.getSourceAsMap().get("commentCount").toString();
                     article.setCommentCount(Integer.valueOf(commentCount));
 
+                    String categoryId = hit.getSourceAsMap().get("categoryId").toString();
+                    article.setCategoryId(Integer.valueOf(categoryId));
+
                     // 处理高亮显示的结果
                     HighlightField titleField = hit.getHighlightFields().get("title");
                     if (titleField != null) {

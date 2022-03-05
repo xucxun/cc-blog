@@ -9,6 +9,18 @@
 	<link rel="stylesheet" th:href="@{/admin/css/style.min.css}" />
 	<link rel="stylesheet" th:href="@{/css/global.css}"  />
 	<title>搜索结果</title>
+	<style>
+		.container-fluid{
+			padding-top:60px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin: 0 auto;
+			/*min-height: 80vh;*/
+			height: 100%;
+			width: 100%;
+		}
+	</style>
 </head>
 <body>
 	<div class="nk-container">
@@ -19,41 +31,58 @@
 
 		<!-- 内容 -->
 		<div class="main">
-			<div class="container" style="background: #fff; padding: 20px;margin-top: 60px;">
-				<h6><b class="square"></b> 相关文章，共有<i style="color:red;" th:text="${searchCount}"></i>篇</h6>
-				<!-- 帖子列表 -->
-				<ul class="list-unstyled mt-4">
-					<li class="media pb-3 pt-3 mb-3 border-bottom" th:if="articleLists!=null" th:each="map:${articleLists}">
-						<img th:src="${map.user.avatar}" class="mr-4 rounded-circle" alt="用户头像" style="width:50px;height:50px;">
-						<div class="media-body">
-							<h6 class="mt-0 mb-3">
-								<a th:href="@{|/article/${map.article.id}|}" th:utext="${map.article.title}">文章标题
+			<div class="container-fluid">
+				<div style="background: #fff;width:1200px;height: 100%;border-radius: 3px;margin-bottom: 70px;">
+					<h6 class="mt-3 pl-4 pb-2"><b class="square"></b> 相关文章，共有<i style="color:red;" th:text="${searchCount}"></i>篇</h6>
+					<!-- 文章列表 -->
+					<div class="article-list border-bottom" th:each="map:${articleLists}" style="padding:
+							 15px 20px;">
+							<p class="article-item-message">
+								<span>
+									<a th:href="@{|/user/${map.user.id}|}">
+									<img th:src="${map.user.avatar}" class="rounded-circle" alt="用户头像"
+										 style="width:25px;height:25px;">
 								</a>
-							</h6>
-							<div class="mb-3" th:utext="${map.article.content}">
-							   文章内容
+								</span>
+								<span class="ml-2" th:utext="${map.user.nickName}">cc</span>
+								<span class="d-inline ml-2">|</span>
+								<span class="d-inline ml-2" th:text="${#dates.format(map.article.createTime,'yyyy-MM-dd HH:mm:ss')}">2022-01-23 16:40:49</span>
+								<span class="d-inline ml-2">|</span>
+								<span class="ml-2 d-inline"><a class="type_tag"
+															   th:href="@{|/category/${map.article.categoryId}|}"
+															   th:text="${map.category.name}">测试</a>
+								</span>
+							</p>
+							<div class="title-line">
+								<h2>
+									<a th:href="@{|/article/${map.article.id}|}" th:utext="${map.article.title}">文章标题
+									</a>
+									<span class="badge badge-secondary bg-primary" th:if="${map.article.top==1}">置顶</span>
+									<span class="badge badge-secondary bg-danger" th:if="${map.article.marrow==1}">加精</span>
+								</h2>
 							</div>
-							<div class="text-muted font-size-12">
-								<u class="mr-3" th:utext="${map.user.nickName}">大娃</u> 发布于
-								<b th:text="${#dates.format(map.article.createTime,'yyyy-MM-dd HH:mm:ss')}">2022-02-15 17:00:00</b>
-								<ul class="d-inline float-right">
-									<li class="d-inline ml-2"><i class="mdi mdi-thumb-up-outline"></i>
-										<i th:text="${map.likeCount}">10</i></li>&nbsp
-									<li class="d-inline ml-2">评论&nbsp<i th:text="${map.article.commentCount}">7</i></li>
-								</ul>
+							<div class="article-content-box">
+								<a th:href="@{|/article/${map.article.id}|}">
+									<p th:utext="${map.article.content}">文章内容</p></a>
+							</div>
+							<div class="text-muted font-size-14">
+								<span class="d-inline ml-2"><i class="mdi mdi-thumb-up-outline"></i>&nbsp;<i
+										th:text="${map.likeCount}">1</i></span>
+								<span class="d-inline ml-2">|</span>
+								<span class="d-inline ml-2"><i class="mdi mdi-comment-processing-outline"></i>&nbsp;
+									<i th:text="${map.article.commentCount}">7
+									</i></span>
 							</div>
 						</div>
-					</li>
 
-				</ul>
-
-				<div class="mt-4" th:if="${#lists.isEmpty(articleLists)}" style="padding: 120px 0;text-align: center;">
-					<a style="color: #d3d3d3;"><i class="mdi mdi-48px mdi-magnify fs-22"></i></a></br>
-					<p style="color: #d3d3d3; font-size: 18px;">暂无相关结果 ~ ~</p>
-				</div>
-				<!-- 分页 -->
-				<nav class="mt-5" th:replace="index::pagination">
-				</nav>
+					<div class="mt-4" th:if="${#lists.isEmpty(articleLists)}" style="padding: 120px 0;text-align: center;">
+						<a style="color: #d3d3d3;"><i class="mdi mdi-48px mdi-magnify fs-22"></i></a></br>
+						<p style="color: #d3d3d3; font-size: 18px;">暂无相关结果 ~ ~</p>
+					</div>
+					<!-- 分页 -->
+					<nav class="mt-5" th:replace="index::pagination">
+					</nav>
+			  </div>
 			</div>
 		</div>
 

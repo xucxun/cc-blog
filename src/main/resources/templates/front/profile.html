@@ -96,7 +96,8 @@
 									<span class="d-inline ml-2">|</span>
 									<span class="d-inline ml-2" th:text="${#dates.format(map.article.createTime,'yyyy-MM-dd HH:mm:ss')}">2022-01-23 16:40:49</span>
 									<span class="d-inline ml-2">|</span>
-									<span class="ml-2 d-inline"><a class="type_tag" href="#"
+									<span class="ml-2 d-inline"><a class="type_tag"
+																   th:href="@{|/category/${map.article.categoryId}|}"
 																   th:text="${map.category.name}">测试</a></span>
 								</p>
 								<div class="title-line">

@@ -100,22 +100,35 @@ public interface ArticleService {
     /**
      * 搜索文章
      */
-    int countSearchArticle(int userId,String title,Integer top,Integer marrow);
+    int countSearchArticle(int userId,String title,Integer top,Integer marrow,Integer categoryId);
 
     /**
-     * 后台搜索文章列表
+     * 后台搜索分页文章列表
      */
-    List<Article> searchArticleList(int userId, String title, Integer top, Integer marrow, int offset, int limit);
+    List<Article> searchArticleList(int userId, String title, Integer top, Integer marrow,Integer categoryId,
+                                    int offset, int limit);
 
     /**
-     * 根据分类查询文章列表
+     * 根据分类查询所有文章列表
      * @param categoryId
      * @return
      */
     List<Article> findArticlesByCategoryId(Integer categoryId);
 
+    /**
+     * 前台类别下的文章数
+     * @param categoryId
+     * @return
+     */
     int countIndexArticlesByCategory(Integer categoryId);
 
+    /**
+     * 前台显示根据类别查询文章
+     * @param categoryId
+     * @param offset
+     * @param limit
+     * @return
+     */
     List<Article> findArticlesByCategoryId(Integer categoryId,int offset,int limit);
 
     /**

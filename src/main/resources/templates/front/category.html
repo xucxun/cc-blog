@@ -74,7 +74,7 @@
 			<div class="container-fluid">
 				<div style="background: #fff;width:1200px;height: 100%;border-radius: 3px;margin-bottom: 70px;">
 					<!-- 文章列表 -->
-					 <div class="article-list border-bottom" th:each="map:${articleLists}" style="padding:
+					<div class="article-list border-bottom" th:each="map:${articleLists}" style="padding:
 							 15px 20px;">
 							<p class="article-item-message">
 								<span>
@@ -92,25 +92,25 @@
 								</span>
 							</p>
 							<div class="title-line">
-										<h2>
-											<a th:href="@{|/article/${map.article.id}|}" th:utext="${map.article.title}">文章标题
-											</a>
-											<span class="badge badge-secondary bg-primary" th:if="${map.article.top==1}">置顶</span>
-											<span class="badge badge-secondary bg-danger" th:if="${map.article.marrow==1}">加精</span>
-										</h2>
-									</div>
+								<h2>
+									<a th:href="@{|/article/${map.article.id}|}" th:utext="${map.article.title}">文章标题
+									</a>
+									<span class="badge badge-secondary bg-primary" th:if="${map.article.top==1}">置顶</span>
+									<span class="badge badge-secondary bg-danger" th:if="${map.article.marrow==1}">加精</span>
+								</h2>
+							</div>
 							<div class="article-content-box">
-										<a th:href="@{|/article/${map.article.id}|}"><p th:utext="${map.article.content}">文章内容
-										</p></a>
-									</div>
+								<a th:href="@{|/article/${map.article.id}|}">
+									<p th:utext="${map.article.content}">文章内容</p></a>
+							</div>
 							<div class="text-muted font-size-14">
-											<span class="d-inline ml-2"><i class="mdi mdi-thumb-up-outline"></i>&nbsp;<i
-													th:text="${map.likeCount}">1</i></span>
-										<span class="d-inline ml-2">|</span>
-										<span class="d-inline ml-2"><i class="mdi mdi-comment-processing-outline"></i>&nbsp;
-												<i th:text="${map.article.commentCount}">7
-												</i></span>
-									</div>
+								<span class="d-inline ml-2"><i class="mdi mdi-thumb-up-outline"></i>&nbsp;<i
+										th:text="${map.likeCount}">1</i></span>
+								<span class="d-inline ml-2">|</span>
+								<span class="d-inline ml-2"><i class="mdi mdi-comment-processing-outline"></i>&nbsp;
+									<i th:text="${map.article.commentCount}">7
+									</i></span>
+							</div>
 					</div>
 					<nav class="mt-5"  th:replace="index::pagination">
 					</nav>

@@ -45,6 +45,7 @@ public class CategoryController {
         if(id == null){
             id = categories.get(0).getId();
         }
+        //前台查询文章列表（类别为前台显示的）
         List<Article> list = articleService.findArticlesByCategoryId(id, page.getOffset(),page.getLimit());
         List<Map<String, Object>> articleLists = new ArrayList<>();
         if (list != null) {

@@ -5,7 +5,7 @@
 <mapper namespace="com.example.blog.dao.UserMapper">
 
     <sql id="insertFields">
-        account,nick_name, password, salt, email, role, status, activation_code, avatar, create_time,update_time
+        account,nick_name, password, salt, email, role, status, activation_code, avatar, create_time
     </sql>
 
     <sql id="selectFields">

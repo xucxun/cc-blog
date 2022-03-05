@@ -59,6 +59,9 @@ public class ArticleController{
         }
         //返回一个article对象给前端th:object
         model.addAttribute("article", new Article());
+
+        List<Category> categories = categoryService.getArticleCategory();
+        model.addAttribute("categories",categories);
         return "/front/article-input";
     }
 
@@ -72,6 +75,10 @@ public class ArticleController{
     public String toEditBlog(@PathVariable int id,Model model){
         Article article = articleService.getById(id);
         model.addAttribute("article", article);
+
+        List<Category> categories = categoryService.getArticleCategory();
+        model.addAttribute("categories",categories);
+
         return "/front/article-input";
     }
 
@@ -86,7 +93,7 @@ public class ArticleController{
         if(StringUtils.isBlank(article.getTitle()) || StringUtils.isBlank(article.getContent())){
             return BlogUtil.getJsonResult(1, "标题或内容不能为空!");
         }
-
+        article.setCategoryId(categoryService.getCategory(article.getCategoryId()).getId());
         if(article.getId()==0){
             articleService.add(article);
             // 新增博客计算博客初始分数
@@ -95,7 +102,6 @@ public class ArticleController{
         }else {
             articleService.update(article);
         }
-
         // 触发发博客事件，将文章保存到es服务器里
         Event event = new Event()
                 .setTopic(Constant.TOPIC_PUBLISH)

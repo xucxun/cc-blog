@@ -8,7 +8,7 @@
 	<link rel="stylesheet" th:href="@{/admin/css/materialdesignicons.min.css}"  />
 	<link rel="stylesheet" th:href="@{/admin/css/style.min.css}" />
 	<link rel="stylesheet" th:href="@{/css/global.css}"  />
-	<link rel="stylesheet" th:href="@{/css/messages.css}" />
+<!--	<link rel="stylesheet" th:href="@{/css/messages.css}" />-->
 	<title>首页</title>
 	<style>
 		.container-fluid{
@@ -48,7 +48,8 @@
 				</div>
 
 				<!--搜索-->
-				<form class="form-inline my-2 my-lg-0" style="position: absolute;left: 44%;" method="get" th:action="@{/search}">
+				<form target="_blank" class="form-inline my-2 my-lg-0" style="position: absolute;left: 44%;" method="get"
+					   th:action="@{/search}">
 					<input class="form-control mr-sm-2" type="search" placeholder="请输入搜索的关键词..." aria-label="Search"
 						   style="width: 375px;border-radius:999px;background: #f6f6f6;" name="key" th:value="${key}">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="border-radius:20px">搜索</button>

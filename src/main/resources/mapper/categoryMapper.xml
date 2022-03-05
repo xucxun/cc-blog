@@ -5,16 +5,16 @@
 <mapper namespace="com.example.blog.dao.CategoryMapper">
 
     <sql id="selectFields">
-        id, name, status,description,ref_count, create_time,display
+        id, name, status,description,create_time,display
     </sql>
 
     <sql id="insertFields">
-        name,status,description,ref_count, create_time,display
+        name,status,description,create_time,display
     </sql>
 
     <insert id="insertCategory" parameterType="Category" keyProperty="id">
         insert into category(<include refid="insertFields"></include>)
-        values(#{name},#{status},#{description},#{refCount},#{createTime},#{display})
+        values(#{name},#{status},#{description},#{createTime},#{display})
     </insert>
 
     <select id="getCategory" resultType="Category">
@@ -85,10 +85,6 @@
 
     <update id="updateCategory">
         update category set name = #{name},description = #{description} where id = #{id}
-    </update>
-
-    <update id="updateCategoryRefCount">
-        update category set ref_count = #{ref_count} where id = #{id}
     </update>
 
     <update id="updateCategoryStatus">

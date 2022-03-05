@@ -48,8 +48,9 @@ public interface ArticleMapper {
     int updateScore(@Param("id")int id, @Param("score")double score);
 
     int searchArticleCount(@Param("userId") int userId,@Param("title") String title,@Param("top") Integer top,
-                           @Param("marrow")Integer marrow);
+                           @Param("marrow")Integer marrow,@Param("categoryId")Integer categoryId );
 
     List<Article> searchArticleList(@Param("userId") int userId,@Param("title") String title,@Param("top") Integer top,
-                                 @Param("marrow")Integer marrow, @Param("offset")Integer offset, @Param("limit")int limit);
+                                 @Param("marrow")Integer marrow,@Param("categoryId")Integer categoryId ,
+                                    @Param("offset")Integer offset, @Param("limit")int limit);
 }

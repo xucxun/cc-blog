@@ -1,15 +1,15 @@
 package com.example.blog.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Category {
+public class Category implements Serializable {
 
     private Integer id;
     private String name;
     private String description;
     private Integer display;
     private Integer status;
-    private Integer refCount;
     private Date createTime;
 
     public Integer getId() {
@@ -52,14 +52,6 @@ public class Category {
         this.status = status;
     }
 
-    public Integer getRefCount() {
-        return refCount;
-    }
-
-    public void setRefCount(Integer refCount) {
-        this.refCount = refCount;
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -76,7 +68,6 @@ public class Category {
                 ", description='" + description + '\'' +
                 ", display=" + display +
                 ", status=" + status +
-                ", refCount=" + refCount +
                 ", createTime=" + createTime +
                 '}';
     }

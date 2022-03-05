@@ -68,11 +68,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public int updateCategoryRefCount(Integer id, Integer refCount) {
-        return categoryMapper.updateCategoryRefCount(id,refCount);
-    }
-
-    @Override
     public int updateCategoryStatus(Integer id, Integer status) {
         return categoryMapper.updateCategoryStatus(id,status);
     }

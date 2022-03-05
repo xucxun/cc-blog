@@ -22,14 +22,14 @@ public interface CategoryService {
 
     /**
      * 根据id获取类别
-     * @param id
+     * @param id 类别ID
      * @return
      */
     Category getCategory(Integer id);
 
     /**
      * 根据名称获取类别
-     * @param name
+     * @param name 类别名称
      * @return
      */
     Category getCategoryByName(String name);
@@ -69,14 +69,6 @@ public interface CategoryService {
      * @return
      */
     int updateCategory(Integer id,String name,String description);
-
-    /**
-     * 更新类别数量
-     * @param id
-     * @param refCount
-     * @return
-     */
-    int updateCategoryRefCount(Integer id,Integer refCount);
 
     /**
      * 更新类别状态

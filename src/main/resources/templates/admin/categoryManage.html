@@ -63,7 +63,7 @@
               <div class="form-group m-b-5 mr-3 field">
                 <input type="hidden" id="selectDisplay" th:value="${display}!=null?${display}:'2'">
                  <select name="display" id="status" class="form-control selectpicker display">
-                  <option value="2" selected>全部</option>
+                  <option value="2" selected>是否前台显示</option>
                   <option value="0">前台显示</option>
                   <option value="1">禁止前台显示</option>
                 </select>
@@ -86,7 +86,7 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                    <form>
+                    <form class="needs-validation" novalidate>
                       <div class="form-group">
                         <label for="recipient-name" class="col-form-label">类别名称:</label>
                         <input type="text" class="form-control" id="recipient-name" placeholder="请输入类别名称" required>
@@ -116,7 +116,6 @@
                   <th>描述</th>
                   <th>状态</th>
                   <th>前台显示</th>
-                  <th>引用统计</th>
                   <th>创建时间</th>
                   <th>操作</th>
                 </tr>
@@ -129,7 +128,6 @@
                   <td th:if="${map.category.status==0}"><font class="text-success" th:utext="正常"></font></td>
                   <td th:if="${map.category.display==0}"><font class="text-success" th:utext="前台显示"></font></td>
                   <td th:if="${map.category.display==1}"><font class="text-danger" th:utext="禁止前台显示"></font></td>
-                  <td th:utext="${map.category.refCount}!=null?${map.category.refCount}:'0'">1</td>
                   <td th:text="${#dates.format(map.category.createTime,'yyyy-MM-dd HH:mm:ss')}">2022-01-23 17:16:08</td>
                   <td>
                     <a href="javascript:;"

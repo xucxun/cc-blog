@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService{
             map.put("nameMsg", "昵称不能为空！");
             return map;
         }
-        if(registeredUser.getNickName() == registerUser.getNickName()){
+        if(registeredUser != null && registerUser.getNickName().equals(registeredUser.getNickName())){
             map.put("nameMsg", "昵称重复！");
             return map;
         }

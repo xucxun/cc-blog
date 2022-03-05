@@ -1,10 +1,12 @@
 package com.example.blog.controller.admin;
 
+import com.example.blog.common.Constant;
 import com.example.blog.common.EventProducer;
 import com.example.blog.entity.*;
 import com.example.blog.service.ArticleService;
 import com.example.blog.service.CategoryService;
 import com.example.blog.util.BlogUtil;
+import com.example.blog.util.LoginUser;
 import com.example.blog.util.Result;
 import com.example.blog.util.ResultUtil;
 import org.apache.commons.lang3.ObjectUtils;
@@ -25,6 +27,12 @@ public class CategoryManageController {
 
     @Autowired
     private ArticleService articleService;
+
+    @Autowired
+    private EventProducer eventProducer;
+
+    @Autowired
+    private LoginUser loginUser;
 
     @GetMapping("/categoryManage")
     public String categoryManage(Model model, Page page) {
@@ -89,7 +97,6 @@ public class CategoryManageController {
         category.setName(name);
         category.setDescription(description);
         category.setStatus(0);
-        category.setRefCount(0);
         category.setDisplay(0);
         category.setCreateTime(new Date());
         categoryService.addCategory(category);
@@ -101,6 +108,18 @@ public class CategoryManageController {
     @ResponseBody
     public String setDisplay(Integer id){
         categoryService.updateCategoryDisplay(id,0);
+        List<Article> articles = articleService.findArticlesByCategoryId(id);
+        List<Integer> ids = getArticleIds(articles);
+        if (!ids.isEmpty()) {
+            for (Integer articleId : ids) {
+                Event event = new Event()
+                        .setTopic(Constant.TOPIC_PUBLISH)
+                        .setUserId(loginUser.getUser().getId())
+                        .setEntityType(Constant.ENTITY_TYPE_ARTICLE)
+                        .setEntityId(articleId);
+                eventProducer.emitEvent(event);
+            }
+        }
         return BlogUtil.getJsonResult(0);
     }
 
@@ -108,6 +127,19 @@ public class CategoryManageController {
     @ResponseBody
     public String setUnDisplay(Integer id){
         categoryService.updateCategoryDisplay(id,1);
+        List<Article> articles = articleService.findArticlesByCategoryId(id);
+        List<Integer> ids = getArticleIds(articles);
+        if (!ids.isEmpty()) {
+            for(Integer articleId: ids) {
+                // 触发删博客事件
+                Event event = new Event()
+                        .setTopic(Constant.TOPIC_DELETE)
+                        .setUserId(loginUser.getUser().getId())
+                        .setEntityType(Constant.ENTITY_TYPE_ARTICLE)
+                        .setEntityId(articleId);
+                eventProducer.emitEvent(event);
+            }
+        }
         return BlogUtil.getJsonResult(0);
     }
 

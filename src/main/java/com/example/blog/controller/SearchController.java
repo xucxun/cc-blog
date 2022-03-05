@@ -3,6 +3,7 @@ package com.example.blog.controller;
 import com.example.blog.common.Constant;
 import com.example.blog.entity.Article;
 import com.example.blog.entity.Page;
+import com.example.blog.service.CategoryService;
 import com.example.blog.service.ElasticsearchService;
 import com.example.blog.service.LikeService;
 import com.example.blog.service.UserService;
@@ -29,6 +30,9 @@ public class SearchController {
     @Autowired
     private LikeService likeService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     @GetMapping("/search")
     public String search(String key, Model model, Page page){
         // 搜索博客
@@ -41,6 +45,7 @@ public class SearchController {
                 map.put("article", article);
                 map.put("user", userService.findUserById(article.getUserId()));
                 map.put("likeCount", likeService.countLike(Constant.ENTITY_TYPE_ARTICLE, article.getId()));
+                map.put("category",categoryService.getCategory(article.getCategoryId()));
                 articleLists.add(map);
             }
         }

@@ -1,9 +1,12 @@
 package com.example.blog.service.impl;
 
+import com.example.blog.common.Constant;
 import com.example.blog.common.EventProducer;
 import com.example.blog.dao.ArticleMapper;
+import com.example.blog.dao.CategoryMapper;
 import com.example.blog.dao.CommentMapper;
 import com.example.blog.entity.Article;
+import com.example.blog.entity.Event;
 import com.example.blog.entity.User;
 import com.example.blog.service.ArticleService;
 import com.example.blog.util.LoginUser;
@@ -21,6 +24,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleMapper articleMapper;
+
+    @Autowired
+    private CategoryMapper categoryMapper;
 
     @Autowired
     private CommentMapper commentMapper;
@@ -147,8 +153,7 @@ public class ArticleServiceImpl implements ArticleService {
         article.setTop(0);
         // 转义HTML标记,不会将标签识别出来。过滤标签
         article.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
-        article.setContent(HtmlUtils.htmlEscape(article.getContent()));
-
+        article.setContent(article.getContent());
         return articleMapper.insertArticle(article);
     }
 
@@ -184,13 +189,14 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public int countSearchArticle(int userId, String title, Integer top, Integer marrow) {
-        return articleMapper.searchArticleCount(userId,title,top,marrow);
+    public int countSearchArticle(int userId, String title, Integer top, Integer marrow,Integer categoryId) {
+        return articleMapper.searchArticleCount(userId,title,top,marrow,categoryId);
     }
 
     @Override
-    public List<Article> searchArticleList(int userId, String title, Integer top, Integer marrow, int offset, int limit) {
-        return articleMapper.searchArticleList(userId,title,top,marrow,offset,limit);
+    public List<Article> searchArticleList(int userId, String title, Integer top, Integer marrow,Integer categoryId,
+                                           int offset, int limit) {
+        return articleMapper.searchArticleList(userId,title,top,marrow,categoryId,offset,limit);
     }
 
     @Override
@@ -213,11 +219,11 @@ public class ArticleServiceImpl implements ArticleService {
     public void delete(List<Integer> ids) {
         Date date = new Date();
         articleMapper.delete(ids,1,date);
-//
+
 //        for(Integer id: ids) {
-//            //删除文章下的评论和回复
-//            commentMapper.updateCommentByArticleId(id,1,date);
-//            commentMapper.updateReplyByArticleId(id,1,date);
+////            //删除文章下的评论和回复
+////            commentMapper.updateCommentByArticleId(id,1,date);
+////            commentMapper.updateReplyByArticleId(id,1,date);
 //            // 触发删博客事件
 //            Event event = new Event()
 //                    .setTopic(Constant.TOPIC_DELETE)

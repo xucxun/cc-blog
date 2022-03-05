@@ -26,8 +26,6 @@ public interface CategoryMapper {
 
     int updateCategory(@Param("id")Integer id, @Param("name")String name,@Param("description") String description);
 
-    int updateCategoryRefCount(@Param("id")Integer id, @Param("refCount")Integer refCount);
-
     int updateCategoryStatus(@Param("id")Integer id,@Param("status") Integer status);
 
     int updateCategoryDisplay(@Param("id")Integer id,@Param("display") Integer display);

@@ -10,6 +10,8 @@
     <!--标签插件-->
     <link rel="stylesheet" th:href="@{/admin/js/jquery-tagsinput/jquery.tagsinput.min.css}">
     <link rel="stylesheet" th:href="@{/admin/css/style.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/animate.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/js/bootstrap-select/bootstrap-select.css}">
     <link rel="stylesheet" th:href="@{/css/global.css}" />
     <link th:href="@{/admin/css/animate.min.css}" rel="stylesheet">
 </head>
@@ -20,25 +22,43 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-body">
-
-                    <form th:object="${article}" th:action="@{/article/save}" method="post" class="row" id="inputForm">
-                        <input type="hidden" name="id" th:value="*{id}!=null?*{id}:0">
+                <div class="card-body" style="padding: 20px 30px;">
+                    <p class="font-size-20" style="font-weight: 700;">文章发布</a></p>
+                    <form th:object="${article}" th:action="@{/article/save}" method="post" class="row needs-validation"
+                          id="inputForm" novalidate>
+                            <input type="hidden" name="id" th:value="*{id}!=null?*{id}:0">
                         <div class="form-group col-md-12 required field">
-                            <label for="title">标题</label>
-                            <input type="text" class="form-control" id="title" name="title" th:value="*{title}" placeholder="请输入标题" required/>
+                                <label for="title">标题</label>
+                                <input type="text" class="form-control" id="title" name="title" th:value="*{title}" placeholder="请输入标题" required/>
+                                <div class="invalid-feedback">
+                                    请输入标题。
+                                </div>
+                            </div>
+                        <div class="form-group col-md-12">
+                            <input type="hidden" id="selectCategory" th:value="*{categoryId}">
+                            <label for="categoryId">文章类别</label>
+                            <div class="form-controls">
+                                <select name="categoryId" class="form-control" id="categoryId" required>
+                                    <option th:each="category:${categories}" th:value="${category.id}" th:text="${category.name}">小说</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    请选择一个文章类别。
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group col-md-12 field">
-                            <label for="content">文章内容</label>
-                            <textarea class="form-control" id="content" name="content" rows="4" th:utext="*{content}"
-                                      placeholder="内容" required></textarea>
-                        </div>
-
+                                <label for="content">文章内容</label>
+                                <textarea class="form-control" id="content" name="content" rows="4" th:utext="*{content}"
+                                          placeholder="内容" required></textarea>
+                                <div class="invalid-feedback">
+                                    请输入内容。
+                                </div>
+                            </div>
                         <div class="form-group col-md-12">
-                            <button type="submit" class="btn btn-primary ajax-post" target-form="add-form" id="publishBtn">发布
-                            </button>
-                            <button type="button" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返 回</button>
-                        </div>
+                                <button type="submit" class="btn btn-primary ajax-post" target-form="add-form" id="publishBtn">发布
+                                </button>
+                                <button type="button" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返 回</button>
+                            </div>
                     </form>
 
                 </div>
@@ -56,6 +76,33 @@
 <!--标签插件-->
 <script th:src="@{/admin/js/jquery-tagsinput/jquery.tagsinput.min.js}"></script>
 <script type="text/javascript" th:src="@{/admin/js/bootstrap-notify.min.js}"></script>
+<!--下拉选择插件-->
+<script type="text/javascript" th:src="@{/admin/js/bootstrap-select/bootstrap-select.min.js}"></script>
+<script type="text/javascript" th:src="@{/admin/js/bootstrap-select/i18n/defaults-zh_CN.min.js}"></script>
 <script th:src="@{/js/global.js}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var category = $('#selectCategory').val();
+        $("#categoryId option[value='"+category+"']").attr("selected", true);
+
+    });
+    (function() {
+        // 'use strict';
+        window.addEventListener('load', function() {
+            //获取我们想要应用自定义 Bootstrap 验证样式的所有表单
+            var forms = document.getElementsByClassName('needs-validation');
+            // 循环它们并防止提交
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
 </body>
 </html>
