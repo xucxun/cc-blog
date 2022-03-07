@@ -27,6 +27,8 @@ public interface CategoryService {
      */
     Category getCategory(Integer id);
 
+    List<Category> getCategoryByIds(List<Integer> ids);
+
     /**
      * 根据名称获取类别
      * @param name 类别名称

@@ -9,6 +9,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringRunner.class)
@@ -73,13 +76,24 @@ public class RedisTests {
      */
     @Test
     public void testSets() {
-        String redisKey = "test:teachers";
+//        String redisKey = "test:teachers";
+//
+//        redisTemplate.opsForSet().add(redisKey, "刘备", "关羽", "张飞", "赵云", "诸葛亮");
+        String redisKey = "test:";
+//        Set set =redisTemplate.keys(redisKey + "*");
+//        System.out.println(redisTemplate.opsForSet().size());
 
-        redisTemplate.opsForSet().add(redisKey, "刘备", "关羽", "张飞", "赵云", "诸葛亮");
-
-        System.out.println(redisTemplate.opsForSet().size(redisKey));
-        System.out.println(redisTemplate.opsForSet().pop(redisKey));
-        System.out.println(redisTemplate.opsForSet().members(redisKey));
+//        List<String> redisKeys  = new ArrayList<>();
+//        redisKeys.add("test:teachers");
+//        redisKeys.add(redisKey);
+//        for(String Key : redisKeys){
+//            System.out.println(redisTemplate.opsForSet().size(Key));
+//        }
+//        redisTemplate.opsForSet().add(redisKey, "孙悟空", "关羽", "张飞", "赵云", "诸葛亮");
+// System.out.println(redisTemplate.opsForSet().size(Key));
+//        System.out.println(redisTemplate.opsForSet().size(redisKey));
+//        System.out.println(redisTemplate.opsForSet().pop(redisKey));
+//        System.out.println(redisTemplate.opsForSet().members(redisKey));
     }
 
     /**

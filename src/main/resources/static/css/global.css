@@ -162,7 +162,7 @@ em {
 	text-overflow: ellipsis;
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 2;
+	-webkit-line-clamp: 3;
 	color: #606a78;
 	font-size: 16px;
 	line-height: 28px;

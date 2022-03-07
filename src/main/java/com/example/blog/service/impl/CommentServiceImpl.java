@@ -4,7 +4,6 @@ import com.example.blog.dao.ArticleMapper;
 import com.example.blog.dao.CommentMapper;
 import com.example.blog.dao.UserMapper;
 import com.example.blog.entity.Comment;
-import com.example.blog.entity.Event;
 import com.example.blog.entity.User;
 import com.example.blog.service.CommentService;
 import com.example.blog.service.LikeService;
@@ -79,7 +78,7 @@ public class CommentServiceImpl implements CommentService{
                 int likeStatus = loginUser.getUser() == null ? 0 : likeService.likeStatus(loginUser.getUser().getId()
                         , Constant.ENTITY_TYPE_COMMENT, comment.getId());
                 commentVO.put("likeStatus", likeStatus);
-                //获取单当前文章所有评论的回复
+                //获取当前文章所有评论的回复
                 List<Comment> replyList = commentMapper.selectCommentsByEntity(Constant.ENTITY_TYPE_COMMENT,
                         comment.getId(), 0, Integer.MAX_VALUE);
                 // 回复列表

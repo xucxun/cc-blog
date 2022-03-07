@@ -181,41 +181,85 @@
 								</li>
 							</ul>
 						</div>
+<!--						&lt;!&ndash; 文章列表 &ndash;&gt;-->
+<!--						<div class="article-list border-bottom" th:each="map:${articleLists}" style="padding: 15px 20px;">-->
+<!--							<p class="article-item-message">-->
+<!--								<span>-->
+<!--									<a th:href="@{|/user/${map.user.id}|}">-->
+<!--										<img th:src="${map.user.avatar}" class="rounded-circle" alt="用户头像"-->
+<!--											 style="width:25px;height:25px;">-->
+<!--									</a>-->
+<!--								</span>-->
+<!--								<span class="ml-2" th:utext="${map.user.nickName}">cc</span>-->
+<!--								<span class="d-inline ml-2">|</span>-->
+<!--								<span class="d-inline ml-2" th:text="${#dates.format(map.article.createTime,'yyyy-MM-dd HH:mm:ss')}">2022-01-23 16:40:49</span>-->
+<!--								<span class="d-inline ml-2">|</span>-->
+<!--								<span class="ml-2 d-inline"><a class="type_tag" th:href="@{|/category/${map.category.id}|}"-->
+<!--															   th:text="${map.category.name}">测试</a>-->
+<!--								</span>-->
+<!--							</p>-->
+<!--							<div class="title-line">-->
+<!--								<h2>-->
+<!--									<a th:href="@{|/article/${map.article.id}|}" th:utext="${map.article.title}">文章标题-->
+<!--									</a>-->
+<!--									<span class="badge badge-secondary bg-primary" th:if="${map.article.top==1}">置顶</span>-->
+<!--									<span class="badge badge-secondary bg-danger" th:if="${map.article.marrow==1}">加精</span>-->
+<!--								</h2>-->
+<!--							</div>-->
+<!--							<div class="article-content-box">-->
+<!--								<a th:href="@{|/article/${map.article.id}|}"><p th:utext="${map.article.content}">文章内容-->
+<!--								</p></a>-->
+<!--							</div>-->
+<!--							<div class="text-muted font-size-14">-->
+<!--									<span class="d-inline ml-2"><i class="mdi mdi-thumb-up-outline"></i>&nbsp;<i-->
+<!--											th:text="${map.likeCount}">1</i></span>-->
+<!--								<span class="d-inline ml-2">|</span>-->
+<!--								<span class="d-inline ml-2"><i class="mdi mdi-comment-processing-outline"></i>&nbsp;-->
+<!--										<i th:text="${map.article.commentCount}">7-->
+<!--										</i></span>-->
+<!--							</div>-->
+<!--						</div>-->
 						<!-- 文章列表 -->
 						<div class="article-list border-bottom" th:each="map:${articleLists}" style="padding: 15px 20px;">
 							<p class="article-item-message">
 								<span>
-									<a th:href="@{|/user/${map.user.id}|}">
-										<img th:src="${map.user.avatar}" class="rounded-circle" alt="用户头像"
+									<a th:href="@{|/user/${map.articleVO.userId}|}">
+										<img th:src="${map.articleVO.authorAvatar}" class="rounded-circle" alt="用户头像"
 											 style="width:25px;height:25px;">
 									</a>
 								</span>
-								<span class="ml-2" th:utext="${map.user.nickName}">cc</span>
+								<span class="ml-2" th:utext="${map.articleVO.authorNickName}">cc</span>
 								<span class="d-inline ml-2">|</span>
-								<span class="d-inline ml-2" th:text="${#dates.format(map.article.createTime,'yyyy-MM-dd HH:mm:ss')}">2022-01-23 16:40:49</span>
+								<span class="d-inline ml-2"
+									  th:text="${#dates.format(map.articleVO.createTime,'yyyy-MM-dd HH:mm:ss')}">2022-01-23 16:40:49</span>
 								<span class="d-inline ml-2">|</span>
-								<span class="ml-2 d-inline"><a class="type_tag" th:href="@{|/category/${map.category.id}|}"
-															   th:text="${map.category.name}">测试</a>
+								<span class="ml-2 d-inline"><a class="type_tag"
+															   th:href="@{|/category/${map.articleVO.categoryId}|}"
+															   th:text="${map.articleVO.categoryName}">测试</a>
 								</span>
 							</p>
 							<div class="title-line">
 								<h2>
-									<a th:href="@{|/article/${map.article.id}|}" th:utext="${map.article.title}">文章标题
+									<a th:href="@{|/article/${map.articleVO.id}|}"
+									   th:utext="${map.articleVO.title}">文章标题
 									</a>
-									<span class="badge badge-secondary bg-primary" th:if="${map.article.top==1}">置顶</span>
-									<span class="badge badge-secondary bg-danger" th:if="${map.article.marrow==1}">加精</span>
+									<span class="badge badge-secondary bg-primary" th:if="${map.articleVO.top==1}">置顶
+									</span>
+									<span class="badge badge-secondary bg-danger" th:if="${map.articleVO.marrow==1}">
+										加精</span>
 								</h2>
 							</div>
 							<div class="article-content-box">
-								<a th:href="@{|/article/${map.article.id}|}"><p th:utext="${map.article.content}">文章内容
+								<a th:href="@{|/article/${map.articleVO.id}|}"><p
+										th:utext="${map.articleVO.content}">文章内容
 								</p></a>
 							</div>
 							<div class="text-muted font-size-14">
 									<span class="d-inline ml-2"><i class="mdi mdi-thumb-up-outline"></i>&nbsp;<i
-											th:text="${map.likeCount}">1</i></span>
+											th:text="${map.articleVO.likeCount}">1</i></span>
 								<span class="d-inline ml-2">|</span>
 								<span class="d-inline ml-2"><i class="mdi mdi-comment-processing-outline"></i>&nbsp;
-										<i th:text="${map.article.commentCount}">7
+										<i th:text="${map.articleVO.commentCount}">7
 										</i></span>
 							</div>
 						</div>

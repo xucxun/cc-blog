@@ -12,13 +12,15 @@ public interface UserMapper {
 
     int selectUserCount();
 
-    User selectById(int id);
+    User selectById(@Param("id")int id);
 
-    User selectByAccount(String account);
+    List<User> selectByIds(@Param("ids")List<Integer> ids);
 
-    User selectByEmail(String email);
+    User selectByAccount(@Param("account")String account);
 
-    User selectByNickName(String nickName);
+    User selectByEmail(@Param("email")String email);
+
+    User selectByNickName(@Param("nickName")String nickName);
 
     int insertUser(User user);
 

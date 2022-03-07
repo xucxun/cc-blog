@@ -16,6 +16,8 @@ public interface CategoryMapper {
 
     Category getCategory(Integer id);
 
+    List<Category> getCategoryByIds(@Param("ids")List<Integer> ids);
+
     Category getCategoryByName(String name);
 
     Category getOtherCategory(@Param("id")Integer id, @Param("name")String name);

@@ -1,5 +1,7 @@
 package com.example.blog.service;
 
+import java.util.List;
+
 public interface LikeService {
 
     /**
@@ -11,6 +13,7 @@ public interface LikeService {
      * 文章或评论点赞数量
      */
     long countLike(int entityType, int entityId);
+
 
     /**
      * 当前用户对该文章或评论的点赞状态

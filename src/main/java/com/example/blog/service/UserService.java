@@ -36,6 +36,8 @@ public interface UserService {
      */
     User findUserById(int id);
 
+    List<User> findUserByIds(List<Integer> ids);
+
     /**
      * 根据用户昵称查询用户
      */

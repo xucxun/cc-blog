@@ -5,7 +5,10 @@ import com.example.blog.entity.*;
 import com.example.blog.service.*;
 import com.example.blog.common.Constant;
 import com.example.blog.util.BlogUtil;
+import com.example.blog.util.HtmlToPlainTextUtil;
 import com.example.blog.util.LoginUser;
+import com.example.blog.util.MarkdownUtils;
+import com.example.blog.vo.ArticleVO;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,13 +59,13 @@ public class UserController{
     @Value("${blog.path.upload}")
     private String uploadPath;
 
-    @LoginRequired
+    //@LoginRequired
     @GetMapping("/setting")
     public String settingPage(Model model) {
         return "/front/setting";
     }
 
-    @LoginRequired
+    //@LoginRequired
     @PostMapping("/upload")
     public String uploadAvatar(MultipartFile avatar, Model model) {
         if (avatar == null) {
@@ -159,17 +162,12 @@ public class UserController{
         model.addAttribute("tab", tab);
 
         if(tab == 0) {
-            List<Article> list = articleService.findArticles(userId, page.getOffset(), page.getLimit(), 0);
+            List<ArticleVO> list = articleService.findArticleVOs(userId, page.getOffset(), page.getLimit(), 0);
             List<Map<String, Object>> articleLists = new ArrayList<>();
             if (list != null) {
-                for (Article article : list) {
+                for (ArticleVO articleVO : list) {
                     Map<String, Object> map = new HashMap<>();
-                    map.put("article", article);
-                    long articleLikeCount = likeService.countLike(Constant.ENTITY_TYPE_ARTICLE, article.getId());
-                    map.put("articleLikeCount", articleLikeCount);
-                    //文章类别
-                    Category category = categoryService.getCategory(article.getCategoryId());
-                    map.put("category",category);
+                    map.put("articleVO", articleVO);
                     articleLists.add(map);
                 }
             }

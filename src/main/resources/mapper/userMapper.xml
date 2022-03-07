@@ -18,6 +18,18 @@
         where id = #{id}
     </select>
 
+    <select id="selectByIds" resultType="User">
+        select <include refid="selectFields"></include>
+        from user
+        where
+        <if test="ids != null and ids.size() > 0">
+            id in
+            <foreach collection="ids" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
     <select id="selectByAccount" resultType="User">
         select <include refid="selectFields"></include>
         from user

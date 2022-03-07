@@ -70,6 +70,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public List<User> findUserByIds(List<Integer> ids) {
+        return userMapper.selectByIds(ids);
+    }
+
+    @Override
     public User findUserByNickName(String nickName) {
         return userMapper.selectByNickName(nickName);
     }

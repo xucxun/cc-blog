@@ -1,28 +1,32 @@
 //点赞
 function like(btn, entityType, entityId, entityUserId,articleId){
-    $.post(
-        "/like",
-        {"entityType":entityType,"entityId":entityId,"entityUserId":entityUserId,"articleId":articleId},
-        function(data) {
-            data = $.parseJSON(data);
-            if(data.code == 0) {
-                $(btn).children("i").eq(1).text(data.likeCount);
-                // $(btn).children("b").text(data.likeStatus==1?'已赞':"赞");
-                if(data.likeStatus==1){
-                    $(btn).children("i").css("color","#33cabb");
-                }else {
-                    $(btn).children("i").css("color","#868e96");
+    var loginUserId = $('#loginUserId').val();
+    if(loginUserId !=null) {
+        $.post(
+            "/like",
+            {"entityType": entityType, "entityId": entityId, "entityUserId": entityUserId, "articleId": articleId},
+            function (data) {
+                data = $.parseJSON(data);
+                if (data.code == 0) {
+                    $(btn).children("i").eq(1).text(data.likeCount);
+                    // $(btn).children("b").text(data.likeStatus==1?'已赞':"赞");
+                    if (data.likeStatus == 1) {
+                        $(btn).children("i").css("color", "#33cabb");
+                    } else {
+                        $(btn).children("i").css("color", "#868e96");
+                    }
+                } else {
+                    showNotify(data.msg, 'danger', 1000);
                 }
-            } else {
-                showNotify(data.msg, 'danger', 1000);
             }
-        }
-    );
+        );
+    }else{
+        window.location.href= "/login";
+    }
 
 }
 $(function(){
-    // $("#topBtn").click(setTop);
-    // $("#marrowBtn").click(setMarrow);
+    $("#publishBtn").click(publish);
     $("#deleteBtn").click(setDelete);
     $("#delBtn").click(setDelete);
 });
@@ -118,6 +122,31 @@ function setDelete() {
                 }, 1000);
             }
         );
+}
+
+function publish() {
+    // 获取标题和内容
+    var title = $("#title").val();
+    var categoryId = $('#categoryId  option:selected').val();
+    var content = $("#content").val();
+    // 发送异步请求(POST)
+    $.post(
+        "/article/save",
+        {"title":title,"categoryId":categoryId,"content":content},
+        function(data) {
+            data = $.parseJSON(data);
+            if (data.code == 0) {
+                showNotify(data.msg, 'success', 1000);
+            } else {
+                showNotify(data.msg, 'danger', 1000);
+            }
+            setTimeout(function(){
+                if(data.code == 0 ) {
+                    window.location.href= "/index";
+                }
+            }, 1000);
+        }
+    );
 }
 
 

@@ -33,6 +33,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public List<Category> getCategoryByIds(List<Integer> ids) {
+        return categoryMapper.getCategoryByIds(ids);
+    }
+
+    @Override
     public Category getCategoryByName(String name) {
         return categoryMapper.getCategoryByName(name);
     }

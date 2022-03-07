@@ -18,4 +18,6 @@ public interface ElasticsearchService {
      * 从es搜索文章并高亮显示搜索关键字
      */
     Page<Article> searchArticle(String key, int current, int limit);
+
+
 }

@@ -2,6 +2,7 @@ package com.example.blog.service;
 
 import com.example.blog.entity.Article;
 import com.example.blog.entity.User;
+import com.example.blog.vo.ArticleVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -20,6 +21,16 @@ public interface ArticleService {
      */
     List<Article> findIndexArticles(int userId, int offset, int limit,int sort);
 
+    /**
+     * 优化 前台展示文章列表
+     * @param userId
+     * @param offset
+     * @param limit
+     * @param sort
+     * @return
+     */
+    List<ArticleVO> listIndexArticleVO(int userId, int offset, int limit,int sort);
+
 
     /**
      * 查询用户文章列表
@@ -30,6 +41,8 @@ public interface ArticleService {
      * @return
      */
     List<Article> findArticles(int userId, int offset, int limit,int sort);
+
+    List<ArticleVO> findArticleVOs(int userId, int offset, int limit,int sort);
 
     /**
      * 查询用户文章数
@@ -130,6 +143,8 @@ public interface ArticleService {
      * @return
      */
     List<Article> findArticlesByCategoryId(Integer categoryId,int offset,int limit);
+
+    List<ArticleVO> findIndexArticleVOByCategory(Integer categoryId,int offset,int limit);
 
     /**
      * 批量删除文章

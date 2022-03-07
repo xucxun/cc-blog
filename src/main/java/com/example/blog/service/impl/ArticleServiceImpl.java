@@ -5,17 +5,26 @@ import com.example.blog.common.EventProducer;
 import com.example.blog.dao.ArticleMapper;
 import com.example.blog.dao.CategoryMapper;
 import com.example.blog.dao.CommentMapper;
+import com.example.blog.dao.UserMapper;
 import com.example.blog.entity.Article;
+import com.example.blog.entity.Category;
 import com.example.blog.entity.Event;
 import com.example.blog.entity.User;
 import com.example.blog.service.ArticleService;
+import com.example.blog.service.LikeService;
+import com.example.blog.util.HtmlToPlainTextUtil;
 import com.example.blog.util.LoginUser;
+import com.example.blog.util.MarkdownUtils;
+import com.example.blog.vo.ArticleVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.util.HtmlUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,10 +35,16 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleMapper articleMapper;
 
     @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
     private CategoryMapper categoryMapper;
 
     @Autowired
     private CommentMapper commentMapper;
+
+    @Autowired
+    private LikeService likeService;
 
     @Autowired
     private LoginUser loginUser;
@@ -100,6 +115,13 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.selectIndexArticles(userId,offset,limit,sort);
     }
 
+    @Override
+    public List<ArticleVO> listIndexArticleVO(int userId, int offset, int limit, int sort) {
+        List<Article> articles = articleMapper.selectIndexArticles(userId,offset,limit,sort);
+        List<ArticleVO> result = buildArticleVOList(articles);
+        return result;
+    }
+
     /**
      * 根据用户id分页查询文章列表
      */
@@ -110,6 +132,13 @@ public class ArticleServiceImpl implements ArticleService {
 //            return articleListCache.get(offset + ":" + limit);
 //        }
         return articleMapper.selectArticlesById(userId,offset,limit,sort);
+    }
+
+    @Override
+    public List<ArticleVO> findArticleVOs(int userId, int offset, int limit, int sort) {
+        List<Article> articles = articleMapper.selectArticlesById(userId,offset,limit,sort);
+        List<ArticleVO> result = buildArticleVOList(articles);
+        return result;
     }
 
     /**
@@ -151,9 +180,9 @@ public class ArticleServiceImpl implements ArticleService {
         article.setStatus(0);
         article.setMarrow(0);
         article.setTop(0);
-        // 转义HTML标记,不会将标签识别出来。过滤标签
-        article.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
-        article.setContent(article.getContent());
+//        // 转义HTML标记,不会将标签识别出来。过滤标签
+//        article.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
+//        article.setContent(article.getContent());
         return articleMapper.insertArticle(article);
     }
 
@@ -215,6 +244,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<ArticleVO> findIndexArticleVOByCategory(Integer categoryId, int offset, int limit) {
+        List<Article> articles = articleMapper.selectArticleListByCategoryId(categoryId,offset,limit);
+        List<ArticleVO> result = buildArticleVOList(articles);
+        return result;
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(List<Integer> ids) {
         Date date = new Date();
@@ -232,5 +268,51 @@ public class ArticleServiceImpl implements ArticleService {
 //                    .setEntityId(id);
 //            eventProducer.emitEvent(event);
 //        }
+    }
+
+    private List<ArticleVO> buildArticleVOList(List<Article> articles) {
+        List<ArticleVO> result = new ArrayList<>();
+        List<Integer> userIds = new ArrayList<>();
+        List<Integer> categoryIds = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(articles)) {
+            for (Article article : articles) {
+                ArticleVO articleVO = new ArticleVO();
+                BeanUtils.copyProperties(article, articleVO);
+                String html = MarkdownUtils.markdownToHtmlExtensions(articleVO.getContent());
+                articleVO.setContent(HtmlToPlainTextUtil.convert(html));
+                //文章点赞数
+                long likeCount = likeService.countLike(Constant.ENTITY_TYPE_ARTICLE, articleVO.getId());
+                articleVO.setLikeCount(likeCount);
+                result.add(articleVO);
+                userIds.add(articleVO.getUserId());
+                categoryIds.add(articleVO.getCategoryId());
+            }
+        }
+        if (!CollectionUtils.isEmpty(userIds)) {
+            List<User> users = userMapper.selectByIds(userIds);
+            result.forEach(item -> {
+                if (!CollectionUtils.isEmpty(users)) {
+                    for (User user : users) {
+                        if (item.getUserId() == user.getId()) {
+                            item.setAuthorNickName(user.getNickName());
+                            item.setAuthorAvatar(user.getAvatar());
+                        }
+                    }
+                }
+            });
+       }
+        if (!CollectionUtils.isEmpty(categoryIds)) {
+            List<Category> categories = categoryMapper.getCategoryByIds(categoryIds);
+            result.forEach(item -> {
+                if (!CollectionUtils.isEmpty(categories)) {
+                    for (Category category : categories) {
+                        if (item.getCategoryId() == category.getId()) {
+                            item.setCategoryName(category.getName());
+                        }
+                    }
+                }
+            });
+        }
+        return result;
     }
 }

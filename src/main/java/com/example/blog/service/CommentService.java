@@ -30,6 +30,7 @@ public interface CommentService {
      */
     List<Comment> findCommentsByUserId(int id,int offset,int limit);
 
+
     /**
      * 统计评论总数
      * @param entityType 评论对象
@@ -52,6 +53,7 @@ public interface CommentService {
      * @return 评论列表
      */
     List<Map<String, Object>> listComments(int articleId, int offset, int limit);
+
 
     /**
      * 更新文章评论
