@@ -142,9 +142,9 @@ public interface ArticleService {
      * @param limit
      * @return
      */
-    List<Article> findArticlesByCategoryId(Integer categoryId,int offset,int limit);
+    List<Article> findArticlesByCategoryId(Integer categoryId,int offset,int limit, int sort);
 
-    List<ArticleVO> findIndexArticleVOByCategory(Integer categoryId,int offset,int limit);
+    List<ArticleVO> findIndexArticleVOByCategory(Integer categoryId,int offset,int limit, int sort);
 
     /**
      * 批量删除文章

@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/user/setting",
                         "/user/upload",
+                        "/user/changePassword",
                         "/article/save",
                         "/article/file/upload",
                         "/comment/save/**",

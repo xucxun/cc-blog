@@ -285,12 +285,14 @@
 					</div>
 				</div>
 				<div class="g-sidebar-container">
-					<div class="card" style="height: 80px;">
+					<div class="card">
 						<input type="hidden" name="loginUserId" th:value="${loginUser}!=null?${loginUser.id}:0" id="loginUserId"/>
-						<div class="card-body" style="display: flex;justify-content: space-around;">
-							<a th:href="@{/article/input}"  class="btn btn-primary" style="line-height: 22px;"
-							   id="toPublish">写文章</a>
-							<a class="btn btn-outline-primary" style="line-height: 22px;">提问题</a>
+						<div class="card-body">
+							<p style="color: rgb(153, 153, 153);text-align: center;">开启你的创作之旅</p>
+							<div style="text-align: center;">
+							<a th:href="@{/article/input}"  class="btn btn-primary btn-w-md" style="line-height: 22px;"
+							   id="toPublish">开始写文章</a>
+							</div>
 						</div>
 					</div>
 				</div>

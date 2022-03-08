@@ -7,7 +7,6 @@
 	<link th:href="@{/admin/css/bootstrap.min.css}" rel="stylesheet">
 	<link th:href="@{/admin/css/materialdesignicons.min.css}" rel="stylesheet">
 	<link th:href="@{/admin/css/style.min.css}" rel="stylesheet">
-	<link rel="stylesheet" th:href="@{/css/messages.css}" />
 	<link rel="stylesheet" th:href="@{/css/global.css}" />
 	<title>分类</title>
 	<style>
@@ -73,6 +72,25 @@
 			</div>
 			<div class="container-fluid">
 				<div style="background: #fff;width:1200px;height: 100%;border-radius: 3px;margin-bottom: 70px;">
+
+					<!-- 筛选条件 -->
+					<div class="article-tag pl-3 pt-2 font-size-16" style="line-height: 35px;margin-top: 0;box-shadow: 0 0 0 0;">
+						<ul class="nav nav-tabs mb-0">
+							<li class="nav-item">
+								<a th:class="|nav-link ${sort==0?'active':''}|"
+								   th:href="@{|/category/${activeCategoryId}(sort=0)}">最新
+								</a>
+							</li>
+							<li class="nav-item">
+								<a th:class="|nav-link ${sort==1?'active':''}|"
+								   th:href="@{|/category/${activeCategoryId}(sort=1)}">最热</a>
+							</li>
+							<li class="nav-item">
+								<a th:class="|nav-link ${sort==2?'active':''}|"
+								   th:href="@{|/category/${activeCategoryId}(sort=2)}">加精</a>
+							</li>
+						</ul>
+					</div>
 					<!-- 文章列表 -->
 					<div class="article-list border-bottom" th:each="map:${articleLists}" style="padding:
 							 15px 20px;">

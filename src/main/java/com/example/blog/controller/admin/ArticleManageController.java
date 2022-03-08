@@ -33,7 +33,7 @@ public class ArticleManageController {
         page.setPath("/admin/articleManage");
 
         //按创建时间获取文章列表（类别前台显示）
-        List<Article> articles = articleService.findIndexArticles(0, page.getOffset(), page.getLimit(), 3);
+        List<Article> articles = articleService.findIndexArticles(0, page.getOffset(), page.getLimit(), 0);
         List<Map<String, Object>> list = new ArrayList<>();
         if (articles != null) {
             for (Article article : articles) {

@@ -15,6 +15,7 @@ import com.example.blog.service.LikeService;
 import com.example.blog.util.HtmlToPlainTextUtil;
 import com.example.blog.util.LoginUser;
 import com.example.blog.util.MarkdownUtils;
+import com.example.blog.util.SensitiveFilter;
 import com.example.blog.vo.ArticleVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private CategoryMapper categoryMapper;
+
+    @Autowired
+    private SensitiveFilter sensitiveFilter;
 
     @Autowired
     private CommentMapper commentMapper;
@@ -180,9 +184,10 @@ public class ArticleServiceImpl implements ArticleService {
         article.setStatus(0);
         article.setMarrow(0);
         article.setTop(0);
-//        // 转义HTML标记,不会将标签识别出来。过滤标签
-//        article.setTitle(HtmlUtils.htmlEscape(article.getTitle()));
-//        article.setContent(article.getContent());
+        // 过滤敏感词
+        article.setTitle(sensitiveFilter.filter(article.getTitle()));
+        article.setContent(sensitiveFilter.filter(article.getContent()));
+
         return articleMapper.insertArticle(article);
     }
 
@@ -239,13 +244,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> findArticlesByCategoryId(Integer categoryId, int offset, int limit) {
-        return articleMapper.selectArticleListByCategoryId(categoryId,offset,limit);
+    public List<Article> findArticlesByCategoryId(Integer categoryId, int offset, int limit, int sort) {
+        return articleMapper.selectArticleListByCategoryId(categoryId,offset,limit,sort);
     }
 
     @Override
-    public List<ArticleVO> findIndexArticleVOByCategory(Integer categoryId, int offset, int limit) {
-        List<Article> articles = articleMapper.selectArticleListByCategoryId(categoryId,offset,limit);
+    public List<ArticleVO> findIndexArticleVOByCategory(Integer categoryId, int offset, int limit, int sort) {
+        List<Article> articles = articleMapper.selectArticleListByCategoryId(categoryId,offset,limit,sort);
         List<ArticleVO> result = buildArticleVOList(articles);
         return result;
     }
@@ -256,18 +261,19 @@ public class ArticleServiceImpl implements ArticleService {
         Date date = new Date();
         articleMapper.delete(ids,1,date);
 
-//        for(Integer id: ids) {
-////            //删除文章下的评论和回复
-////            commentMapper.updateCommentByArticleId(id,1,date);
-////            commentMapper.updateReplyByArticleId(id,1,date);
-//            // 触发删博客事件
-//            Event event = new Event()
-//                    .setTopic(Constant.TOPIC_DELETE)
-//                    .setUserId(loginUser.getUser().getId())
-//                    .setEntityType(Constant.ENTITY_TYPE_ARTICLE)
-//                    .setEntityId(id);
-//            eventProducer.emitEvent(event);
-//        }
+        //删除分类会删除分类下的文章
+        for(Integer id: ids) {
+            //删除文章下的评论和回复
+            commentMapper.updateCommentByArticleId(id,1,date);
+            commentMapper.updateReplyByArticleId(id,1,date);
+            // 触发删博客事件
+            Event event = new Event()
+                    .setTopic(Constant.TOPIC_DELETE)
+                    .setUserId(loginUser.getUser().getId())
+                    .setEntityType(Constant.ENTITY_TYPE_ARTICLE)
+                    .setEntityId(id);
+            eventProducer.emitEvent(event);
+        }
     }
 
     private List<ArticleVO> buildArticleVOList(List<Article> articles) {

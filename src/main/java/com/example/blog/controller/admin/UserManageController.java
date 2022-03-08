@@ -109,6 +109,7 @@ public class UserManageController {
     @ResponseBody
     public String setDisabled(int id) {
         userService.updateStatus(id,2);
+        userService.clearCache(id);
         return BlogUtil.getJsonResult(0);
     }
 
@@ -117,6 +118,7 @@ public class UserManageController {
     @ResponseBody
     public String setUnDelete(int id) {
         userService.updateStatus(id, 1);
+        userService.clearCache(id);
         return BlogUtil.getJsonResult(0);
     }
 
@@ -125,6 +127,7 @@ public class UserManageController {
     @ResponseBody
     public String activate(int id) {
         userService.updateStatus(id, 1);
+        userService.clearCache(id);
         return BlogUtil.getJsonResult(0);
     }
 

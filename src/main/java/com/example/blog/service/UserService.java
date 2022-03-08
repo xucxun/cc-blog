@@ -106,5 +106,15 @@ public interface UserService {
      */
     void updateRole(int id, Integer role);
 
+    /**
+     * 修改用户密码
+     * @param user
+     * @param oldPassword
+     * @param newPassword
+     * @param confirmPassword
+     * @return
+     */
+    Map<String, Object> changePassword(User user, String oldPassword, String newPassword, String confirmPassword);
+
 
 }

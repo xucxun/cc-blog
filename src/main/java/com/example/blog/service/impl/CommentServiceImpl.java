@@ -9,6 +9,7 @@ import com.example.blog.service.CommentService;
 import com.example.blog.service.LikeService;
 import com.example.blog.common.Constant;
 import com.example.blog.util.LoginUser;
+import com.example.blog.util.SensitiveFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -26,6 +27,9 @@ public class CommentServiceImpl implements CommentService{
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private SensitiveFilter sensitiveFilter;
 
     @Autowired
     private ArticleMapper articleMapper;
@@ -134,7 +138,7 @@ public class CommentServiceImpl implements CommentService{
             throw new IllegalArgumentException("参数不能为空!");
         }
         comment.setUserId(loginUser.getUser().getId());
-        comment.setContent(HtmlUtils.htmlEscape(comment.getContent()));
+        comment.setContent(sensitiveFilter.filter(comment.getContent()));
         comment.setStatus(0);
         comment.setCreateTime(new Date());
         int row = commentMapper.insertComment(comment);

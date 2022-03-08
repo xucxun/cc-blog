@@ -59,13 +59,11 @@ public class UserController{
     @Value("${blog.path.upload}")
     private String uploadPath;
 
-    //@LoginRequired
     @GetMapping("/setting")
     public String settingPage(Model model) {
         return "/front/setting";
     }
 
-    //@LoginRequired
     @PostMapping("/upload")
     public String uploadAvatar(MultipartFile avatar, Model model) {
         if (avatar == null) {
@@ -117,6 +115,21 @@ public class UserController{
             }
         } catch (IOException e) {
             logger.error("读取头像失败: " + e.getMessage());
+        }
+    }
+
+    //修改个人密码
+    @RequestMapping(path = "/changePassword", method = {RequestMethod.GET,RequestMethod.POST})
+    public String changePassword(String oldPassword,String newPassword,String confirmPassword, Model model) {
+        User user = loginUser.getUser();
+        Map<String, Object> map = userService.changePassword(user,oldPassword, newPassword, confirmPassword);
+        if(map == null || map.isEmpty()){
+            return "redirect:/login";
+        }else {
+            model.addAttribute("oldPasswordMsg", map.get("oldPasswordMsg"));
+            model.addAttribute("newPasswordMsg", map.get("newPasswordMsg"));
+            model.addAttribute("confirmPasswordMsg", map.get("confirmPasswordMsg"));
+            return "/front/setting";
         }
     }
 

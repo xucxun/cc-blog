@@ -23,7 +23,7 @@ public interface ArticleMapper {
     int countIndexArticlesByCategory(@Param("categoryId") Integer categoryId);
 
     List<Article> selectArticleListByCategoryId(@Param("categoryId") Integer categoryId,@Param("offset") int offset,
-                                             @Param("limit") int limit);
+                                             @Param("limit") int limit,@Param("sort")int sort);
 
     int selectArticleRows(@Param("userId") int userId);
 

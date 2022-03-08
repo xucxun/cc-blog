@@ -303,15 +303,15 @@ public class ArticleController{
     public String delete(int id){
         articleService.deleteById(id);
         //删除文章下的评论和回复
-//        commentService.updateCommentByArticleId(id,1);
-//        commentService.updateReplyByArticleId(id,1);
-//        // 触发删博客事件
-//        Event event = new Event()
-//                .setTopic(Constant.TOPIC_DELETE)
-//                .setUserId(loginUser.getUser().getId())
-//                .setEntityType(Constant.ENTITY_TYPE_ARTICLE)
-//                .setEntityId(id);
-//        eventProducer.emitEvent(event);
+        commentService.updateCommentByArticleId(id,1);
+        commentService.updateReplyByArticleId(id,1);
+        // 触发删博客事件
+        Event event = new Event()
+                .setTopic(Constant.TOPIC_DELETE)
+                .setUserId(loginUser.getUser().getId())
+                .setEntityType(Constant.ENTITY_TYPE_ARTICLE)
+                .setEntityId(id);
+        eventProducer.emitEvent(event);
         return BlogUtil.getJsonResult(0,"删除成功!");
     }
 

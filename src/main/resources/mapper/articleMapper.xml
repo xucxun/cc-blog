@@ -67,9 +67,6 @@
             and a.marrow= 1
             order by a.top desc, a.create_time desc
         </if>
-        <if test="sort==3">
-            order by a.create_time desc
-        </if>
         limit #{offset}, #{limit}
     </select>
 
@@ -187,7 +184,16 @@
                a.create_time,a.update_time,a.comment_count,a.score,a.top,a.marrow,a.category_id
         from article a,category c
         where  a.category_id = c.id and a.category_id = #{categoryId} and a.status = 0 and c.display = 0
-        order by a.create_time desc
+        <if test="sort==0">
+            order by a.create_time desc
+        </if>
+        <if test="sort==1">
+            order by a.top desc , a.score desc, a.create_time desc
+        </if>
+        <if test="sort==2">
+            and a.marrow= 1
+            order by a.top desc, a.create_time desc
+        </if>
         limit #{offset}, #{limit}
     </select>
 
