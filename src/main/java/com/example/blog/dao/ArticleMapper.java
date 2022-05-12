@@ -20,14 +20,14 @@ public interface ArticleMapper {
 
     List<Article> selectArticlesByCategoryId(@Param("categoryId") Integer categoryId);
 
-    int countIndexArticlesByCategory(@Param("categoryId") Integer categoryId);
+    int countIndexArticlesByCategory(@Param("categoryId") Integer categoryId,@Param("sort")int sort);
 
     List<Article> selectArticleListByCategoryId(@Param("categoryId") Integer categoryId,@Param("offset") int offset,
                                              @Param("limit") int limit,@Param("sort")int sort);
 
     int selectArticleRows(@Param("userId") int userId);
 
-    int selectArticleDisplayRows(@Param("userId") int userId);
+    int selectArticleDisplayRows(@Param("userId") int userId,@Param("sort")int sort);
 
     int insertArticle(Article article);
 

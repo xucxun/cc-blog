@@ -58,7 +58,7 @@ public class CategoryManageController {
     }
 
     @GetMapping("/categoryManage/search")
-    public String searchUser(Category category, Model model, Page page) {
+    public String searchCategory(Category category, Model model, Page page) {
         int categoryCount = categoryService.countSearchCategory(category.getName(),category.getDisplay());
         // 设置分页信息
         page.setLimit(5);
@@ -101,7 +101,7 @@ public class CategoryManageController {
         category.setCreateTime(new Date());
         categoryService.addCategory(category);
 
-        return BlogUtil.getJsonResult(0,"新增分类成功！");
+        return BlogUtil.getJsonResult(0,"新增类别成功！");
     }
 
     @PostMapping("/categoryManage/display")
@@ -152,7 +152,7 @@ public class CategoryManageController {
         if (!ids.isEmpty()) {
             articleService.delete(ids);
         }
-        return BlogUtil.getJsonResult(0,"删除分类成功！");
+        return BlogUtil.getJsonResult(0,"删除类别成功！");
     }
 
     @GetMapping("/categoryManage/{id}")
@@ -173,7 +173,7 @@ public class CategoryManageController {
             return BlogUtil.getJsonResult(1, "类别名称重复!");
         }
         categoryService.updateCategory(id,name,description);
-        return BlogUtil.getJsonResult(200,"修改分类成功");
+        return BlogUtil.getJsonResult(200,"修改类别成功");
     }
 
 

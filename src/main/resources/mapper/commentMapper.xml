@@ -30,6 +30,12 @@
           and entity_id = #{entityId}
     </select>
 
+    <select id="selectCount" resultType="int">
+        select count(*)
+        from comment
+        where status = 0
+    </select>
+
     <insert id="insertComment" parameterType="Comment" keyProperty="id">
         insert into comment(<include refid="insertFields"></include>)
         values(#{userId},#{entityType},#{entityId},#{targetId},#{content},#{status},#{createTime},#{updateTime})
@@ -74,7 +80,7 @@
         order by create_time desc
     </select>
 
-    <select id="selectCountsByEntity" resultType="int">
+    <select id="selectCountsByEntity" resultType="Comment">
         select <include refid="selectFields"></include>
         from comment
         where status = 0

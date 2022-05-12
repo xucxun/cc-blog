@@ -54,10 +54,11 @@ public interface ArticleService {
 
     /**
      * 查询用户文章数
-     * @param userId 用户ID
+     * @param userId
+     * @param sort
      * @return
      */
-    int findArticlesDisPlayRows(int userId);
+    int findArticlesDisPlayRows(int userId,int sort);
 
 
     /**
@@ -133,7 +134,7 @@ public interface ArticleService {
      * @param categoryId
      * @return
      */
-    int countIndexArticlesByCategory(Integer categoryId);
+    int countIndexArticlesByCategory(Integer categoryId,int sort);
 
     /**
      * 前台显示根据类别查询文章

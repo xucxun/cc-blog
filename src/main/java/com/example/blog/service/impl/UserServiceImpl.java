@@ -272,16 +272,20 @@ public class UserServiceImpl implements UserService{
         Map<String, Object> map = new HashMap<>();
         // 验证旧密码是否正确
         oldPassword = BlogUtil.md5(oldPassword + user.getSalt());
+        if (StringUtils.isBlank(oldPassword)) {
+            map.put("oldPasswordMsg", "旧密码不能为空！");
+            return map;
+        }
         if (!user.getPassword().equals(oldPassword)) {
-            map.put("oldPasswordMsg", "密码不正确！");
+            map.put("oldPasswordMsg", "旧密码不正确！");
             return map;
         }
         if (StringUtils.isBlank(newPassword)) {
-            map.put("newPasswordMsg", "密码不能为空！");
+            map.put("newPasswordMsg", "新密码不能为空！");
             return map;
         }
         if (newPassword.length()<6) {
-            map.put("newPasswordMsg", "密码至少需要6位！");
+            map.put("newPasswordMsg", "新密码至少需要6位！");
             return map;
         }
         if(!newPassword.equals(confirmPassword)){

@@ -61,8 +61,13 @@ public class CommentServiceImpl implements CommentService{
      * 统计评论总数
      */
     @Override
-    public int countAll(int entityType, int entityId) {
+    public int countComment(int entityType, int entityId) {
         return commentMapper.selectCountByEntity(entityType,entityId);
+    }
+
+    @Override
+    public int countAll() {
+        return commentMapper.selectCount();
     }
 
     @Override

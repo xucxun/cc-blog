@@ -110,6 +110,9 @@
         <if test="userId!=0">
             and a.user_id = #{userId}
         </if>
+        <if test="sort==2">
+            and a.marrow= 1
+        </if>
     </select>
 
     <select id="selectById" resultType="Article">
@@ -201,6 +204,9 @@
        select count(a.id)
        from article a,category c
        where  a.category_id = c.id and a.category_id = #{categoryId} and a.status = 0 and c.display = 0
+        <if test="sort==2">
+            and a.marrow= 1
+        </if>
     </select>
 
 </mapper>

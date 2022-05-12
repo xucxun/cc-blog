@@ -41,15 +41,15 @@
 	<script th:src="@{/admin/js/popper.min.js}"></script>
 	<script th:src="@{/admin/js/bootstrap.min.js}"></script>
 	<script>
-        // $(function(){
-        //     setInterval(function(){
-        //         var seconds = $("#seconds").text();
-        //         $("#seconds").text(--seconds);
-        //         if(seconds == 0) {
-        //             location.href = $("#target").attr("href");
-        //         }
-        //     }, 1000);
-        // });
+        $(function(){
+            setInterval(function(){
+                var seconds = $("#seconds").text();
+                $("#seconds").text(--seconds);
+                if(seconds == 0) {
+                    location.href = $("#target").attr("href");
+                }
+            }, 1000);
+        });
 	</script>
 
 </body>

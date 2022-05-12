@@ -1,16 +1,11 @@
 package com.example.blog.controller;
 
-import com.example.blog.common.Constant;
-import com.example.blog.entity.Article;
 import com.example.blog.entity.Category;
 import com.example.blog.entity.Page;
-import com.example.blog.entity.User;
 import com.example.blog.service.ArticleService;
 import com.example.blog.service.CategoryService;
 import com.example.blog.service.LikeService;
 import com.example.blog.service.UserService;
-import com.example.blog.util.HtmlToPlainTextUtil;
-import com.example.blog.util.MarkdownUtils;
 import com.example.blog.vo.ArticleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,7 +41,7 @@ public class CategoryController {
             id = categories.get(0).getId();
         }
         //设置分页
-        page.setRows(articleService.countIndexArticlesByCategory(id));
+        page.setRows(articleService.countIndexArticlesByCategory(id,sort));
         page.setPath("/category/"+id+"?sort="+sort);
         //前台查询文章列表（类别为前台显示的）
         List<ArticleVO> list = articleService.findIndexArticleVOByCategory(id, page.getOffset(),page.getLimit(),sort);

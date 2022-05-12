@@ -23,6 +23,8 @@ public class RedisTests {
     private RedisTemplate redisTemplate;
 
 
+
+
     /**
      * String(字符串)
      */

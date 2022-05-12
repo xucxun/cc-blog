@@ -37,7 +37,9 @@ public interface CommentService {
      * @param entityId 评论对象id
      * @return 评论总数
      */
-    int countAll(int entityType, int entityId);
+    int countComment(int entityType, int entityId);
+
+    int countAll();
 
     /**
      * 保存评论

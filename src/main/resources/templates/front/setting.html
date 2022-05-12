@@ -47,7 +47,7 @@
 				<h6 class="text-left text-info border-bottom pb-2 mt-5">修改密码</h6>
 				<form class="mt-5" method="post" enctype="multipart/form-data" th:action="@{/user/changePassword}">
 					<div class="form-group row mt-4">
-						<label for="old-password" class="col-sm-2 col-form-label text-right">原密码:</label>
+						<label for="old-password" class="col-sm-2 col-form-label text-right">旧密码:</label>
 						<div class="col-sm-8">
 							<input type="password" th:class="|form-control ${oldPasswordMsg!=null?'is-invalid':''}|" id="old-password"
 								   name="oldPassword" placeholder="请输入原始密码！" th:value="${param.oldPassword}" required>

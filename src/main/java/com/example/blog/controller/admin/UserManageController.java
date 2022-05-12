@@ -4,6 +4,7 @@ import com.example.blog.entity.Page;
 import com.example.blog.entity.User;
 import com.example.blog.service.ArticleService;
 import com.example.blog.service.CategoryService;
+import com.example.blog.service.CommentService;
 import com.example.blog.service.UserService;
 import com.example.blog.util.BlogUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class UserManageController {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private CommentService commentService;
+
     @GetMapping("/index")
     public String adminPage(Model model) {
         int userCount = userService.countUser();
@@ -40,6 +44,8 @@ public class UserManageController {
         int categoryCount = categoryService.countAllCategory();
         model.addAttribute("categoryCount",categoryCount);
 
+        int commentCount = commentService.countAll();
+        model.addAttribute("commentCount",commentCount);
         return "admin/index";
     }
 

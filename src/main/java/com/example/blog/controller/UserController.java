@@ -133,18 +133,18 @@ public class UserController{
         }
     }
 
-    @GetMapping("/get")
-     public String getByNickName(Model model,String nickName){
-        User searchUser = userService.findUserByNickName(nickName);
-        if(Objects.isNull(searchUser)){
-            return BlogUtil.getJsonResult(1,"用户不存在");
-        }
-        String nickName1 = searchUser.getNickName();
-        String avatar = searchUser.getAvatar();
-        model.addAttribute("nickName1",nickName1);
-        model.addAttribute("avatar",avatar);
-        return  "test/test_chat_v4 :: user";
-    }
+//    @GetMapping("/get")
+//     public String getByNickName(Model model,String nickName){
+//        User searchUser = userService.findUserByNickName(nickName);
+//        if(Objects.isNull(searchUser)){
+//            return BlogUtil.getJsonResult(1,"用户不存在");
+//        }
+//        String nickName1 = searchUser.getNickName();
+//        String avatar = searchUser.getAvatar();
+//        model.addAttribute("nickName1",nickName1);
+//        model.addAttribute("avatar",avatar);
+//        return  "test/test_chat :: user";
+//    }
 
     /**
      * 个人主页

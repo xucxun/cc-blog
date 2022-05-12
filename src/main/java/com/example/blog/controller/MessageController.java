@@ -31,59 +31,59 @@ public class MessageController{
     @Autowired
     private UserService userService;
 
-    @GetMapping("/messages")
-    public String listMessage(Model model, Page page){
-        User user = loginUser.getUser();
-        page.setLimit(5);
-        page.setPath("/messages");
-        page.setRows(messageService.countAllConversation(user.getId()));
-
-        //会话列表
-        List<Map<String, Object>> conversations = messageService.listConversations(page.getOffset(), page.getLimit());
-        model.addAttribute("conversations", conversations);
-
-        // 查询未读消息数量
-        int messageUnreadCount = messageService.countMessageUnread(user.getId(), null);
-        model.addAttribute("messageUnreadCount", messageUnreadCount);
-//        return "/front/letter";
-//        return "/front/messages";
-          return "test/test_chat_v4";
-    }
-
-    //私信详细信息
-    @GetMapping("/messages/{conversationId}")
-    public String listMessageDetail(@PathVariable("conversationId") String conversationId, Page page, Model model) {
-        page.setLimit(10);
-        page.setPath("/messages/" + conversationId);
-        page.setRows(messageService.countMessage(conversationId));
-
-        List<Map<String, Object>> messages = messageService.listMessages(conversationId, page.getOffset(),
-                page.getLimit());
-        model.addAttribute("messages", messages);
-        // 私信目标
-        model.addAttribute("target", getMessageTarget(conversationId));
-
-//       return "/front/letter-detail";
-        return "test/chat_detail";
-    }
-
-    private User getMessageTarget(String conversationId) {
-        String[] ids = conversationId.split("_");
-        int id0 = Integer.parseInt(ids[0]);
-        int id1 = Integer.parseInt(ids[1]);
-
-        if (loginUser.getUser().getId() == id0) {
-            return userService.findUserById(id1);
-        } else {
-            return userService.findUserById(id0);
-        }
-    }
-
-    @PostMapping("/messages/send")
-    @ResponseBody
-    public String sendMessage(String receiverName, String content){
-         return(messageService.send(receiverName,content));
-    }
+//    @GetMapping("/messages")
+//    public String listMessage(Model model, Page page){
+//        User user = loginUser.getUser();
+//        page.setLimit(5);
+//        page.setPath("/messages");
+//        page.setRows(messageService.countAllConversation(user.getId()));
+//
+//        //会话列表
+//        List<Map<String, Object>> conversations = messageService.listConversations(page.getOffset(), page.getLimit());
+//        model.addAttribute("conversations", conversations);
+//
+//        // 查询未读消息数量
+//        int messageUnreadCount = messageService.countMessageUnread(user.getId(), null);
+//        model.addAttribute("messageUnreadCount", messageUnreadCount);
+////        return "/front/letter";
+////        return "/front/messages";
+//          return "test/test_chat_v4";
+//    }
+//
+//    //私信详细信息
+//    @GetMapping("/messages/{conversationId}")
+//    public String listMessageDetail(@PathVariable("conversationId") String conversationId, Page page, Model model) {
+//        page.setLimit(10);
+//        page.setPath("/messages/" + conversationId);
+//        page.setRows(messageService.countMessage(conversationId));
+//
+//        List<Map<String, Object>> messages = messageService.listMessages(conversationId, page.getOffset(),
+//                page.getLimit());
+//        model.addAttribute("messages", messages);
+//        // 私信目标
+//        model.addAttribute("target", getMessageTarget(conversationId));
+//
+////       return "/front/letter-detail";
+//        return "test/chat_detail";
+//    }
+//
+//    private User getMessageTarget(String conversationId) {
+//        String[] ids = conversationId.split("_");
+//        int id0 = Integer.parseInt(ids[0]);
+//        int id1 = Integer.parseInt(ids[1]);
+//
+//        if (loginUser.getUser().getId() == id0) {
+//            return userService.findUserById(id1);
+//        } else {
+//            return userService.findUserById(id0);
+//        }
+//    }
+//
+//    @PostMapping("/messages/send")
+//    @ResponseBody
+//    public String sendMessage(String receiverName, String content){
+//         return(messageService.send(receiverName,content));
+//    }
 
     @GetMapping("/notice/{topic}")
     public String listNotices(@PathVariable("topic") String topic, Page page,Model model) {

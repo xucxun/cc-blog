@@ -62,57 +62,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Value("${caffeine.expire-seconds}")
     private int expireSeconds;
 
-//    // Caffeine核心接口: Cache, LoadingCache, AsyncLoadingCache
-//
-//    // 热门文章列表缓存。缓存都是按key缓存value
-//    private LoadingCache<String, List<Article>> articleListCache;
-//
-//    // 热门文章总数缓存
-//    private LoadingCache<Integer, Integer> articleRowsCache;
-//
-//    //@PostConstruct表示对象创建的时候会执行这个方法
-//    @Override
-//    @PostConstruct
-//    public void init() {
-//
-//        articleListCache = Caffeine.newBuilder()
-//                .maximumSize(maxSize)
-//                .expireAfterWrite(expireSeconds, TimeUnit.SECONDS)
-//                .build(new CacheLoader<String, List<Article>>() {
-//                    @Nullable
-//                    @Override
-//                    public List<Article> load(@NonNull String key) throws Exception {
-//                        if (key == null || key.length() == 0) {
-//                            throw new IllegalArgumentException("参数错误!");
-//                        }
-//
-//                        String[] params = key.split(":");
-//                        if (params == null || params.length != 2) {
-//                            throw new IllegalArgumentException("参数错误!");
-//                        }
-//
-//                        int offset = Integer.valueOf(params[0]);
-//                        int limit = Integer.valueOf(params[1]);
-//
-//                        return articleMapper.selectArticlesById(0, offset, limit, 1);
-//                    }
-//                });
-//        // 初始化热门文章总数缓存
-//       articleRowsCache = Caffeine.newBuilder()
-//                // 最大本地缓存数据的条数
-//                .maximumSize(maxSize)
-//                // 本地缓存数据的过期时间
-//                .expireAfterWrite(expireSeconds, TimeUnit.SECONDS)
-//                .build(new CacheLoader<Integer, Integer>() {
-//                    @Override
-//                    public @Nullable Integer load(@NonNull Integer key) throws Exception {
-//                        // 从数据库查数据,获取后将数据放入本地缓存
-//                        return articleMapper.selectArticleRows(key);
-//                    }
-//                });
-//
-//
-//    }
 
     @Override
     public List<Article> findIndexArticles(int userId, int offset, int limit, int sort) {
@@ -131,10 +80,6 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public List<Article> findArticles(int userId, int offset, int limit,int sort) {
-        //使用articleListCache缓存。使用缓存后实时性可能会降低，但从缓存中查询速度提高
-//        if (userId == 0 && sort == 1) {
-//            return articleListCache.get(offset + ":" + limit);
-//        }
         return articleMapper.selectArticlesById(userId,offset,limit,sort);
     }
 
@@ -157,8 +102,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public int findArticlesDisPlayRows(int userId) {
-        return articleMapper.selectArticleDisplayRows(userId);
+    public int findArticlesDisPlayRows(int userId,int sort) {
+        return articleMapper.selectArticleDisplayRows(userId,sort);
     }
 
 
@@ -239,8 +184,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public int countIndexArticlesByCategory(Integer categoryId) {
-        return articleMapper.countIndexArticlesByCategory(categoryId);
+    public int countIndexArticlesByCategory(Integer categoryId,int sort) {
+        return articleMapper.countIndexArticlesByCategory(categoryId,sort);
     }
 
     @Override

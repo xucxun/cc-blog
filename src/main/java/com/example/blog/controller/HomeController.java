@@ -45,8 +45,6 @@ public class HomeController{
     @RequestMapping(value ={"/index","/"} , method = RequestMethod.GET)
     public String index(Model model, Page page,@RequestParam(name = "sort", defaultValue = "0") int sort) {
         page.setLimit(10);
-        page.setRows(articleService.findArticlesDisPlayRows(0));
-        page.setPath("/index?sort="+sort);
 
 //        List<Article> list = articleService.findIndexArticles(0, page.getOffset(), page.getLimit(),sort);
 //        List<Map<String, Object>> articleLists = new ArrayList<>();
@@ -78,6 +76,8 @@ public class HomeController{
                 articleLists.add(map);
             }
         }
+        page.setRows(articleService.findArticlesDisPlayRows(0,sort));
+        page.setPath("/index?sort="+sort);
         model.addAttribute("articleLists", articleLists);
         model.addAttribute("sort",sort);
         return "/index";
